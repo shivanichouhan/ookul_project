@@ -12,6 +12,10 @@ var user_cart = new schema({
     }],
     cart_total_price:{
         type:Float
+    },userEmail:{
+        type:String,
+        required:true,
+
     }
 });
 

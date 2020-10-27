@@ -3,6 +3,9 @@ var router = express.Router();
 const path = require('path');
 const user = require("../models/user_schema")
 const ejs = require("ejs")
+const LocalStorage = require('node-localstorage').LocalStorage;
+const bcrypt = require('bcryptjs');
+
 // var otpGenerator = require("otp-generator")
 var nodemailer=require("nodemailer")
 var bodyParser=require('body-parser')
@@ -28,17 +31,21 @@ router.get("/confirm_otp",(req,res)=>{
     res.sendFile(path.join(__dirname + '/view/confirm_otp.html'));
 })
 
+
 router.post('/sent_otp',parser,(req,res)=>{
     var otp = otpGenerator.generate(6,{upperCase:false,specialChars:false,alphabets:false})
     var emails = req.body.email
     const LocalStorage = require('node-localstorage').LocalStorage;
     let localStorage = new LocalStorage('./scratch');
     localStorage.setItem("forget_email",emails)
-    
+    let u_email = JSON.parse(JSON.stringify(localStorage.getItem('forget_email')));
+    console.log(u_email,"00000000000000000")
     console.log(emails)
     let mailTransporter = nodemailer.createTransport({ 
-        service: 'gmail', 
-        auth: { 
+      service: 'gmail',
+      port: 8000,
+      secure: false, // use SSL
+      auth: { 
             user: 'shivanic18@navgurukul.org', 
             pass: 'Chouhan18@'
         } 
@@ -52,7 +59,8 @@ router.post('/sent_otp',parser,(req,res)=>{
             html: "<h3>OTP for account verification is </h3>"  + "<h1 style='font-weight:bold;'>" + otp +"</h1>" 
           }; 
           mailTransporter.sendMail(mailDetails, function(err, data) { 
-            if(err) { 
+            if(err) {
+
               console.log(err)
                 console.log('Error Occurs'); 
             } else { 
@@ -63,6 +71,10 @@ router.post('/sent_otp',parser,(req,res)=>{
       })
      
 })
+
+async function hashPassword(password) {
+    return await bcrypt.hash(password, 10);
+  }
 
 router.post('/verify',parser,function(req,res){
     const user_otp = req.body.otp
@@ -81,6 +93,42 @@ router.post('/verify',parser,function(req,res){
     })
    
 });  
+
+router.post("/reset_password", async (req, res, next) => {
+    let localStorage = new LocalStorage('./scratch');
+    let u_email = JSON.parse(JSON.stringify(localStorage.getItem('forget_email')));
+    console.log(typeof (u_email))
+    console.log(u_email,"******************")
+    console.log(req.body)
+    const pass = req.body.password
+    const confirm_pass = req.body.confirm_pass
+    if (pass === confirm_pass) {
+      const otp_data = await user.findOne({
+        email: u_email
+      })
+      console.log(otp_data)
+      let u_emails = localStorage.setItem('user_data', otp_data);
+      const hashedPassword = await hashPassword(pass);
+      console.log(hashPassword)
+      user.updateOne({
+          email: u_email
+        }, {
+          $set: {
+            password: hashedPassword
+          }
+        })
+        .then((result) => {
+          console.log(result)
+          res.send("Your password is reset now you can login.")
+        }).catch((err) => {
+          res.send(err)
+        })
+    } else {
+      res.send("Your Confirm Password Is wrong")
+    }
+  })
+  
+  
 
 
 

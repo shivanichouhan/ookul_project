@@ -1,0 +1,138 @@
+<html>
+<style>
+    body{
+        background-color: aquamarine;
+    }
+</style>
+<head>
+    <script language="javascript">
+        var tim;
+        var min = 1;
+        var sec = 60;
+        var f = new Date();
+        function f1() {
+            f2();
+            document.getElementById("starttime").innerHTML = "Your started your Exam at " + f.getHours() + ":" + f.getMinutes();
+
+
+        }
+        function f2() {
+            if (parseInt(sec) > 0) {
+                sec = parseInt(sec) - 1;
+                document.getElementById("showtime").innerHTML = "Your Left Time  is :" + min + " Minutes ," + sec + " Seconds";
+                tim = setTimeout("f2()", 1000);
+            }
+            else {
+                if(parseInt(sec) == 0) {
+                    min = parseInt(min) - 1;
+                    if (parseInt(min) == 0) {
+                        clearTimeout(tim);
+                        window.location.href = "st_test.html";
+                    }
+                    else {
+                        sec = 60;
+                        document.getElementById("showtime").innerHTML = "Your Left Time  is :" + min + " Minutes ," + sec + " Seconds";
+                        tim = setTimeout("f2()", 1000);
+                    }
+                }
+
+            }
+        }
+    </script>
+</head>
+
+<body onload="f1()">
+
+    <div style='transform: scale(0.65); position: relative; top: -100px;'>
+        <br>
+        <h3>what is the correct spelling of DS</h3>
+        <p>Choose 1 answer</p>
+        <div id="showtime"></div>
+
+        <hr />
+
+        <div id='block-11' style='padding: 10px;'>
+            <label for='option-11' style=' padding: 5px; font-size: 2.5rem;'>
+                <input type='radio' name='option' value='6/24' id='option-11'
+                    style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+                data algorithm</label>
+            <span id='result-11'></span>
+        </div>
+        <hr />
+
+        <div id='block-12' style='padding: 10px;'>
+            <label for='option-12' style=' padding: 5px; font-size: 2.5rem;'>
+                <input type='radio' name='option' value='6' id='option-12'
+                    style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+                data analysis</label>
+            <span id='result-12'></span>
+        </div>
+        <hr />
+
+        <div id='block-13' style='padding: 10px;'>
+            <label for='option-13' style=' padding: 5px; font-size: 2.5rem;'>
+                <input type='radio' name='option' value='1/3' id='option-13'
+                    style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+                data structure</label>
+            <span id='result-13'></span>
+        </div>
+        <hr />
+
+        <div id='block-14' style='padding: 10px;'>
+            <label for='option-14' style=' padding: 5px; font-size: 2.5rem;'>
+                <input type='radio' name='option' value='1/6' id='option-14'
+                    style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+                data science</label>
+            <span id='result-14'></span>
+        </div>
+        <hr />
+        <button type='button' onclick='displayAnswer1()'
+            style='width: 100px; height: 40px; border-radius: 3px; background-color: lightblue; font-weight: 700;'>Submit</button>
+    </div>
+    <a id='showanswer1'></a>
+    <script>
+        //    The function evaluates the answer and displays result
+        function displayAnswer1() {
+            if (document.getElementById('block-13').checked) {
+                document.getElementById('block-13').style.border = '3px solid limegreen'
+                document.getElementById('result-13').style.color = 'limegreen'
+                document.getElementById('result-13').innerHTML = 'Correct!'
+            }
+            if (document.getElementById('option-12').checked) {
+                document.getElementById('block-12').style.border = '3px solid red'
+                document.getElementById('result-12').style.color = 'red'
+                document.getElementById('result-12').innerHTML = 'Incorrect!'
+                showCorrectAnswer1()
+            }
+            if (document.getElementById('option-11').checked) {
+                document.getElementById('block-11').style.border = '3px solid red'
+                document.getElementById('result-11').style.color = 'red'
+                document.getElementById('result-11').innerHTML = 'Incorrect!'
+                showCorrectAnswer1()
+            }
+            if (document.getElementById('option-14').checked) {
+                document.getElementById('block-14').style.border = '3px solid red'
+                document.getElementById('result-14').style.color = 'red'
+                document.getElementById('result-14').innerHTML = 'Incorrect!'
+                showCorrectAnswer1()
+            }
+        }
+        // the functon displays the link to the correct answer
+        function showCorrectAnswer1() {
+            let showAnswer1 = document.createElement('p')
+            showAnswer1.innerHTML = 'Show Corrent Answer'
+            showAnswer1.style.position = 'relative'
+            showAnswer1.style.top = '-180px'
+            showAnswer1.style.fontSize = '1.75rem'
+            document.getElementById('showanswer1').appendChild(showAnswer1)
+            showAnswer1.addEventListener('click', () => {
+                document.getElementById('block-11').style.border = '3px solid limegreen'
+                document.getElementById('result-11').style.color = 'limegreen'
+                document.getElementById('result-11').innerHTML = 'Correct!'
+                document.getElementById('showanswer1').removeChild(showAnswer1)
+            })
+        }
+    </script>
+</body>
+
+</html>

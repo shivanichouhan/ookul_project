@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const schema = mongoose.Schema
+var Float = require('mongoose-float').loadType(mongoose);
 
 const user_login_schema = new schema({
     name: {
@@ -60,9 +61,17 @@ const user_login_schema = new schema({
         type:Number,
         enum:[0,1],
         default:0
+    },
+    wallet:{
+        type:Float,
+        default:0
+    },
+    user_saring_code:{
+        type:String
     }
 
     
 })
 var detail = mongoose.model("users  ", user_login_schema)
 module.exports = detail
+// console.log(typeof)

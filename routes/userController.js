@@ -40,6 +40,17 @@ async function validatePassword(plainPassword, hashedPassword) {
     return await bcrypt.compare(plainPassword, hashedPassword);
 }
 
+function randomString(len, charSet) {
+    charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var randomString = '';
+    for (var i = 0; i < len; i++) {
+        var randomPoz = Math.floor(Math.random() * charSet.length);
+        randomString += charSet.substring(randomPoz, randomPoz + 1);
+    }
+    return randomString;
+}
+
+
 exports.signup = async (req, res, next) => {
     try {
         console.log(req.body, "-------")
@@ -52,6 +63,8 @@ exports.signup = async (req, res, next) => {
             sername,
             name,
         } = req.body
+        var randomValue = randomString(8, 'PICKCHAR45SFROM789THI123SSET');
+        console.log(randomValue)
         const hashedPassword = await hashPassword(password);
         console.log(hashPassword)
         const newUser = new User({
@@ -60,7 +73,8 @@ exports.signup = async (req, res, next) => {
             role: role,
             mob_number: mob_number,
             sername: sername,
-            name: name
+            name: name,
+            user_saring_code: randomValue
         });
 
         let localStorage = new LocalStorage('./scratch');
@@ -78,7 +92,6 @@ exports.signup = async (req, res, next) => {
         // localStorage.setItem("token",newUser)
         await newUser.save()
             .then((data) => {
-
                 if (data.role == 'teacher') {
                     res.redirect('/teacher')
                     console.log("teacher")
@@ -92,6 +105,12 @@ exports.signup = async (req, res, next) => {
     }
 }
 
+var auth = function (req, res, next) {
+    if (req.session && req.session.email === "admin123@gmail.com" && req.session.admin)
+        return next();
+    else
+        return res.sendStatus(401);
+};
 
 exports.login = async (req, res, next) => {
     try {
@@ -120,24 +139,20 @@ exports.login = async (req, res, next) => {
         await User.findByIdAndUpdate(user._id, {
             session: sessionId
         })
-        const userRole = await User.findOne({
-            role
-        });
+        // const userRole = await User.findOne({
+        //     role
+        // });
         let localStorage = new LocalStorage('./scratch');
-        localStorage.setItem('user_login_id', userRole._id);
-        console.log(userRole, "*************")
-        localStorage.setItem('user_login_email', userRole.email);
-        if (userRole.role == "admin") {
-            console.log("----admin")
-            res.redirect('/admin')
-        } else if (userRole.role == 'teacher') {
+        localStorage.setItem('user_login_id', user._id);
+        console.log(user, "*************")
+        localStorage.setItem('user_login_email', user.email);
+        if (user.role == 'teacher') {
             res.redirect('/teacher')
             console.log("teacher")
-        } else if (userRole.role == "student") {
-            console.log("student/" + userRole._id)
+        } else if (user.role == "student") {
+            console.log("student/" + user._id)
             res.redirect('/student')
         }
-        return userRole
 
     } catch (error) {
         next(error);
@@ -165,97 +180,186 @@ exports.getUser = async (req, res, next) => {
     }
 }
 
+exports.add_courses = async (req, res, next) => {
+    try {
+        const {
+            lession_name,
+            titles,
+            lession_category,
+            description,
+            urls,
+            image,
+            course_type,
+            c_price,
+            teacher_name,
+            teacher_email,
+            chepter,
+            chepter_titl,
+
+            date,
+            courseName
+        } = req.body
+
+
+        if (req.body.course_price != null) {
+            new_course.new_course = req.body.course_price
+        } else {
+            const new_course = new categoriSchema.sb_details({
+                course_name: courseName,
+                course_price: c_price,
+                teacherName: teacher_name,
+                teacherEmail: teacher_email
+            })
+            await new_course.save()
+                .then((result) => {
+                    return result
+                }).then((course) => {
+                    const chepters = new categoriSchema.chepter({
+                        chepter_name: chepter,
+                        chepter_title: chepter_titl
+                    })
+                    chepters.save(chepters)
+                        .then((chepters1) => {
+                            categoriSchema.sb_details.findByIdAndUpdate(course._id, {
+                                    $push: {
+                                        course_chepters: chepters1
+                                    }
+                                }, {
+                                    new: true,
+                                    useFindAndModify: false
+                                })
+                                .then((chourse_chep) => {
+                                    console.log(chourse_chep)
+                                    return chourse_chep
+                                }).then((chepter_details) => {
+                                    console.log("chepters with lessions", chepter_details)
+                                    const new_lession = new courseSchema({
+                                        lession_name: lession_name,
+                                        title: titles,
+                                        lession_category: lession_category,
+                                        description: description,
+                                        course_type: course_type,
+                                        image: image,
+                                        teacherEmail: teacher_email
+                                    })
+                                    new_lession.save()
+                                        .then((lessions) => {
+                                            console.log(lessions)
+                                            categoriSchema.chepter.findByIdAndUpdate(chepter_details._id, {
+                                                $push: {
+                                                    chepter_lession: lessions
+                                                }
+                                            }, {
+                                                new: true,
+                                                useFindAndModify: false
+                                            }).then((chepters_detail) => {
+                                                console.log(chepters_detail)
+                                                res.send("course added succesfully")
+                                            })
+                                        })
+
+
+
+                                })
+                        })
+
+                })
+            // categoriSchema.sb_details.find().populate('chepters')
+            //     .then((resp) => {
+            //         console.log(resp)
+            //         res.send(resp)
+            //     })
+
+
+
+
+
+
+        }
+    } catch (error) {
+        next(error)
+    }
+}
+
 
 exports.insert_course = async (req, res, next) => {
     try {
-        // if (req.session.email) {
-            const {
-                lession_name,
-                titles,
-                lession_category,
-                description,
-                urls,
-                image,
-                course_type,
-                teacher_name,
-                teacher_email,
-                chepter,
-                chepter_titl,
-                email
-            } = req.body
-            console.log(req.body)
+        const {
+            lession_name,
+            titles,
+            lession_category,
+            description,
+            urls,
+            image,
+            course_type,
+            teacher_name,
+            teacher_email,
+            chepter,
+            chepter_titl,
+            email
+        } = req.body
+        console.log(req.body)
 
-            const new_course = {
-                lession_name: lession_name,
-                title: titles,
-                lession_category: lession_category,
-                description: description,
-                urls: urls,
-                course_type: course_type,
-                image: image,
-                teacherName: teacher_name,
-                teacherEmail: teacher_email,
+        const new_course = {
+            lession_name: lession_name,
+            title: titles,
+            lession_category: lession_category,
+            description: description,
+            urls: urls,
+            course_type: course_type,
+            image: image,
+            teacherName: teacher_name,
+            teacherEmail: teacher_email,
 
-            }
-            if (req.body.course_price != null) {
-                new_course.new_course = req.body.course_price
-            } else {
-                const lessions = new courseSchema(new_course)
-                await lessions.save()
-                    .then((result) => {
-                        // categoriSchema.chepter.findOne({'chepter_name':req.body.chepter})
-                        // .then((chepters)=>{
-                        //     if (chepters.length != 0){
-
-
-                        //     }const chepter = chepters;
-
-                        // })
-                        const chepter = new categoriSchema.chepter({
-                            chepter_name: req.body.chepter,
-                            chepter_title: chepter_titl
-                        })
-                        chepter.chepter_lession.push(result)
-                        return chepter.save()
-                    }).then(function (resp) {
-                        const sub = req.body.sub
-                        console.log(resp, "chepter Added sucessfuly");
-                        const subjects = new categoriSchema.sb_details({
-                            course_name: sub
-                        })
-                        subjects.course_chepters.push(resp)
-                        return subjects.save()
-                    }).then((results) => {
-                        console.log(results.course_name)
-                        console.log(results._id)
-                        let localStorage = new LocalStorage('./scratch');
-                        const user_data = localStorage.setItem("course_id", results._id)
-                        console.log(results, "subject added succesfully")
-                        const categories = req.body.category
-                        const category_detail = new categoriSchema.categories({
-                            categoryName: categories
-                        })
-                        category_detail.uppsc.push(results)
-                        return category_detail
-                    }).then((respns) => {
-                        console.log(respns._id)
-
-                        console.log(respns, "categories added succesfully")
-                        res.send(respns)
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                        res.send("hm nhi thik hue")
-                    });
-            }
-        // }else{
-        //     res.redirect('/home')
-        //     // res.send("First You have to login page")
-        // }
-        } catch (error) {
-            next(error)
         }
-    
+        if (req.body.course_price != null) {
+            new_course.new_course = req.body.course_price
+        } else {
+            const lessions = new courseSchema(new_course)
+            await lessions.save()
+                .then((result) => {
+                    const chepter = new categoriSchema.chepter({
+                        chepter_name: req.body.chepter,
+                        chepter_title: chepter_titl
+                    })
+                    chepter.chepter_lession.push(result)
+                    return chepter.save()
+                }).then(function (resp) {
+                    const sub = req.body.sub
+                    console.log(resp, "chepter Added sucessfuly");
+                    const subjects = new categoriSchema.sb_details({
+                        course_name: sub
+                    })
+                    subjects.course_chepters.push(resp)
+                    return subjects.save()
+                }).then((results) => {
+                    console.log(results.course_name)
+                    console.log(results._id)
+                    let localStorage = new LocalStorage('./scratch');
+                    const user_data = localStorage.setItem("course_id", results._id)
+                    console.log(results, "subject added succesfully")
+                    const categories = req.body.category
+                    const category_detail = new categoriSchema.categories({
+                        categoryName: categories
+                    })
+                    category_detail.uppsc.push(results)
+                    return category_detail
+                }).then((respns) => {
+                    console.log(respns._id)
+
+                    console.log(respns, "categories added succesfully")
+                    res.send(respns)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    res.send("hm nhi thik hue")
+                });
+        }
+
+    } catch (error) {
+        next(error)
+    }
+
 };
 
 
@@ -312,62 +416,90 @@ exports.grantAccess = function (action, resource) {
 }
 
 
-exports.getCourses = async (req, res, next) => {
+
+exports.user_course = async (req, res, next) => {
     try {
-        const courses = await User.find();
-        res.status(200).json({
-            data: courses,
-            message: 'all Courses'
-        });
+        console.log(req.body.courses)
+        categoriSchema.sb_details.find({
+                '$or': [{
+                        'course_name': {
+                            '$regex': req.body.courses
+                        }
+                    },
+                    {
+                        'teacherName': {
+                            '$regex': req.body.courses
+                        }
+                    }, {
+                        'teacherEmail': {
+                            '$regex': req.body.courses
+                        }
+                    }
+                ]
+            }).populate({
+                path: 'course_chepters',
+                populate: {
+                    path: 'chepter_lession',
+                    model: 'Lessions'
+                }
+            })
+            .then((resp) => {
+                var a = JSON.stringify(resp)
+                console.log(a)
+                res.send(resp)
+            }).catch((err) => {
+                console.log(err)
+                next(err)
+            })
     } catch (error) {
         next(error)
     }
-}
-
-
-
-exports.user_course = async (req, res, next) => {
-    var filter = {$or:[{'course_name':{
-        '$regex': req.params.course
-    }},{'library':{'$regex':req.params.course}},{'teacherName':{'$regex':req.params.course}},{'teacherEmail':{'$regex':req.params.course}}]}
-    const search_courses = await categoriSchema.sb_details.find(filter).populate('chepters')
-    res.send(search_courses)
 };
 
 
-exports.addCourseInCart = async (req, res, next) => {
+exports.get_all_courses = async (req, res, next) => {
     try {
-        const courseName = req.params.courseName;
-        const categories = req.body.category;
-        const cart = await categoriSchema.find({
-            // 'course.course': courseName
-        });
-
-        res.status(200).json({
-            data: cart,
-            message: 'course Added in cart'
-        });
+        categoriSchema.sb_details.find({}).populate({
+                path: 'course_chepters',
+                populate: {
+                    path: 'chepter_lession',
+                    model: 'Lessions'
+                }
+            })
+            .then((resp) => {
+                console.log(resp)
+                res.send(resp)
+            }).catch((err) => {
+                console.log(err)
+                next(err)
+            })
     } catch (error) {
         next(error)
     }
 }
 
-exports.getCourses_for_user = (req, res, next) => {
-    try {
-        categoriSchema.aggregate([{
-                "$match": {
-                    "categoryName": req.body.course_name
-                }
-            }])
-            .then((courses) => {
-                res.status(200).json({
-                    data: courses,
-                    message: 'Courses'
-                });
-            }).catch((err) => {
-                next(err)
-            })
 
+exports.get_courses_by_category = (req, res, next) => {
+    try {
+        categoriSchema.categories.find({categoryName:req.body.category}).populate({
+            path: 'uppsc',
+            populate: {
+                path: 'course_chepters',
+                model:'Chepters',
+                populate:{
+                    path: 'chepter_lession',
+                    model:'Lessions'
+                }
+            }
+        })
+        .then((resp) => {
+            var a = JSON.stringify(resp)
+            console.log(a)
+            res.send(resp)
+        }).catch((err) => {
+            console.log(err)
+            next(err)
+        })
     } catch (error) {
         next(error)
     }
@@ -413,7 +545,7 @@ exports.getCourses_for_user = (req, res, next) => {
 //                     }
 //                 ]
 //             }
-           
+
 //         }
 //     }
 // }]).allowDiskUse(true)

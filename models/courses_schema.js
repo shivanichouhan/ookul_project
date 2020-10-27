@@ -29,9 +29,6 @@ const course_schema = new schema({
         type: String,
         required: true
     },
-    urls: [{
-        type: mongoose.SchemaTypes.Url
-    }],
     course_price: {
         type: String,
         default: ''
@@ -43,13 +40,7 @@ const course_schema = new schema({
     },
     image: { 
         data: Buffer, 
-        contentType: String,
-        default:""
-    } ,
-    teacherName: {
-        type: String,
-        lowercase: true,
-
+        contentType: String
     },
     teacherEmail: {
         type: String,

@@ -2,22 +2,22 @@ const mongoose = require("mongoose")
 const schema = mongoose.Schema
 var Float = require('mongoose-float').loadType(mongoose);
 
-var librarySchema = new schema({
-    ebook: {
-        type: String,
-        lowercase: true
-    },
-    video: {
-        type: String,
-        createdDate: Date.now,
-        lowercase: true
-    },
-    Notes: {
-        type: String,
-        lowercase: true
-    }
+// var librarySchema = new schema({
+//     ebook: {
+//         type: String,
+//         lowercase: true
+//     },
+//     video: {
+//         type: String,
+//         createdDate: Date.now,
+//         lowercase: true
+//     },
+//     Notes: {
+//         type: String,
+//         lowercase: true
+//     }
 
-});
+// });
 
 const chepters = new schema({
     chepter_name: {
@@ -49,8 +49,7 @@ const courses = new schema({
         ref: 'library'
     }],
     course_price:{
-       type:String,
-       default:''
+       type:Float,
     },
     teacherName: {
         type: String,
@@ -60,20 +59,22 @@ const courses = new schema({
     teacherEmail: {
         type: String,
         lowercase: true,
-
     }
 
 })
 
 
-catagory_schema = new schema({
+const catagory_schema = new schema({
     categoryName: String,
     uppsc: [{
         type: schema.Types.ObjectId,
         ref: "course"
+    }],library:[{
+        type:schema.Types.ObjectId,
+        ref:"Library"
     }]
 })
-var lib_details = mongoose.model("library", librarySchema)
+// var lib_details = mongoose.model("library", librarySchema)
 
 var chepter = mongoose.model("Chepters", chepters, 'chepters')
 var sb_details = mongoose.model("course", courses)
@@ -81,6 +82,4 @@ var categories = mongoose.model("Categories", catagory_schema)
 module.exports = {
     sb_details,
     chepter,
-    categories,
-    lib_details
-}
+    categories}

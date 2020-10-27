@@ -52,10 +52,13 @@ Author: Webstrot
 	<link rel="stylesheet" id="theme-color" type="text/css" href="#" />
 	<!-- favicon links -->
 	<link rel="shortcut icon" type="image/png" href="images/header/favicon.ico" />
-	<script src='../../../google_analytics_auto.js'></script>
+	<!-- <script src='../../../google_analytics_auto.js'></script> -->
 </head>
 
 <body>
+<!-- <form action="http://localhost:3000/elearning/get_cart" method="POST">
+	<button>for cart</button>
+</form> -->
 	<!-- preloader Start -->
 	<div id="preloader">
 		<div id="status">
@@ -378,6 +381,7 @@ Author: Webstrot
 						</ul>
 					</div>
 				</div>
+				<form action="/elearning/category_courses" method="POST">
 				<div class="product-heading">
 					<div class="con">
 						<select>
@@ -387,11 +391,12 @@ Author: Webstrot
 							<option>Music</option>
 							<option>TV-Show</option>
 						</select>
-						<input type="text" placeholder="Search Movie , Video , Music">
+						<input type="text" placeholder="Search Movie , Video , Music" name="courses">
 						<button type="submit"><i class="flaticon-tool"></i>
 						</button>
 					</div>
 				</div>
+			</form>
 			</div>
 			<div id="mobile-nav" data-prevent-default="true" data-mouse-events="true">
 				<div class="mobail_nav_overlay"></div>
@@ -4713,11 +4718,11 @@ Author: Webstrot
 						<input id="password" name="password" placeholder="password" type="password" required
 							minlength="8" maxlength="15">
 					</div>
-					<div class="st_profile_role float_left">
+					<!-- <div class="st_profile_role float_left">
 						<label for="role"><b>role</b></label>
 						<input type="text" placeholder="role" name="role" required>
 						<br>
-					</div>
+					</div> -->
 					<div class="st_form_pop_fp float_left">
 						<h3><a href="#" data-toggle="modal" data-target="#myModa2" target="_blank">Forgot Password?</a>
 						</h3>
@@ -4773,6 +4778,7 @@ Author: Webstrot
 		}
 
 	</script>
+				<button>add to cart</button>
 
 	<div class="modal fade st_pop_form_wrapper" id="myModa3" role="dialog">
 		<div class="modal-dialog">

@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"sveltose.cart  "},{"v":2,"unique":true,"key":{"teacherEmail":1},"name":"teacherEmail_1","ns":"sveltose.cart  ","background":true}],"uuid":"fc5d473ad4f64749bdb6f0b819de0992"}
