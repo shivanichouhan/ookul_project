@@ -29,10 +29,6 @@ const course_schema = new schema({
         type: String,
         required: true
     },
-    course_price: {
-        type: String,
-        default: ''
-    },
     course_type: {
         type: String,
         required: true,
@@ -47,9 +43,7 @@ const course_schema = new schema({
         lowercase: true,
 
     },
-    Date: {
-        type: String
-    }
+    Date: { type: Date, default: Date.now }
 })
 
 

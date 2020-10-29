@@ -21,6 +21,7 @@
     "express-fileupload": "^1.2.0",
     "express-jwt": "^6.0.0",
     "express-session": "^1.17.1",
+    "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
     "localStorage": "^1.0.4",
     "mongoose": "^5.10.8",

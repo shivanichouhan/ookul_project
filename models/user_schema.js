@@ -68,6 +68,9 @@ const user_login_schema = new schema({
     },
     user_saring_code:{
         type:String
+    },
+    user_role_status:{
+        type:Number
     }
 
     

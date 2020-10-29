@@ -22,11 +22,11 @@ var Float = require('mongoose-float').loadType(mongoose);
 const chepters = new schema({
     chepter_name: {
         type: String,
-        unique:true
+        unique: true
     },
     chepter_title: {
         type: String,
-        unique:true
+        unique: true
 
     },
     chepter_lession: [{
@@ -38,7 +38,7 @@ const chepters = new schema({
 const courses = new schema({
     course_name: {
         type: String,
-        unique:true
+        unique: true
     },
     course_chepters: [{
         type: schema.Types.ObjectId,
@@ -48,9 +48,12 @@ const courses = new schema({
         type: schema.Types.ObjectId,
         ref: 'library'
     }],
-    course_price:{
-       type:Float,
-    },
+    course_price: {
+        type: Float,
+    },ratings : {
+        type:Number
+    }
+    ,
     teacherName: {
         type: String,
         lowercase: true,
@@ -59,7 +62,11 @@ const courses = new schema({
     teacherEmail: {
         type: String,
         lowercase: true,
-    }
+    },
+    start_date: { type: Date, default: Date.now },
+    updateat : { type: Date, default: Date.now }
+
+
 
 })
 
@@ -69,9 +76,10 @@ const catagory_schema = new schema({
     uppsc: [{
         type: schema.Types.ObjectId,
         ref: "course"
-    }],library:[{
-        type:schema.Types.ObjectId,
-        ref:"Library"
+    }],
+    library: [{
+        type: schema.Types.ObjectId,
+        ref: "Library"
     }]
 })
 // var lib_details = mongoose.model("library", librarySchema)
@@ -82,4 +90,5 @@ var categories = mongoose.model("Categories", catagory_schema)
 module.exports = {
     sb_details,
     chepter,
-    categories}
+    categories
+}

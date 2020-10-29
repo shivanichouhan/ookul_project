@@ -1,113 +1,48 @@
-[26-Sep-2020 13:07:10 Asia/Kolkata] PHP Notice:  session_start(): A session had already been started - ignoring in /home/educatio/public_html/elearning/logout.php on line 5
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 67
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 67
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 75
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 75
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 81
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 81
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 87
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 87
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 97
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 97
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 98
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 98
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 99
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 99
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 100
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 100
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 108
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 108
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 114
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 114
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 120
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 120
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 128
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 128
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 67
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 67
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 75
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 75
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 81
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 81
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 87
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 87
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 97
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 97
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 98
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 98
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 99
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 99
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 100
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 100
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 108
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 108
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 114
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 114
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 120
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 120
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 128
-[28-Sep-2020 12:20:09 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 128
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 62
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 62
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 68
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 68
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 76
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 76
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 82
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 82
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 88
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 88
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 97
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 97
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 105
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 105
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 106
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 106
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 107
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 107
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 108
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 108
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 116
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 116
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 122
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 122
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 128
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 128
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 136
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 136
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 145
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 145
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 146
-[30-Sep-2020 05:21:01 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 146
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 62
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 62
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 68
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 68
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 76
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 76
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 82
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 82
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 88
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 88
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 97
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 97
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 105
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 105
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 106
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 106
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 107
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 107
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 108
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 108
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 116
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 116
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 122
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 122
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 128
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 128
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 136
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 136
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 145
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 145
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Undefined variable: user in /home/educatio/public_html/elearning/u_account.php on line 146
-[30-Sep-2020 05:21:03 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type null in /home/educatio/public_html/elearning/u_account.php on line 146
+[13-Oct-2020 11:53:27 Asia/Kolkata] PHP Notice:  Undefined index: fname in /home/educatio/public_html/elearning/register_sub.php on line 9
+[13-Oct-2020 11:53:27 Asia/Kolkata] PHP Notice:  Undefined index: lname in /home/educatio/public_html/elearning/register_sub.php on line 10
+[13-Oct-2020 11:53:27 Asia/Kolkata] PHP Notice:  Undefined index: email in /home/educatio/public_html/elearning/register_sub.php on line 11
+[13-Oct-2020 11:53:27 Asia/Kolkata] PHP Notice:  Undefined index: phone in /home/educatio/public_html/elearning/register_sub.php on line 12
+[13-Oct-2020 11:53:27 Asia/Kolkata] PHP Notice:  Undefined index: password in /home/educatio/public_html/elearning/register_sub.php on line 13
+[13-Oct-2020 11:53:27 Asia/Kolkata] PHP Notice:  Undefined index: cpassword in /home/educatio/public_html/elearning/register_sub.php on line 14
+[13-Oct-2020 11:53:27 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type bool in /home/educatio/public_html/elearning/register_sub.php on line 20
+[13-Oct-2020 11:53:27 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type bool in /home/educatio/public_html/elearning/register_sub.php on line 32
+[13-Oct-2020 11:53:27 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method database::userInsert_web() in /home/educatio/public_html/elearning/register_sub.php:43
+Stack trace:
+#0 {main}
+  thrown in /home/educatio/public_html/elearning/register_sub.php on line 43
+[13-Oct-2020 11:56:27 Asia/Kolkata] PHP Notice:  Undefined index: fname in /home/educatio/public_html/elearning/register_sub.php on line 9
+[13-Oct-2020 11:56:27 Asia/Kolkata] PHP Notice:  Undefined index: lname in /home/educatio/public_html/elearning/register_sub.php on line 10
+[13-Oct-2020 11:56:27 Asia/Kolkata] PHP Notice:  Undefined index: email in /home/educatio/public_html/elearning/register_sub.php on line 11
+[13-Oct-2020 11:56:27 Asia/Kolkata] PHP Notice:  Undefined index: phone in /home/educatio/public_html/elearning/register_sub.php on line 12
+[13-Oct-2020 11:56:27 Asia/Kolkata] PHP Notice:  Undefined index: password in /home/educatio/public_html/elearning/register_sub.php on line 13
+[13-Oct-2020 11:56:27 Asia/Kolkata] PHP Notice:  Undefined index: cpassword in /home/educatio/public_html/elearning/register_sub.php on line 14
+[13-Oct-2020 11:56:27 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type bool in /home/educatio/public_html/elearning/register_sub.php on line 20
+[13-Oct-2020 11:56:27 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type bool in /home/educatio/public_html/elearning/register_sub.php on line 32
+[13-Oct-2020 11:56:27 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method database::userInsert_web() in /home/educatio/public_html/elearning/register_sub.php:43
+Stack trace:
+#0 {main}
+  thrown in /home/educatio/public_html/elearning/register_sub.php on line 43
+[13-Oct-2020 11:56:44 Asia/Kolkata] PHP Notice:  Undefined index: fname in /home/educatio/public_html/elearning/register_sub.php on line 9
+[13-Oct-2020 11:56:44 Asia/Kolkata] PHP Notice:  Undefined index: lname in /home/educatio/public_html/elearning/register_sub.php on line 10
+[13-Oct-2020 11:56:44 Asia/Kolkata] PHP Notice:  Undefined index: email in /home/educatio/public_html/elearning/register_sub.php on line 11
+[13-Oct-2020 11:56:44 Asia/Kolkata] PHP Notice:  Undefined index: phone in /home/educatio/public_html/elearning/register_sub.php on line 12
+[13-Oct-2020 11:56:44 Asia/Kolkata] PHP Notice:  Undefined index: password in /home/educatio/public_html/elearning/register_sub.php on line 13
+[13-Oct-2020 11:56:44 Asia/Kolkata] PHP Notice:  Undefined index: cpassword in /home/educatio/public_html/elearning/register_sub.php on line 14
+[13-Oct-2020 11:56:44 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type bool in /home/educatio/public_html/elearning/register_sub.php on line 20
+[13-Oct-2020 11:56:44 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type bool in /home/educatio/public_html/elearning/register_sub.php on line 32
+[13-Oct-2020 11:56:44 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method database::userInsert_web() in /home/educatio/public_html/elearning/register_sub.php:43
+Stack trace:
+#0 {main}
+  thrown in /home/educatio/public_html/elearning/register_sub.php on line 43
+[13-Oct-2020 11:57:06 Asia/Kolkata] PHP Notice:  Undefined index: fname in /home/educatio/public_html/elearning/register_sub.php on line 9
+[13-Oct-2020 11:57:06 Asia/Kolkata] PHP Notice:  Undefined index: lname in /home/educatio/public_html/elearning/register_sub.php on line 10
+[13-Oct-2020 11:57:06 Asia/Kolkata] PHP Notice:  Undefined index: email in /home/educatio/public_html/elearning/register_sub.php on line 11
+[13-Oct-2020 11:57:06 Asia/Kolkata] PHP Notice:  Undefined index: phone in /home/educatio/public_html/elearning/register_sub.php on line 12
+[13-Oct-2020 11:57:06 Asia/Kolkata] PHP Notice:  Undefined index: password in /home/educatio/public_html/elearning/register_sub.php on line 13
+[13-Oct-2020 11:57:06 Asia/Kolkata] PHP Notice:  Undefined index: cpassword in /home/educatio/public_html/elearning/register_sub.php on line 14
+[13-Oct-2020 11:57:06 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type bool in /home/educatio/public_html/elearning/register_sub.php on line 20
+[13-Oct-2020 11:57:06 Asia/Kolkata] PHP Notice:  Trying to access array offset on value of type bool in /home/educatio/public_html/elearning/register_sub.php on line 32
+[13-Oct-2020 11:57:06 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Call to undefined method database::userInsert_web() in /home/educatio/public_html/elearning/register_sub.php:43
+Stack trace:
+#0 {main}
+  thrown in /home/educatio/public_html/elearning/register_sub.php on line 43

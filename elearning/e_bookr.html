@@ -297,14 +297,14 @@
                                               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             					<div class="prs_upcome_tabs_wrapper">
                             						<ul class="nav nav-tabs" role="tablist">
-                            							<li role="presentation" class="library" class="active"><a href="#best"  aria-controls="best" role="tab" data-toggle="tab">PDF</a>
+                            							<li role="presentation" class="active"><a href="#best" aria-controls="best" role="tab" data-toggle="tab">PDF</a>
                             							</li>
-                            							<li role="presentation" class="library"><a href="#hot" aria-controls="hot" role="tab" data-toggle="tab">Audio Book</a>
+                            							<li role="presentation"><a href="#hot" aria-controls="hot" role="tab" data-toggle="tab">Audio Book</a>
                             							</li>
                             							
-                            							<li role="presentation" class="library"><a href="#trand" aria-controls="trand" role="tab" data-toggle="tab">Topper Copy</a>
+                            							<li role="presentation"><a href="#trand" aria-controls="trand" role="tab" data-toggle="tab">Topper Copy</a>
                             							</li>
-                            							<li role="presentation" class="library"><a href="#trand" aria-controls="trand" role="tab" data-toggle="tab">Syllabus</a>
+                            							<li role="presentation"><a href="#trand" aria-controls="trand" role="tab" data-toggle="tab">Syllabus</a>
                             							
                             							</li>
                             						</ul>
@@ -318,19 +318,14 @@
                             						
                             					           <div class="pdf_form">
                             					               
-                            					             <form action="/elearning/ebook_data" method="POST">
-                            		
+                            					             <form action="/action_page.php">
+                            					                 
+                            					                
+                            					                 
+                            					                 
                             					               <div class="pdf_form1">
                             					                   
                                                                 <div class="row">
-																	<div class="box_ab">
-																		<div class="col-md-4 col-sm-4 col-xs-12 text_a">
-																		  <label for="fname">Your Email</label>
-																		</div>
-																		<div class="col-md-8 col-sm-8 col-xs-12">
-																		  <input type="email" id="fname" name="email" placeholder="email" class="pdfinput">
-																		</div>
-																		</div>
                                                                   <div class="box_ab">
                                                                   <div class="col-md-4 col-sm-4 col-xs-12 text_a">
                                                                     <label for="fname">Title</label>
@@ -338,15 +333,7 @@
                                                                   <div class="col-md-8 col-sm-8 col-xs-12">
                                                                     <input type="text" id="fname" name="title" placeholder="title" class="pdfinput">
                                                                   </div>
-																  </div>
-																  <div class="box_ab">
-																	<div class="col-md-4 col-sm-4 col-xs-12 text_a">
-																	  <label for="fname">lession_deatil</label>
-																	</div>
-																	<div class="col-md-8 col-sm-8 col-xs-12">
-																	  <input type="text" id="fname" name="lession" placeholder="lession name" class="pdfinput">
-																	</div>
-																	</div>
+                                                                  </div>
                                                                   <div class="box_ab">
                                                                   <div class="col-md-4 col-sm-4 col-xs-12 text_a">
                                                                     <label for="fname">Choose File</label>
@@ -361,32 +348,21 @@
                                                                   </div>
                                                                   <div class="col-md-8 col-sm-8 col-xs-12">
                                                                       <input type="date" id="date" name="date" class="pdfinput">
-                                                                  </div>
-                                                                  </div>
 
+                                                                  </div>
+                                                                  </div>
+                                                                  
                                                                   <div class="box_ab">
                                                                   <div class="col-md-4 col-sm-4 col-xs-12 text_a">
                                                                     <label for="fname">Payment</label>
                                                                   </div>
-																  <select name="course_type" id="course_type" class="pdfinput" >
-																	<option>Paid</option>
-																	<option>FREE</option>
-																  </select>
-															</div>
-																  <div class="dropdown-menu pdfdrop_a" aria-labelledby="dropdownMenuButton">
-																	<ul style="padding:8px;">
-																	<li class="paid_amount">
-																		
-																	  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#myModa4" target="_blank">  Paid</a>
-																	  
-																	</li>
-																	
-																	<li class="paid_amount">
-																	  <a class="dropdown-item" href="#"> Unpaid</a>
-																	</li> 
-																	 
-																	 </ul>
-																</div>
+                                                                  <div class="col-md-8 col-sm-8 col-xs-12" style="text-align:left">
+                                                                      <input type="checkbox" name="vehicle1" value="Bike">
+                                                                      <label for="vehicle1"> Paid</label><br>
+                                                                      <input type="checkbox" name="vehicle2" value="Car">
+                                                                      <label for="vehicle2"> Unpaid</label><br>
+
+                                                                  </div>
                                                                   </div>
                                                                   
                                                                   <div class="box_ab">
@@ -405,42 +381,16 @@
                                                                     <label for="fname">Select</label>
                                                                   </div>
                                                                    <div class="col-md-8 col-sm-8 col-xs-12">
-                                                                        <select name="course_category" id="course_categry" class="pdfinput" >
-                                                                          <option>Private</option>
-                                                                          <option>public</option>
+                                                                        <select name="cars" id="share" class="pdfinput" >
+                                                                          <option value="volvo">Private</option>
+                                                                          <option value="saab">public</option>
                                                                         </select>
                                                                   </div>
-                                                                  </div> <div class="dropdown-menu pdfdrop_a" aria-labelledby="dropdownMenuButton">
-																	<ul style="padding:8px;">
-																	<li class="paid_amount">
-																		
-																	  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#myModa4" target="_blank">  Paid</a>
-																	  
-																	</li>
-																	
-																	<li class="paid_amount">
-																	  <a class="dropdown-item" href="#"> Unpaid</a>
-																	</li> 
-																	 
-																	 </ul>
-																</div>
+                                                                  </div>
                                                                   <div class="col-md-3 col-sm-3 col-xs-3 sbtn">
                                                                     
                                                                     <input type="submit" value="Submit" class="sbtn1">
-                                                                  </div> <div class="dropdown-menu pdfdrop_a" aria-labelledby="dropdownMenuButton">
-																	<ul style="padding:8px;">
-																	<li class="paid_amount">
-																		
-																	  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#myModa4" target="_blank">  Paid</a>
-																	  
-																	</li>
-																	
-																	<li class="paid_amount">
-																	  <a class="dropdown-item" href="#"> Unpaid</a>
-																	</li> 
-																	 
-																	 </ul>
-																</div>
+                                                                  </div>
                                                                 </div>
                                                                 </div>
                             					              </form>

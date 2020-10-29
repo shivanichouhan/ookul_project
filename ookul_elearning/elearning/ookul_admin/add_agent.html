@@ -1,0 +1,271 @@
+<!-- <?php include"header.php";
+include"menu.php"; ?> -->
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+        <meta charset="utf-8">
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>hhh</title>
+
+        <!-- Favicon and touch icons -->
+        <link rel="shortcut icon" href="upload/<?php echo $web_info['favicon']; ?>" type="image/x-icon">
+        <link rel="apple-touch-icon" type="image/x-icon" href="upload/<?php echo $web_info['favicon']; ?>">
+        <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="assets/dist/img/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="assets/dist/img/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="assets/dist/img/ico/apple-touch-icon-144-precomposed.png">
+
+        <!-- Start Global Mandatory Style
+        =====================================================================-->
+        <link href="assets/dist/css/base.css" rel="stylesheet" type="text/css"/>
+        <!-- End Global Mandatory Style
+        =====================================================================-->
+        <!-- Start page Label Plugins 
+        =====================================================================-->
+        <!-- summernote css -->
+        <link href="assets/plugins/summernote/summernote.css" rel="stylesheet" type="text/css"/>
+        <!-- End page Label Plugins 
+        =====================================================================-->
+        <!-- Start Theme Layout Style
+        =====================================================================-->
+        <!-- Theme style -->
+        <link href="assets/dist/css/component_ui.min.css" rel="stylesheet" type="text/css"/>
+        <!-- Theme style rtl -->
+        <!--<link href="assets/dist/css/component_ui_rtl.css" rel="stylesheet" type="text/css"/>-->
+        <!-- Custom css -->
+        <link href="assets/dist/css/custom.css" rel="stylesheet" type="text/css"/>
+        <!-- End Theme Layout Style
+        =====================================================================-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+<!-- /.content-wrapper -->
+            <div class="content-wrapper">
+                <div class="container">
+                    <!-- main content -->
+                    <div class="content">
+                        <!-- Content Header (Page header) -->
+                        <div class="content-header">
+                            <div class="header-icon">
+                                <i class="pe-7s-note2"></i>
+                            </div>
+                            <div class="header-title">
+                                <h1>Executive Supervisor </h1>
+                                <small>Executive Supervisor <a href="https://1000hz.github.io/bootstrap-validator/" target="_blank"></a> </small>
+                                <ol class="breadcrumb">
+                                    <li><a href="#deshabord"><i class="pe-7s-home"></i> Home</a></li>
+                                    <li><a href="#agent_list">Executive Supervisor List</a></li>
+                                    <li class="active">Executive Supervisor</li>
+                                </ol>
+                            </div>
+                        </div> <!-- /. Content Header (Page header) -->
+                        <div class="row">
+						<form data-toggle="validator" action="add_agent_sub" method="post" enctype="multipart/form-data">
+                            <div class="col-sm-12">
+                                <div class="panel panel-bd lobidrag">
+                                    <div class="panel-heading">
+                                        <div class="panel-title">
+                                            <h4>Executive Supervisor</h4>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        
+										<div class="form-group">
+                                                <label for="inputName" class="control-label">Name</label>
+                                                <input type="text" class="form-control" id="inputName" name="name" placeholder="name" required>
+                                        </div>
+										<div class="form-group">
+                                                <label for="inputName" class="control-label">Email</label>
+                                                <input type="email" class="form-control" id="inputName" name="email" placeholder="email" required>
+                                        </div>
+										<div class="form-group">
+                                                <label for="inputName" class="control-label">Password</label>
+                                                <input type="password" class="form-control" id="inputName" name="password" placeholder="password" required>
+                                        </div>
+										<div class="form-group">
+                                                <label for="inputName" class="control-label">Mobile Number</label>
+                                                <input type="text" class="form-control" id="inputName" name="mobile" placeholder="Mobile" required>
+                                        </div>
+										<div class="form-group">
+                                                <label for="exampleSelect1">Block Supervisor</label>
+												
+                                            <select class="form-control" id="exampleSelect1" name="block_supervisor_id[]" multiple>
+												 <option disabled >(Name | Block)</option>
+												
+                                                </select>
+														
+                                            </div>
+										<div class="form-group">
+                                                <label for="inputName" class="control-label">Amount</label> 
+                                                <input type="text" class="form-control" id="inputName" name="amount" placeholder="amount" required>
+                                        </div>
+										<!--<div class="form-group">
+                                                <label for="exampleSelect1">District</label>
+												
+                                            <select class="form-control" id="exampleSelect1" name="city_id">
+												 <option value="">--District--</option>
+												<?php
+													$table='city';
+													$rs=$obj->fetchAllDetailByStatus($table);
+													if($rs)
+													{	$i=0;
+														while($row=mysqli_fetch_assoc($rs))
+														{	$i++;
+      
+															?>
+                                                    <option value="<?php echo $row['id']; ?>"><?php echo $row['city'];  ?></option>
+													<?php } 
+													}
+													?>
+                                                </select>
+														
+                                            </div>-->
+											<div class="form-group">
+                                                <label for="inputName" class="control-label">Address</label>
+												
+                                                <textarea class="form-control" id="inputName" name="address" required></textarea>
+											</div>
+											<!--<div class="form-group">
+                                                <label for="inputName" class="control-label">Expiry Date</label>
+                                                <input type="date" class="form-control" id="inputName" name="expriy_date" placeholder="Expiry Date" required>
+                                        </div>-->
+										<div class="form-group">
+                                                <label for="inputName" class="control-label">Adhar Card Number</label>
+                                                <input type="text" class="form-control" id="inputName" name="adhar_no" placeholder="Adhar Card Number" required>
+                                        </div>
+											<div class="form-group">
+                                                <label for="exampleInputFile">Upload document</label>
+                                                <input type="file" name="document" id="exampleInputFile" aria-describedby="fileHelp">
+                                               
+                                            </div>
+											<div class="form-group">
+                                                <label for="exampleInputFile">Photo</label>
+                                                <input type="file" name="photo" id="exampleInputFile" aria-describedby="fileHelp">
+                                               
+                                            </div>
+                                            <div class="form-group">
+                                            <p style="padding: 20px; background-color: #f44336; color: white;">Bank Account Details</p>
+                                            </div>
+                                            	<div class="form-group">
+                                                <label for="inputName" class="control-label">Account Holder Name</label>
+                                                <input type="text" class="form-control" id="inputName" name="account_holder_name" placeholder="Account Holder Name" required>
+                                        </div>
+                                        	<div class="form-group">
+                                                <label for="inputName" class="control-label">Account Number</label>
+                                                <input type="text" class="form-control" id="inputName" name="account_number" placeholder="Account Number" required>
+                                        </div>
+                                        	<div class="form-group">
+                                                <label for="inputName" class="control-label">IFC Code</label>
+                                                <input type="text" class="form-control" id="inputName" name="ifc_code" placeholder="IFC Code" required>
+                                        </div>
+                                        <div class="form-group">
+                                                <label for="inputName" class="control-label">Branch Name</label>
+                                                <input type="text" class="form-control" id="inputName" name="branch_name" placeholder="Branch Name" required>
+                                        </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						</form>
+                    </div> <!-- /.main content -->
+                </div> <!-- /.container -->
+            </div> <!-- /.content-wrapper -->
+            <!-- start footer -->
+            <footer class="main-footer">
+                <div class="container">
+                    <div class="pull-right hidden-xs"> <b></b> </div>
+                    <strong>Copyright &copy; 2018-2019 <a href="#"><?php echo $web_info['web_name']; ?></a>.</strong> All rights reserved. <i class="fa fa-heart color-green"></i>
+                </div>
+            </footer> <!-- /. footer -->
+        </div> <!-- ./wrapper -->
+        <!-- jQuery -->
+      <!--  <script data-cfasync="false" src="<?php echo $base1;?>../../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/plugins/jQuery/jquery-1.12.4.min.js" type="text/javascript"></script>-->
+      
+      
+        <script data-cfasync="false" src="<?php echo $base1;?>cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/plugins/jQuery/jquery-1.12.4.min.js" type="text/javascript"></script>
+        <!-- jquery-ui -->
+        <script src="<?php echo $base1;?>assets/plugins/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script>
+        <!-- Bootstrap js -->
+        <script src="<?php echo $base1;?>assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <!-- lobipanel js -->
+        <script src="<?php echo $base1;?>assets/plugins/lobipanel/lobipanel.min.js" type="text/javascript"></script>
+        <!-- animsition js -->
+        <script src="<?php echo $base1;?>assets/plugins/animsition/js/animsition.min.js" type="text/javascript"></script>
+        <!-- bootsnav js -->
+        <script src="<?php echo $base1;?>assets/plugins/bootsnav/js/bootsnav.js" type="text/javascript"></script>
+        <!-- SlimScroll js -->
+        <script src="<?php echo $base1;?>assets/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <!-- FastClick js-->
+        <script src="<?php echo $base1;?>assets/plugins/fastclick/fastclick.min.js" type="text/javascript"></script>
+        <!-- End Core Plugins
+        =====================================================================-->
+        <!-- Start Page Lavel Plugins
+        =====================================================================-->
+        <!-- summernote js -->
+        <script src="<?php echo $base1;?>assets/plugins/summernote/summernote.min.js" type="text/javascript"></script>
+        <!-- Start Theme label Script
+        =====================================================================-->
+        
+        <!-- Dashboard js -->
+        <script src="<?php echo $base1;?>assets/dist/js/dashboard.js" type="text/javascript"></script>
+        <!-- End Theme label Script
+        =====================================================================-->
+        <script>
+            $(document).ready(function () {
+                "use strict"; // Start of use strict
+                //summernote
+                $('#summernote').summernote({
+                    height: 300, // set editor height
+                    minHeight: null, // set minimum height of editor
+                    maxHeight: null, // set maximum height of editor
+                    focus: true                  // set focus to editable area after initializing summernote
+                });
+            });
+        </script>
+        
+		 <script src="<?php echo $base1;?>assets/plugins/datatables/dataTables.min.js" type="text/javascript"></script>
+        <!-- Start Theme label Script
+        =====================================================================-->
+        <!-- Dashboard js -->
+        <script src="<?php echo $base1;?>assets/dist/js/dashboard.js" type="text/javascript"></script>
+        <!-- End Theme label Script
+        =====================================================================-->
+        <script>
+            $(document).ready(function () {
+
+                "use strict"; // Start of use strict
+
+                $('#dataTableExample1').DataTable({
+                    "dom": "<'row'<'col-sm-6'l><'col-sm-6'f>>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                    "lengthMenu": [[6, 25, 50, -1], [6, 25, 50, "All"]],
+                    "iDisplayLength": 6
+                });
+
+                $("#dataTableExample2").DataTable({
+                    dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'B><'col-sm-4'f>>tp",
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                    buttons: [
+                        {extend: 'copy', className: 'btn-sm'},
+                        {extend: 'csv', title: 'ExampleFile', className: 'btn-sm'},
+                        {extend: 'excel', title: 'ExampleFile', className: 'btn-sm'},
+                        {extend: 'pdf', title: 'ExampleFile', className: 'btn-sm'},
+                        {extend: 'print', className: 'btn-sm'}
+                    ]
+                });
+
+            });
+        </script>
+    </body>
+
+
+
+</html>
+       <?php include"footer.php"; ?>

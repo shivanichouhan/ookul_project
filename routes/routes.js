@@ -46,6 +46,8 @@ router.post('/ebook_data',user_data.user_library)
 router.post('/add_to_cart',user_data.insert_in_cart)
 router.get('/get_cart',user_data.get_cart)
 router.post('/get_libraries',user_data.search_library)
+router.get('/trending_course',user_data.trending_filter)
+router.post('/price_filter',user_data.price_filter)
 // router.post('/social_sharing',user_data.sharing_to_friend)
 
 // router.post("/reset_pass",urlencodedParser,userController.ResetPassword)

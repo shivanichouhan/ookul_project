@@ -231,7 +231,7 @@ exports.user_library = async (req, res, next) => {
                                                 useFindAndModify: false
                                             })
                                             .then((lib_resp) => {
-                                                console.log(lib_resp, "&&&&&&&&&&&&&&&&&&&&&&&&")
+                                                console.log(lib_resp, "&&&&&&&&&&&&&&&&&&&&&&&&" )
                                             })
                                     })
                             } else {
@@ -270,40 +270,179 @@ const total_price = (cart_course, price) => {
     return total_price
 }
 
-exports.search_library = async(req,res,next)=>{
-    try{
-        teacher_ebook.lib_details.find({
-            // '$or': [{
-            //         'course_title': {
-            //             '$regex': req.body.courses
-            //         }
-            //     },
-            //     {
-            //         'course_title': {
-            //             '$regex': req.body.courses
-            //         }
-            //     }, {
-            //         'course_title': {
-            //             '$regex': req.body.courses
-            //         }
-            //     },{
-            //         'course_title': {
-            //             '$regex': req.body.courses
-            //         }
-            //     }
-            // ]
-        }).populate('pdf audioBook topperCopy syllabus')
-        // .populate('audioBook').populate('topperCopy').populate('syllabus')
-        .then((resp) => {
-            var a = JSON.stringify(resp)
-            console.log(a)
-            res.send(resp)
-        }).catch((err) => {
-            console.log(err)
-            next(err)
-        })
 
-    }catch(err){
+
+exports.trending_filter = async (req, res, next) => {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth();
+    var yyyy = today.getFullYear();
+
+    let week_date = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+    var d1 = week_date.getDate();
+    var m1 = week_date.getMonth() + 1; //January is 0!
+    var y1 = week_date.getFullYear();
+    var days_before = y1 + "," + m1 + "," + d1
+    var now_date = yyyy + "," + mm + "," + dd
+    console.log(new Date(now_date), "+++++++++")
+    console.log(new Date(days_before), "___________")
+    categorySchema.sb_details.find({
+            'start_date': {
+                "$gte": new Date(now_date),
+                "$lt": new Date(days_before)
+            }
+        }).populate({
+            path: 'course_chepters',
+            populate: {
+                path: 'chepter_lession',
+                model: 'Lessions'
+            }
+        })
+        .then((result) => {
+            res.send(result)
+        })
+}
+
+exports.price_filter = async (req, res, next) => {
+    const user_price = req.body.price_category;
+
+    if (user_price == "low") {
+        categorySchema.sb_details.find({
+                course_price: {
+                    $lte: 400
+                }
+            }).populate({
+                path: 'course_chepters',
+                populate: {
+                    path: 'chepter_lession',
+                    model: 'Lessions'
+                }
+            })
+            .then((result) => {
+                res.send(result)
+            })
+    } else if (user_price == "hight_price_course") {
+        categorySchema.sb_details.find({
+                course_price: {
+                    $gte: 400
+                }
+            }).populate({
+                path: 'course_chepters',
+                populate: {
+                    path: 'chepter_lession',
+                    model: 'Lessions'
+                }
+            })
+            .then((result) => {
+                res.send(result)
+            })
+    }
+}
+
+exports.ratings_filter = async (req, res, next) => {
+    const ratings = req.body.rating;
+    if (ratings == 5) {
+        categorySchema.sb_details.find({
+                ratings: 5
+            }).populate({
+                path: 'course_chepters',
+                populate: {
+                    path: 'chepter_lession',
+                    model: 'Lessions'
+                }
+            })
+            .then((result) => {
+                res.send(result)
+            })
+    } else if (ratings == 4) {
+        categorySchema.sb_details.find({
+                ratings: 4
+            }).populate({
+                path: 'course_chepters',
+                populate: {
+                    path: 'chepter_lession',
+                    model: 'Lessions'
+                }
+            })
+            .then((result) => {
+                res.send(result)
+            })
+    } else if (ratings == 3) {
+        categorySchema.sb_details.find({
+                ratings: 3
+            }).populate({
+                path: 'course_chepters',
+                populate: {
+                    path: 'chepter_lession',
+                    model: 'Lessions'
+                }
+            })
+            .then((result) => {
+                res.send(result)
+            })
+    } else if (ratings == 2) {
+        categorySchema.sb_details.find({
+                ratings: 2
+            }).populate({
+                path: 'course_chepters',
+                populate: {
+                    path: 'chepter_lession',
+                    model: 'Lessions'
+                }
+            })
+            .then((result) => {
+                res.send(result)
+            })
+    } else if (ratings == 1) {
+        categorySchema.sb_details.find({
+                ratings: 1
+            }).populate({
+                path: 'course_chepters',
+                populate: {
+                    path: 'chepter_lession',
+                    model: 'Lessions'
+                }
+            })
+            .then((result) => {
+                res.send(result)
+            })
+    }
+
+}
+
+
+exports.search_library = async (req, res, next) => {
+    try {
+        teacher_ebook.lib_details.find({
+                // '$or': [{
+                //         'course_title': {
+                //             '$regex': req.body.courses
+                //         }
+                //     },
+                //     {
+                //         'course_title': {
+                //             '$regex': req.body.courses
+                //         }
+                //     }, {
+                //         'course_title': {
+                //             '$regex': req.body.courses
+                //         }
+                //     },{
+                //         'course_title': {
+                //             '$regex': req.body.courses
+                //         }
+                //     }
+                // ]
+            }).populate('pdf audioBook topperCopy syllabus')
+            .then((resp) => {
+                var a = JSON.stringify(resp)
+                console.log(a)
+                res.send(resp)
+            }).catch((err) => {
+                console.log(err)
+                next(err)
+            })
+    } catch (err) {
         next(err)
     }
 }
@@ -398,19 +537,14 @@ exports.insert_in_cart = async (req, res, next) => {
                                             })
                                     }
                                 })
-
                         } else {
                             res.send("you already add this course in cart")
                         }
-
                     });
-
             });
     } else {
         res.redirect('/home')
     }
-    // course._id,)
-
 }
 
 

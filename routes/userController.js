@@ -63,6 +63,14 @@ exports.signup = async (req, res, next) => {
             sername,
             name,
         } = req.body
+        let user_roles = 0;
+        if(req.body.role === "admin"){
+            user_roles = 1
+        }else if(req.body.role === "teacher"){
+            user_roles = 2
+        }else if(req.body.role == "student"){
+            user_roles = 3
+        }
         var randomValue = randomString(8, 'PICKCHAR45SFROM789THI123SSET');
         console.log(randomValue)
         const hashedPassword = await hashPassword(password);
@@ -74,7 +82,8 @@ exports.signup = async (req, res, next) => {
             mob_number: mob_number,
             sername: sername,
             name: name,
-            user_saring_code: randomValue
+            user_saring_code: randomValue,
+            user_role_status : user_roles
         });
 
         let localStorage = new LocalStorage('./scratch');
@@ -158,7 +167,6 @@ exports.login = async (req, res, next) => {
         next(error);
     }
 }
-
 
 exports.getUsers = async (req, res, next) => {
     const users = await User.find({});

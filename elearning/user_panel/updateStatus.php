@@ -1,0 +1,35 @@
+<?php
+include"../include/database.php";
+$obj=new database();
+
+ $base="http://educationdisha.in/elearning/admin/";
+ $base1="http://educationdisha.in/elearning/admin/";
+  $a="http://".$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
+  
+
+$b=explode('/',$a);
+ $id=$b['5'];
+ $status=$b['6'];
+ $table=$b['7'];
+ $statusField=$b['8'];
+ $field=$b['9'];
+ $page=$b['10'];
+
+$rs=$obj->updateStatus($id,$table,$statusField,$status,$field);
+if($rs)
+{
+echo ("<script LANGUAGE='JavaScript'>
+          window.alert('');
+          window.location.href='$base1$page';
+       </script>");
+}
+
+else
+{
+echo ("<script LANGUAGE='JavaScript'>
+          window.alert('Not  Update');
+          window.location.href='$base1$page';
+       </script>");
+}
+
+?>

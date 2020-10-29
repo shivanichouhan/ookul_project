@@ -378,13 +378,13 @@ input[type=submit]:hover {
 	                                                            <div class="imagebox">
 	                                                              <img src="images/content/profilepic.jpg" alt="profileimage" style="width:100px; height:150px; padding:15px 0;">  
 	                                                              <div class="image_upload">
-	                                                              <form action="/image_upload" method="POST">
-																	  <input type="file" id="myFile" name="filename">
-																	  <button>update profile</button>
+	                                                              <form action="/action_page.php">
+                                                                      <input type="file" id="myFile" name="filename">
+                                                                      
                                                                    </form>
                                                                   </div>
 	                                                            </div>
-                                                              <form action="/update_profile" method="POST">
+                                                              <form action="/action_page.php">
                                                                 <div class="row">
                                                                   <div class="col-25">
                                                                     <label for="fname">First Name</label>
@@ -404,13 +404,13 @@ input[type=submit]:hover {
                                                                     <label for="lname">E-Mail</label>
                                                                   </div>
                                                                   <div class="col-75">
-                                                                    <input type="text" id="lname" name="E_Mail" placeholder="E-Mail">
+                                                                    <input type="text" id="lname" name="E-Mail" placeholder="E-Mail">
                                                                   </div>
                                                                   <div class="col-25">
                                                                     <label for="lname">Phone Number</label>
                                                                   </div>
                                                                   <div class="col-75">
-                                                                    <input type="text" id="lname" name="Phone_Number" placeholder="Phone Number">
+                                                                    <input type="text" id="lname" name="Phone Number" placeholder="Phone Number">
                                                                   </div>
                                                                   
                                                                 </div>
@@ -422,9 +422,7 @@ input[type=submit]:hover {
                                                                     <select id="country" name="country">
                                                                       <option value="australia">Australia</option>
                                                                       <option value="canada">Canada</option>
-																	  <option value="usa">USA</option>
-																	  <option value="australia">India</option>
-
+                                                                      <option value="usa">USA</option>
                                                                     </select>
                                                                   </div>
                                                                   <div class="col-25">
@@ -443,7 +441,7 @@ input[type=submit]:hover {
                                                                     <label for="lname">District</label>
                                                                   </div>
                                                                   <div class="col-75">
-                                                                    <input type="text" id="lname" name="district" placeholder="District">
+                                                                    <input type="text" id="lname" name="lastname" placeholder="District">
                                                                   </div>
                                                                 </div>
                                                                 <div class="row">

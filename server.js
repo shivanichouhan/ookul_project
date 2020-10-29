@@ -8,7 +8,7 @@ var fs = require("fs")
 var redis = require("redis");
 var nodemailer = require("nodemailer")
 const jwt = require('jsonwebtoken');
-
+const cors = require('cors')
 const path = require('path')
 const facebookStrategy = require("passport-facebook").Strategy;
 var passport = require("passport")
@@ -22,17 +22,21 @@ var redisStore = require('connect-redis')(session);
 var client = redis.createClient();
 
 var forgot_password = require("./routes/forget_pass");
+var admin = require("./routes/admin")
 var multer = require("multer");
 const {
   response
 } = require('express');
-const { findOne } = require('./models/user_schema');
+const {
+  findOne
+} = require('./models/user_schema');
 const app = express();
 app.use(express.static(path.join(__dirname, 'elearning')));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'ookul_elearning/elearning')));
 const PORT = process.env.PORT || 3000;
 app.use(cookieParser())
+app.use(cors())
 app.use(session({
   secret: 'ssshhhhh',
   // create new redis store.
@@ -65,22 +69,6 @@ mongoose
   });
 
 passport.use(
-  new googleStrategy({
-      clientID: "732164575367-ob4c3sv91cmbj8n9fni0jbk6d7gkgc1m.apps.googleusercontent.com",
-      clientSecret: "sB9-OudRO3mTRWLRdm1wlLp_",
-      callbackURL: "/auth/google/return"
-    },
-    function (accessToken, refreshToken, profile, done) {
-      console.log("access token", accessToken);
-      console.log("refress token", refreshToken);
-      console.log("profile", profile);
-      console.log("done", done)
-
-    })
-
-)
-
-passport.use(
   new facebookStrategy({
       clientID: "333309537952117",
       clientSecret: "0c10639980efc88d7e3a377a5de5bdd6",
@@ -91,11 +79,29 @@ passport.use(
     })
 )
 
-// app.get('/update_image', (req, res) => {
-//   console.log("for profile", req.session.id)
-//   res.sendFile(path.join(__dirname + '/elearning/u_account.html'));
+passport.use(
+  new googleStrategy({
+      clientID: "885334681327-gprmljcjmgt3mocucgqk4cdu8j5fuc2g.apps.googleusercontent.com",
+      clientSecret: "Rw8x7EuYufm-Rxc5VKkAidYA",
+      callbackURL: "/student"
+    },
+    function (accessToken, refreshToken, profile, done) {
+      console.log("access token", accessToken);
+      console.log("refress token", refreshToken);
+      console.log("profile", profile);
+      console.log("done", done)
+    })
 
-// })
+)
+
+//admin routes
+
+app.get("/ookul/admin", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/ookul_elearning/elearning/ookul_admin/index.html'));
+})
+app.get("/admin/teacher_creation", (req, res) => {
+  res.sendFile(path.join(__dirname + '/ookul_elearning/elearning/ookul_admin/teacher_asign.html'));
+})
 
 app.get('/logout', function (req, res) {
   req.session.destroy(function (err) {
@@ -106,6 +112,17 @@ app.get('/logout', function (req, res) {
     }
   });
 });
+
+//user routes
+
+
+// app.get('/update_image', (req, res) => {
+//   console.log("for profile", req.session.id)
+//   res.sendFile(path.join(__dirname + '/elearning/u_account.html'));
+
+// })
+
+
 
 app.get("/auth/facebook", passport.authenticate("facebook", {
   scope: ["profile", "email"]
@@ -120,12 +137,6 @@ app.get("/auth/google", passport.authenticate("google", {
 }));
 
 
-// app.get('/admin', (req, res) => {
-//   console.log(req.session.id)
-//   res.sendFile(path.join(__dirname + '/elearning/index.html'));
-// });
-
-
 app.get("/confirm_otp", (req, res) => {
   res.sendFile(path.join(__dirname + '/elearning/confirm_otp.html'));
 
@@ -135,7 +146,7 @@ app.get("/index", (req, res) => {
 
 })
 app.get('/teacher', (req, res) => {
-  res.sendFile(path.join(__dirname + '/elearning/index.html'));
+  res.sendFile(path.join(__dirname + '/ookul_elearning/elearning/index.html'));
 });
 
 app.get('/student', (req, res) => {
@@ -146,42 +157,15 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/signup.html'));
 });
 
-app.post("/data", (req, res) => {
-  res.send("hii")
-})
-app.get("/s", (req, res) => {
-  res.sendFile(path.join(__dirname + '/view/login.html'));
-
-})
-app.get("/teacher_creation", (req, res) => {
-  res.sendFile(path.join(__dirname + '/view/teacher_create_by_admin.html'));
-})
 app.get("/home", (req, res) => {
   res.sendFile(path.join(__dirname + '/ookul_elearning/elearning/index_ookul.html'));
 })
-app.get("/addCourse", (req, res) => {
-  res.sendFile(path.join(__dirname + '/view/e_bookr.html'));
-})
-passport.use(
-  new googleStrategy({
-      clientID: "885334681327-gprmljcjmgt3mocucgqk4cdu8j5fuc2g.apps.googleusercontent.com",
-      clientSecret: "Rw8x7EuYufm-Rxc5VKkAidYA",
-      callbackURL: "/student"
-    },
-    function (accessToken, refreshToken, profile, done) {
-      console.log("access token", accessToken);
-      console.log("refress token", refreshToken);
-      console.log("profile", profile);
-      console.log("done", done)
-
-    })
-
-)
-
+// app.get("/addCourse", (req, res) => {
+//   res.sendFile(path.join(__dirname + '/view/e_bookr.html'));
+// })
 app.get("/auth/google", passport.authenticate("google", {
   scope: ["profile", "email"]
 }));
-
 
 app.post('/update_profile', (req, res, next) => {
   try {
@@ -208,8 +192,8 @@ app.post('/update_profile', (req, res, next) => {
     if (req.body.State) {
       data.state = req.body.State
     }
-    if(req.body.country){
-      data.country=req.body.country
+    if (req.body.country) {
+      data.country = req.body.country
 
     }
     if (req.body.City) {
@@ -241,14 +225,10 @@ async function hashPassword(password) {
   return await bcrypt.hash(password, 10);
 }
 app.get("/reset_pass/:otps", (req, res) => {
-  res.sendFile(path.join(__dirname + '/elearning/reset_password.html'));
+  res.sendFile(path.join(__dirname + '/ookul_elearning/elearning/reset_password.html'));
 })
 
 
-app.post("/shivina", (req, res, next) => {
-  console.log(req.body.name)
-  res.send(req.body.name)
-})
 
 
 var storage = multer.diskStorage({
@@ -279,11 +259,11 @@ app.post('/image_upload', upload.single('filename'), (req, res, next) => {
   console.log(user_data, "**********************")
 });
 
-app.get("/first_exam_paper",(req,res,next)=>{
+app.get("/first_exam_paper", (req, res, next) => {
   res.sendFile(path.join(__dirname + '/ookul_elearning/elearning/ookultest.html'));
 });
 
-app.post("/test_paper",(req,res,next)=>{
+app.post("/test_paper", (req, res, next) => {
   const a = req.body.p1
   console.log(a)
   res.send("data")
@@ -363,7 +343,7 @@ app.post('/friend_signup', async (req, res, next) => {
   }
 });
 
-app.get("/card_payment",(req,res)=>{
+app.get("/card_payment", (req, res) => {
   res.sendFile(path.join(__dirname + '/ookul_elearning/elearning/ookul_cheakout.html'));
 
 })
@@ -389,61 +369,61 @@ app.post('/create_checkout_session', async (req, res) => {
   console.log(token)
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
-    line_items: [
-      {
-        price_data: {
-          currency: 'INR',
-          product_data: {
-            name: 'T-shirt',
-          },
-          unit_amount: 2000,
+    line_items: [{
+      price_data: {
+        currency: 'INR',
+        product_data: {
+          name: 'T-shirt',
         },
-        quantity: 1,
+        unit_amount: 2000,
       },
-    ],
+      quantity: 1,
+    }, ],
     mode: 'payment',
     success_url: 'https://example.com/success',
     cancel_url: 'https://example.com/cancel',
   });
 
-  res.json({ id: session.id });
+  res.json({
+    id: session.id
+  });
 });
 
-app.get("pay",(req,res)=>{
+app.get("pay", (req, res) => {
   res.sendFile(path.join(__dirname + '/ookul_elearning/elearning/payment.html'));
 })
 
-app.post('/payment', function(req, res){ 
-  
+app.post('/payment', function (req, res) {
+
   // Moreover you can take more details from user 
   // like Address, Name, etc from form 
-  stripe.customers.create({ 
-      email: req.body.stripeEmail, 
-      source: req.body.stripeToken, 
-      name: 'Gourav Hammad', 
-      address: { 
-          line1: 'TC 9/4 Old MES colony', 
-          postal_code: '452331', 
-          city: 'Indore', 
-          state: 'Madhya Pradesh', 
-          country: 'India', 
-      } 
-  }) 
-  .then((customer) => { 
+  stripe.customers.create({
+      email: req.body.stripeEmail,
+      source: req.body.stripeToken,
+      name: 'Gourav Hammad',
+      address: {
+        line1: 'TC 9/4 Old MES colony',
+        postal_code: '452331',
+        city: 'Indore',
+        state: 'Madhya Pradesh',
+        country: 'India',
+      }
+    })
+    .then((customer) => {
 
-      return stripe.charges.create({ 
-          amount: 2500,     // Charing Rs 25 
-          description: 'Web Development Product', 
-          currency: 'INR', 
-          customer: customer.id 
-      }); 
-  }) 
-  .then((charge) => { 
-      res.send("Success")  // If no error occurs 
-  }) 
-  .catch((err) => { 
-      res.send(err)       // If some error occurs 
-  }); 
+      return stripe.charges.create({
+        amount: 2500, // Charing Rs 25 
+        description: 'Web Development Product',
+        currency: 'INR',
+        customer: customer.id
+      });
+    })
+    .then((charge) => {
+      res.send("Success") // If no error occurs 
+    })
+    .catch((err) => {
+      res.send(err) // If some error occurs 
+    });
 })
 
 app.get('/user_friend_sinup', (req, res, next) => {
@@ -452,11 +432,12 @@ app.get('/user_friend_sinup', (req, res, next) => {
 })
 
 app.post('/invite_friend', (req, res, next) => {
-  res.send("*********************************")
+  alert("**********************")
+  console.log("--------")
   if (req.session.email) {
     let friend_email = req.body.e_mail
     let user_mail = req.session.email;
-    console.log(user_mail,friend_email)
+    console.log(user_mail, friend_email)
     User.findOne({
         email: user_mail
       })
@@ -471,7 +452,7 @@ app.post('/invite_friend', (req, res, next) => {
         });
         let my_code = result.user_saring_code
         let mailDetails = {
-          from: user_mail,
+          from: 'shivanic18@navgurukul.org',
           to: friend_email,
           subject: 'invitation For ookul aplication',
           html: '<h3 style="font-weight:bold;">Your friend have invite you to join ookul aplication. </h3><h3>This is you reffrence code <br>' + my_code + '<br><a href="http://localhost:3000/user_friend_sinup">click</a>'
@@ -536,7 +517,7 @@ function randomString(len, charSet) {
   return randomString;
 }
 
-
+app.use('/admin', admin)
 app.use('/elearning', routes);
 app.use('/forget_pass', forgot_password)
 app.listen(PORT, () => {
