@@ -1,0 +1,108 @@
+<html>
+
+<head>
+    <script src="http:/code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script>
+        $(function () {
+            $(".repeat").on('click', function () {
+                var $self = $(this);
+                $self.after($self.parent().clone());
+                $self.remove();
+            });
+        });
+        // $(".repeat").on('click', function () {
+        //     $("#divRepeat").append($(".box").html());
+        //     //you can add other logic here, like you want diferent id or class to add in new box
+        // })
+    </script>
+    <script>
+        $(function repeats() {
+            for (var i = 0; i < 5; i++) {
+                $("#divRepeat").append($(".box").html());
+                //you can add other logic here, like you want diferent id or class to add in new box
+            }
+        });
+    </script>
+    <script>
+        $("button#liuyan").on("click", function (e) {
+
+            e.preventDefault();
+
+            data = {
+                "name": "hello"
+            }
+
+            var mydiv2 = $("#mydiv2");
+
+            if (mydiv2.css("display") === "none") {
+                mydiv2.show();
+                var mycode = document.createElement('div');
+                mycode.innerHTML = '<pre><code data-language="json">' + JSON.stringify(data, undefined, 2) + '</code></pre>';
+                //Rainbow.color(mycode, function() {
+                document.getElementById('mydiv2').innerHTML = '';
+                document.getElementById('mydiv2').appendChild(mycode)
+                //});
+            } else {
+                mydiv2.hide();
+
+            }
+
+            //   console.log(data);
+            //    console.log(jqXHR.responseText);
+            // });
+
+        });
+    </script>
+    <script>
+        $("#target").toggle(function () {
+            alert("First handler for .toggle() called.");
+        }, function () {
+            alert("Second handler for .toggle() called.");
+        });
+    </script>
+    <script>
+        $("#click").click(function () {
+            $(document).ready(function () {
+                star = '<div class="star" />';
+                var body = $('body');
+
+                for (i = 0; i < 12; i++) {
+                    body.append($(star));
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <form>
+        <div class="repeatable">
+
+            <table border="1">
+                <tr>
+                    <td><input type="text" name="userInput[]"></td>
+                </tr>
+            </table>
+            <button class="repeat">Add Another</button>
+        </div>
+        <input type="submit" value="Submit">
+
+    </form>
+    <div id="divRepeat">
+        <div class="box">sssss</div>
+        <button onclick="repeats()">Add Another</button>
+
+    </div>
+
+    <button id="liuyan">Click</button>
+    <div id="mydiv2">shivani</div>
+
+
+    <div id="target">
+        <button id="click">Click here</button>
+    </div>
+</body>
+
+</html>

@@ -35,6 +35,7 @@ router.get("/confirm_otp",(req,res)=>{
 router.post('/sent_otp',parser,(req,res)=>{
     var otp = otpGenerator.generate(6,{upperCase:false,specialChars:false,alphabets:false})
     var emails = req.body.email
+    console.log(emails)
     const LocalStorage = require('node-localstorage').LocalStorage;
     let localStorage = new LocalStorage('./scratch');
     localStorage.setItem("forget_email",emails)

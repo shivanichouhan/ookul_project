@@ -1,0 +1,265 @@
+<style>
+.sidebar {
+height: 100%;
+width:20%;
+float: left;
+z-index: 1;
+top: 0;
+left: 0;
+background-color: #202020;
+overflow-x: hidden;
+padding-top: 16px;
+}
+
+.sidebar a {
+padding: 25px 8px 25px 16px;
+text-decoration: none;
+font-size: 20px;
+color: #949494;
+display: block;
+}
+
+.sidebar a:hover {
+color: #f1f1f1;
+padding: 12px;
+
+}
+
+.mainsidebar {
+width: 80%;
+float: left;
+
+}
+.pdf_form{
+width: 100%;
+display: inline-block;
+text-align: centre;
+padding: 30px 0px;
+border: 0px solid;
+margin-top: 40px;
+margin-bottom: 40px;
+
+}
+.pdf_form1{
+width:50%;
+display:inline-block;
+margin:0 auto;
+}
+.pdfinput{
+width:100%;
+padding:8px;
+}
+.pdf_paid_dropmenu{
+
+width:50%;
+display:inline-block;
+margin:0 auto; 
+text-align:right;
+}
+.text_a{
+text-align:left;
+}
+.box_ab{
+width:100%;
+display:inline-block;
+padding:20px 0px;
+}
+.sbtn{
+text-align:left; 
+margin-top: 20px;
+}
+.sbtn1{
+padding: 8px 16px;
+color: #fff;
+background: #90ee90;
+}
+.pdfdrop_a{
+top: 0%;
+position: absolute;
+left: 364px;
+z-index: 1000;
+display: none;
+float: left;
+min-width: 160px;
+padding: 5px 0;
+margin: 2px 0 0;
+font-size: 14px;
+text-align: left;
+list-style: none;
+background-color: rgb(255, 255, 255);
+background-clip: padding-box;
+border: 1px solid rgba(0, 0, 0, .15);
+border-radius: 4px;
+box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+} 
+.btnleft{
+float:left;
+margin-right: 10px;
+
+}
+.paid_amount{
+font-size: 20px;
+padding: 20px;
+}
+.self_notes{
+width: 100%;
+display: inline-block;
+text-align: center;
+padding: 60px 0px;
+border: 1px solid;
+margin-top: 40px;
+margin-bottom: 40px;
+}
+.self_notes1{
+width:50%;
+display:inline-block;
+margin:0 auto;  
+}
+.veiwbtn{
+width: 100%;
+float: left;
+text-align: right;
+margin: 35px 0px;
+}
+.veiwbtn a {
+background: #90ee90;
+color: #fff;
+padding: 8px 9px;   
+}
+
+@media screen and (max-height: 450px) {
+.sidebar {padding-top: 15px;}
+.sidebar a {font-size: 18px;}
+}
+
+</style>
+<script src="ckeditor/ckeditor.js"></script>
+<!--<link rel="stylesheet" href="<?php base_url('assets/'); ?>ckeditor/css/format.css">-->
+<script type="text/javascript">
+        // 	function adddoc(doc) 
+        // 	{
+        //       if(doc==1){
+        //         $("#pdf_form").show();
+        //         $("#audio_form").hide();
+        //       }
+        //       if(doc==2){
+        //         $("#audio_form").show();
+        //         $("#pdf_form").hide();
+        //         $("#doc_type").val(doc);
+        //       }
+            //   $("#doc_type").val(doc);
+            //   $("#pdf").val("");
+            // }
+        
+        //     function payment(p) 
+        // 	{
+        //         if(p==1)
+        //         {
+        //         	$("#paditype").css("display", "block");
+        //         	$("#amount_wrapper").css("display", "block");
+        //         	$("#amount").val('0');
+        
+        //         }else{
+        //         	$("#paditype").css("display", "none");
+        //         	$("#amount_wrapper").css("display", "none");
+        //         	$("#amount").val('0');
+        //         }
+        //     }
+</script>
+<div class="mainsidebar">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<!--<div class="prs_upcome_tabs_wrapper">-->
+<!--<ul class="nav nav-tabs" role="tablist">-->
+<!--<li role="presentation" class="active">-->
+<!--    <a href="#pdf" aria-controls="pdf" role="tab" data-toggle="tab" onclick="adddoc(1)">PDF</a>-->
+<!--</li>-->
+<!--<li role="presentation">-->
+<!--    <a href="#audio" aria-controls="audio" role="tab" data-toggle="tab" onclick="adddoc(2)">Audio Book</a>-->
+<!--</li>-->
+<!-- <li role="presentation"><a href="#trand" aria-controls="trand" role="tab" data-toggle="tab" onclick="adddoc(4)">Topper Copy</a>
+</li>
+<li role="presentation"><a href="#trand" aria-controls="trand" role="tab" data-toggle="tab" onclick="adddoc(5)">Syllabus</a>
+</li> -->
+<!--</ul>-->
+<!--</div>-->
+
+<!-- sidebar pdf_form -->
+
+<!--<div class="veiwbtn">-->
+<!--    <a  href="<?php  echo base_url('home/alldocumentlist');?>">Veiw All</a>-->
+<!--</div>-->
+<!-- <?= $this->session->flashdata('msg'); ?> -->
+<div>
+    <h3>
+        stickylist
+    </h3>
+</div>
+<div class="pdf_form">
+    <div style="text-align:center;">
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">+ADD</button>
+    </div>
+
+  <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Add Sticky Note</h4>
+            </div>
+            <div class="modal-body">
+                <form id="sticky_form" name="sticky_form" action="<?= base_url('home/addsticky') ?>" method="post">
+                    <div class="form-data">
+                      <label>Title</label>
+                      <input type="text" name="title" id="title">
+                    </div>
+                    <div class="form-data">
+                      <label>Description</label>
+                      <textarea name="description" id="description"></textarea>
+                    </div>
+                    <div class="form-data">
+                        <input type="submit" name="submit" value="Add" id="submit" class="btn btn-sm">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          
+        </div>
+    </div>
+    
+    <?php // print_r($stickylist); ?>
+    <div class="col-md-12" style="margin-top:20px;">
+        <?php foreach ($stickylist as $key => $value) {
+        ?>
+            <div class="col-md-3" style="border:1px solid;padding:15px 10px;">
+        	    <p>
+        	        <b>Title</b>
+        	        <span><?= $value['title']; ?></span>
+        	    </p>
+        	    <p>
+        	        <b>Description</b>
+        	        <?= $value['description']; ?>
+        	   </p>
+            </div>
+        <?php } ?>
+    </div>
+</div>
+
+<!-- sidebar  selfnotes_form  --> 
+ 
+      
+<!-- sidebar  selfnotes_form close --> 
+  
+</div>
+</div>
+</div>
+
+<!-- sidebar with tab close -->
+
+<script>
+    CKEDITOR.replace( 'description' );
+</script>

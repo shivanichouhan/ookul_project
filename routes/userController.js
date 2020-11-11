@@ -11,7 +11,7 @@ const LocalStorage = require('node-localstorage').LocalStorage;
 
 const categoriSchema = require("../models/category_course")
 const courseSchema = require('../models/courses_schema')
-
+const mongoose = require("mongoose")
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads')
@@ -64,11 +64,11 @@ exports.signup = async (req, res, next) => {
             name,
         } = req.body
         let user_roles = 0;
-        if(req.body.role === "admin"){
+        if (req.body.role === "admin") {
             user_roles = 1
-        }else if(req.body.role === "teacher"){
+        } else if (req.body.role === "teacher") {
             user_roles = 2
-        }else if(req.body.role == "student"){
+        } else if (req.body.role == "student") {
             user_roles = 3
         }
         var randomValue = randomString(8, 'PICKCHAR45SFROM789THI123SSET');
@@ -83,7 +83,7 @@ exports.signup = async (req, res, next) => {
             sername: sername,
             name: name,
             user_saring_code: randomValue,
-            user_role_status : user_roles
+            user_role_status: user_roles
         });
 
         let localStorage = new LocalStorage('./scratch');
@@ -229,13 +229,13 @@ exports.add_courses = async (req, res, next) => {
                     chepters.save(chepters)
                         .then((chepters1) => {
                             categoriSchema.sb_details.findByIdAndUpdate(course._id, {
-                                    $push: {
-                                        course_chepters: chepters1
-                                    }
-                                }, {
-                                    new: true,
-                                    useFindAndModify: false
-                                })
+                                $push: {
+                                    course_chepters: chepters1
+                                }
+                            }, {
+                                new: true,
+                                useFindAndModify: false
+                            })
                                 .then((chourse_chep) => {
                                     console.log(chourse_chep)
                                     return chourse_chep
@@ -272,11 +272,7 @@ exports.add_courses = async (req, res, next) => {
                         })
 
                 })
-            // categoriSchema.sb_details.find().populate('chepters')
-            //     .then((resp) => {
-            //         console.log(resp)
-            //         res.send(resp)
-            //     })
+          
 
 
 
@@ -288,6 +284,798 @@ exports.add_courses = async (req, res, next) => {
         next(error)
     }
 }
+
+exports.add_course_by_admin = async (req, res, next) => {
+    try {
+        const {
+            lession,
+            title,
+            email,
+            filename,
+            date,
+            course_type,
+            course_category,
+
+
+        } = req.body
+
+        const new_course = {
+            course_name: lession,
+            course_price: title,
+            teacherName: course_category,
+            teacherEmail: course_type,
+            description: email,
+            language:lan,
+            catagory:sub,
+            course_image:img,
+            courseType:type
+        }
+        const a = req.body.category_name
+
+        console.log(a)
+        const category = {
+            categoryName: a
+        }
+        const lession_data = {
+            lession_name: req.body.lessions,
+            title: req.body.title,
+            // lession_category: req.body.lession_categori,
+            description: req.body.desc,
+            course_type: req.body.type,
+            teacherEmail: req.body.email
+            // Date: req.body.date
+        };
+
+        const new_chepter = {
+            chepter_name: req.body.chepter_name,
+            chepter_title: req.body.chepterTitle
+        }
+        const obj = {}
+        obj[a] = { $exists: true, $ne: null }
+        console.log(obj, "OOOOOOOOOOOOOOOOOOO")
+        categoriSchema.categories.find(obj)
+            .then((category_exists) => {
+                if (category_exists.length == 0) {
+                    categoriSchema.sb_details.find({ course_name: lession })
+                        .then((course_check) => {
+                            if (course_check.length == 0) {
+                                const create_course = new categoriSchema.sb_details(new_course);
+                                create_course.save()
+                                    .then((course_resp) => {
+                                        console.log("course created", course_resp);
+                                        const data = {}
+                                        const ar = []
+                                        ar.push(course_resp._id)
+                                        data[a] = ar
+                                        const add_in_category = new categoriSchema.categories(data)
+                                        add_in_category.save()
+                                            .then((course_added_category) => {
+                                                const obj1 = {}
+                                                const chepterName = req.body.chepter_name;
+                                                obj[chepterName] = { $exists: true, $ne: null }
+                                                console.log(obj1, "**^&&&&&&&&&&&&&&&&")
+                                                categoriSchema.chepter.find(obj1)
+                                                    .then((chepter_resp) => {
+                                                        if (chepter_resp.length == 0) {
+                                                            const lession = new courseSchema(lession_data)
+                                                            lession.save()
+                                                                .then((lesion_result) => {
+                                                                    console.log(lesion_result, "lession added succesfuly");
+                                                                    return lesion_result
+                                                                }).then((les_resp) => {
+                                                                    categoriSchema.chepter_details.find({ chepter_name: chepterName })
+                                                                        .then((chepter_resp) => {
+                                                                            if (chepter_resp.length == 0) {
+                                                                                const chep_detail = new categoriSchema.chepter_details({
+                                                                                    chepter_name: chepterName,
+                                                                                    chepter_title: req.body.chepter_titl
+                                                                                })
+                                                                                chep_detail.save()
+                                                                                    .then((che_added) => {
+                                                                                        console.log(che_added, "%%%%%%%%%%%%%%%%%")
+                                                                                        che_added.chepter_lession.push(les_resp._id)
+                                                                                            .then((chepter_added_sucess) => {
+                                                                                                console.log("chepter_details ", chepter_added_sucess)
+                                                                                                const data1 = {}
+                                                                                                const ar1 = []
+                                                                                                ar1.push(chepter_added_sucess._id)
+                                                                                                data1[chepterName] = ar
+                                                                                                const new_chepter = new categoriSchema.chepter(data1)
+                                                                                                new_chepter.save()
+                                                                                                    .then((chepter_created) => {
+                                                                                                        console.log("chepter created and added lession succes fully", chepter_created)
+                                                                                                    })
+                                                                                            })
+                                                                                        // console.log("chepter_details_added", che_added)
+                                                                                    })
+                                                                            } else {
+                                                                                const abc = chepter_resp[0]
+                                                                                categoriSchema.chepter_details.findByIdAndUpdate(abc._id, { $push: { chepter_lession: les_resp } })
+                                                                                    .then((chepter_detail_updated) => {
+                                                                                        console.log("chepter details updated", chepter_detail_updated);
+                                                                                    })
+
+                                                                            }
+                                                                        })
+                                                                    // res.send(course_added_category)
+                                                                })
+                                                        } else {
+                                                            const lession = new courseSchema(lession_data)
+                                                            lession.save()
+                                                                .then((lesion_result) => {
+                                                                    console.log(lesion_result, "lession added succesfuly");
+                                                                    return lesion_result
+                                                                }).then((les_resp) => {
+                                                                    categoriSchema.chepter_details.find({ chepter_name: req.body.chepter })
+                                                                        .then((chepter_resp) => {
+                                                                            if (chepter_resp.length != 0) {
+                                                                                const abc = chepter_resp[0]
+                                                                                categoriSchema.chepter_details.findByIdAndUpdate(abc._id, { $push: { chepter_lession: les_resp._id } })
+                                                                                    .then((chepter_detail_updated) => {
+                                                                                        console.log("chepter details updated", chepter_detail_updated);
+                                                                                        const data1 = {}
+                                                                                        const ar1 = []
+                                                                                        ar1.push(chepter_detail_updated._id)
+                                                                                        data1[chepterName] = ar
+                                                                                        const new_chepter = new categoriSchema.chepter(data1)
+                                                                                        new_chepter.save()
+                                                                                            .then((chepter_created) => {
+                                                                                                console.log("chepter created and added lession succes fully", chepter_created)
+                                                                                            })
+                                                                                    })
+                                                                            }
+                                                                            else {
+                                                                                const abc = chepter_resp[0]
+                                                                                categoriSchema.chepter_details.findByIdAndUpdate(abc._id, { $push: { chepter_lession: les_resp } })
+                                                                                    .then((chepter_detail_updated) => {
+                                                                                        console.log("chepter details updated", chepter_detail_updated);
+
+
+                                                                                    })
+                                                                            }
+
+                                                                        })
+                                                                })
+
+                                                        }
+                                                    })
+
+
+                                            })
+
+                                    })
+
+                            } else {
+                                res.send("this course already in course if You want to update then use update course query")
+                            }
+                        })
+
+                } else {
+                    console.log(category_exists);
+                    const obj1 = {}
+                    const chepterName = req.body.chepter_name;
+                    obj[chepterName] = { $exists: true, $ne: null }
+                    console.log(obj1, "**^&&&&&&&&&&&&&&&&")
+
+                    categoriSchema.chepter.find(obj1)
+                        .then((chepter_resp) => {
+                            if (chepter_resp.length == 0) {
+                                const lession = new courseSchema(lession_data)
+                                lession.save()
+                                    .then((lesion_result) => {
+                                        console.log(lesion_result, "lession added succesfuly");
+                                        return lesion_result
+                                    }).then((les_resp) => {
+                                        categoriSchema.chepter_details.find({ chepter_name: chepterName })
+                                            .then((chepter_resp) => {
+                                                if (chepter_resp.length == 0) {
+                                                    const chep_detail = new categoriSchema.chepter_details({
+                                                        chepter_name: chepterName,
+                                                        chepter_title: req.body.chepter_titl
+                                                    })
+                                                    chep_detail.save()
+                                                        .then((che_added) => {
+                                                            console.log(che_added, "%%%%%%%%%%%%%%%%%")
+                                                            che_added.chepter_lession.push(les_resp._id)
+                                                                .then((chepter_added_sucess) => {
+                                                                    console.log("chepter_details ", chepter_added_sucess)
+                                                                    const data1 = {}
+                                                                    const ar1 = []
+                                                                    ar1.push(chepter_added_sucess._id)
+                                                                    data1[chepterName] = ar
+                                                                    const new_chepter = new categoriSchema.chepter(data1)
+                                                                    new_chepter.save()
+                                                                        .then((chepter_created) => {
+                                                                            console.log("chepter created and added lession succes fully", chepter_created)
+                                                                            categoriSchema.sb_details.findByIdAndUpdate(course_check._id, { $push: { course_chepters: chepter_created._id } })
+                                                                                .then((resp_course) => {
+                                                                                    console.log("updated_course", resp_course)
+                                                                                    const categoris = category_exists[0]
+                                                                                    const data = {}
+                                                                                    const ar = []
+                                                                                    ar.push(resp_course._id)
+                                                                                    data[a] = ar
+                                                                                    categoriSchema.categories.findOneAndUpdate(categoris._id, data)
+                                                                                        .then((category_updated) => {
+                                                                                            console.log("categori_updated", category_updated)
+                                                                                            res.send(category_updated)
+                                                                                        })
+                                                                                })
+
+                                                                        })
+                                                                })
+                                                            // console.log("chepter_details_added", che_added)
+                                                        })
+                                                } else {
+                                                    const abc = chepter_resp[0]
+                                                    categoriSchema.chepter_details.findByIdAndUpdate(abc._id, { $push: { chepter_lession: les_resp } })
+                                                        .then((chepter_detail_updated) => {
+                                                            console.log("chepter details updated", chepter_detail_updated);
+
+
+                                                        })
+                                                }
+                                            })
+                                        // res.send(course_added_category)
+                                    })
+                            } else {
+                                const lession = new courseSchema(lession_data)
+                                lession.save()
+                                    .then((lesion_result) => {
+                                        console.log(lesion_result, "lession added succesfuly");
+                                        return lesion_result
+                                    }).then((les_resp) => {
+                                        categoriSchema.chepter_details.find({ chepter_name: req.body.chepters_name })
+                                            .then((chepter_resp) => {
+                                                if (chepter_resp.length != 0) {
+                                                    const abc = chepter_resp[0]
+                                                    categoriSchema.chepter_details.findByIdAndUpdate(abc._id, { $push: { chepter_lession: les_resp._id } })
+                                                        .then((chepter_detail_updated) => {
+                                                            console.log("chepter details------- updated", chepter_detail_updated);
+                                                            const obj1 = {}
+                                                            const chepterName = req.body.chepters_name;
+                                                            obj1[chepterName] = { $exists: true, $ne: null }
+                                                            categoriSchema.chepter.find(obj1)
+                                                                .then((reslt) => {
+                                                                    if (reslt.length == 0) {
+                                                                        const data1 = {}
+                                                                        const ar1 = []
+                                                                        ar1.push(chepter_detail_updated._id)
+                                                                        data1[chepterName] = ar1
+                                                                        console.log(data1, "shiiiiiiiiiiiiiiiiiiiiiii")
+                                                                        const new_chepter = new categoriSchema.chepter(data1)
+                                                                        new_chepter.save()
+                                                                            .then((chepter_created) => {
+                                                                                console.log("chepter created and added lession succes fully", chepter_created)
+                                                                                categoriSchema.sb_details.findByIdAndUpdate(course_check._id, { $push: { course_chepters: chepter_created._id } })
+                                                                                    .then((resp_course) => {
+                                                                                        console.log("***********", resp_course)
+                                                                                        const categoris = category_exists[0]
+                                                                                        const data = {}
+                                                                                        const ar = []
+                                                                                        ar.push(resp_course._id)
+                                                                                        data[a] = ar
+                                                                                        categoriSchema.categories.findOneAndUpdate(categoris._id, data)
+                                                                                            .then((category_updated) => {
+                                                                                                console.log("categori_updated", category_updated)
+                                                                                                res.send(category_updated)
+                                                                                            })
+
+                                                                                    })
+                                                                            })
+                                                                    } else {
+                                                                        const d = reslt[0]
+                                                                        categoriSchema.chepter.findByIdAndUpdate(d._id, {
+                                                                            $push: {
+                                                                                chepter2: chepter_detail_updated._id
+                                                                            }
+                                                                        }).then((rejlt) => {
+                                                                            console.log("dataa ka chepter_updatd", rejlt)
+                                                                        })
+                                                                    }
+
+                                                                })
+
+                                                        })
+                                                }
+                                                else {
+                                                    const abc = chepter_resp
+                                                    console.log(abc)
+                                                    categoriSchema.chepter_details.findByIdAndUpdate(abc._id, { $push: { chepter_lession: les_resp } })
+                                                        .then((chepter_detail_updated) => {
+                                                            console.log("chepter details updated", chepter_detail_updated);
+
+
+                                                        })
+                                                }
+                                            })
+                                    })
+
+                            }
+                        })
+
+                }
+            })
+    } catch (err) {
+        console.log(err);
+        res.send(err);
+    }
+}
+
+exports.course_added = async (req, res, next) => {
+    try {
+        const {
+            lession,
+            title,
+            email,
+            filename,
+            date,
+            course_type,
+            course_category,
+
+
+        } = req.body
+        const a = req.body.category_name
+
+        const new_course = {
+            course_name: lession,
+            course_price: title,
+            teacherName: course_category,
+            course_type: 'free',
+            teacherEmail: email,
+        }
+
+
+        if (!req.body.category_name) {
+            res.send("you didn't choose any category")
+        } else if (!req.body.lession) {
+            res.send("please choose course name")
+        } else if (!req.body.title) {
+            res.send("please choose course title")
+        }
+        console.log(a)
+        const category = {
+            categoryName: a
+        }
+        const lession_data = {
+            lession_name: req.body.lessions,
+            title: req.body.title,
+            // lession_category: req.body.lession_categori,
+            description: req.body.desc,
+            course_type: req.body.type,
+            teacherEmail: req.body.email
+            // Date: req.body.date
+        };
+
+        const new_chepter = {
+            chepter_name: req.body.chepter_name,
+            chepter_title: req.body.chepterTitle
+        }
+
+        categoriSchema.sb_details.find({ course_name: lession })
+            .then((course_check) => {
+                if (course_check.length == 0) {
+
+                    const obj = {}
+                    obj[a] = { $exists: true, $ne: null }
+                    console.log(obj, "OOOOOOOOOOOOOOOOOOO")
+                    categoriSchema.categories.find(obj)
+                        .then((category_result) => {
+                            if (category_result.length == 0) {
+
+                                const obj1 = {}
+                                const chepterName = req.body.chepters_name;
+                                console.log(chepterName)
+                                obj1[chepterName] = { $exists: true, $ne: null }
+                                console.log(obj1, "**^&&&&&&&&&&&&&&&&")
+                                categoriSchema.chepter_details.find({ chepter_name: chepterName })
+                                    .then((chepter_resp) => {
+                                        if (chepter_resp.length == 0) {
+                                            const lession = new courseSchema(lession_data)
+                                            lession.save()
+                                                .then((lesion_result) => {
+                                                    console.log(lesion_result, "lession added succesfuly");
+                                                    return lesion_result
+                                                }).then((les_resp) => {
+                                                    const chep_detail = new categoriSchema.chepter_details({
+                                                        chepter_name: chepterName,
+                                                        chepter_title: req.body.chepter_titl
+                                                    })
+                                                    chep_detail.save()
+                                                        .then((che_added) => {
+                                                            console.log(che_added, "%%%%%%%%%%%%%%%%%")
+                                                            console.log(les_resp)
+                                                            const create_course = new categoriSchema.sb_details(new_course);
+                                                            create_course.save()
+                                                                .then((course_resp) => {
+                                                                    categoriSchema.sb_details.findByIdAndUpdate(course_resp._id, { $push: { course_chepters: che_added._id } })
+                                                                        .then((cour_resp) => {
+                                                                            const data = {}
+                                                                            const ar = []
+                                                                            ar.push(cour_resp._id)
+                                                                            data[a] = ar
+                                                                            const add_in_category = new categoriSchema.categories(data)
+                                                                            add_in_category.save()
+                                                                                .then((course_added_category) => {
+                                                                                    res.send("course_added")
+                                                                                    console.log(course_added_category)
+                                                                                });
+                                                                        })
+
+                                                                })
+                                                        })
+                                                })
+                                        } else {
+                                            const lession = new courseSchema(lession_data)
+                                            lession.save()
+                                                .then((lesion_result) => {
+                                                    console.log(lesion_result, "lession added succesfuly");
+                                                    return lesion_result
+                                                }).then((les_resp) => {
+                                                    categoriSchema.chepter_details.find({ chepter_name: chepterName })
+                                                        .then((chepter_resp) => {
+                                                            if (chepter_resp.length != 0) {
+                                                                const abc = chepter_resp[0]
+                                                                categoriSchema.chepter_details.findByIdAndUpdate(abc._id, { $push: { chepter_lession: les_resp._id } })
+                                                                    .then((chepter_detail_updated) => {
+                                                                        console.log("chepter details updated", chepter_detail_updated);
+                                                                        const create_course = new categoriSchema.sb_details(new_course);
+                                                                        create_course.save()
+                                                                            .then((course_resp) => {
+                                                                                categoriSchema.sb_details.findByIdAndUpdate(course_resp._id, { $push: { course_chepters: chepter_detail_updated._id } })
+                                                                                    .then((cour_resp) => {
+                                                                                        res.send("course_added ***********", cour_resp)
+                                                                                        const data = {}
+                                                                                        const ar = []
+                                                                                        ar.push(cour_resp._id)
+                                                                                        data[a] = ar
+                                                                                        const add_in_category = new categoriSchema.categories(data)
+                                                                                        add_in_category.save()
+                                                                                            .then((course_added_category) => {
+                                                                                                res.send("course_added")
+                                                                                                console
+                                                                                            })
+
+                                                                                    })
+
+                                                                            })
+                                                                    });
+                                                            }
+
+                                                        })
+                                                })
+
+                                        }
+                                    })
+
+                                
+                            } else {
+
+                                const obj1 = {}
+                                const chepterName = req.body.chepters_name;
+                                console.log(chepterName)
+                                obj1[chepterName] = { $exists: true, $ne: null }
+                                console.log(obj1, "**^&&&&&&&&&&&&&&&&")
+                                categoriSchema.chepter_details.find({ chepter_name: chepterName })
+                                    .then((chepter_resp) => {
+                                        if (chepter_resp.length == 0) {
+                                            const lession = new courseSchema(lession_data)
+                                            lession.save()
+                                                .then((lesion_result) => {
+                                                    console.log(lesion_result, "lession added succesfuly");
+                                                    return lesion_result
+                                                }).then((les_resp) => {
+                                                    const chep_detail = new categoriSchema.chepter_details({
+                                                        chepter_name: chepterName,
+                                                        chepter_title: req.body.chepter_titl
+                                                    })
+                                                    chep_detail.save()
+                                                        .then((che_added) => {
+                                                            console.log(che_added, "%%%%%%%%%%%%%%%%%")
+                                                            console.log(les_resp)
+                                                            const create_course = new categoriSchema.sb_details(new_course);
+                                                            create_course.save()
+                                                                .then((course_resp) => {
+                                                                    categoriSchema.sb_details.findByIdAndUpdate(course_resp._id, { $push: { course_chepters: che_added._id } })
+                                                                        .then((cour_resp) => {
+                                                                            const data = {}
+                                                                            const ar = []
+                                                                            ar.push(cour_resp._id)
+                                                                            data[a] = ar
+                                                                            const category = category_result[0]
+                                                                            categoriSchema.categories.findByIdAndUpdate(category._id, { $push: data })
+                                                                            add_in_category.save()
+                                                                                .then((course_added_category) => {
+                                                                                    res.send("course_added")
+                                                                                });
+                                                                        })
+
+                                                                })
+                                                        })
+                                                })
+                                        } else {
+                                            const lession = new courseSchema(lession_data)
+                                            lession.save()
+                                                .then((lesion_result) => {
+                                                    console.log(lesion_result, "lession added succesfuly");
+                                                    return lesion_result
+                                                }).then((les_resp) => {
+                                                    categoriSchema.chepter_details.find({ chepter_name: chepterName })
+                                                        .then((chepter_resp) => {
+                                                            if (chepter_resp.length != 0) {
+                                                                const abc = chepter_resp[0]
+                                                                categoriSchema.chepter_details.findByIdAndUpdate(abc._id, { $push: { chepter_lession: les_resp._id } })
+                                                                    .then((chepter_detail_updated) => {
+                                                                        console.log("chepter details updated", chepter_detail_updated);
+                                                                        const create_course = new categoriSchema.sb_details(new_course);
+                                                                        create_course.save()
+                                                                            .then((course_resp) => {
+                                                                                categoriSchema.sb_details.findByIdAndUpdate(course_resp._id, { $push: { course_chepters: chepter_detail_updated._id } })
+                                                                                    .then((cour_resp) => {
+                                                                                        const data = {}
+                                                                                        const ar = []
+                                                                                        ar.push(cour_resp._id)
+                                                                                        data[a] = ar
+                                                                                        const category = category_result[0]
+                                                                                        categoriSchema.categories.findByIdAndUpdate(category._id, { $push: data })
+                                                                                            .then((course_added_category) => {
+                                                                                                res.send("course_added ***********")
+
+                                                                                            })
+
+                                                                                    })
+
+                                                                            })
+                                                                    })
+
+                                                            }
+                                                        })
+
+                                                })
+
+
+                                        }
+                                    })
+                            }
+                        })
+                } else {
+                    res.send("this course already in course if You want to update then use update course query")
+                }
+
+            });
+    } catch (err) {
+        console.log(err)
+        res.send(err)
+    }
+
+}
+
+
+
+exports.update_courses_by_teacher = async (req, res, next) => {
+    try {
+        const {
+            lession,
+            title,
+            email,
+            filename,
+            date,
+            course_type,
+            course_category,
+        } = req.body
+
+        const new_course = {
+            course_name: lession,
+            course_price: title,
+            teacherName: course_category,
+            teacherEmail: course_type,
+            teacherEmail: email,
+        }
+        const a = req.body.category_name
+
+        console.log(a)
+        const category = {
+            categoryName: a
+        }
+        const lession_data = {
+            lession_name: req.body.lession,
+            title: req.body.title,
+            lession_category: req.body.lession_categori,
+            description: req.body.desc,
+            course_type: req.body.type,
+            teacherEmail: req.body.email,
+            Date: req.body.date
+        };
+
+        const new_chepter = {
+            chepter_name: req.body.chepter_name,
+            chepter_title: req.body.chepterTitle
+        }
+
+        const obj1 = {}
+        const chepterName = req.body.chepter_name;
+        obj[chepterName] = { $exists: true, $ne: null }
+        console.log(obj1, "**^&&&&&&&&&&&&&&&&")
+        categoriSchema.chepter_details.find({ chepter_name: chepterName })
+            .then((chepter_resp) => {
+                if (chepter_resp.length == 0) {
+                    const lession = new courseSchema(lession_data)
+                    lession.save()
+                        .then((lesion_result) => {
+                            console.log(lesion_result, "lession added succesfuly");
+                            return lesion_result
+                        }).then((les_resp) => {
+                            const chep_detail = new categoriSchema.chepter_details({
+                                chepter_name: chepterName,
+                                chepter_title: req.body.chepter_titl
+                            })
+                            chep_detail.save()
+                                .then((che_added) => {
+                                    console.log(che_added, "%%%%%%%%%%%%%%%%%")
+                                    che_added.chepter_lession.push(les_resp._id)
+                                        .then((chepter_added_sucess) => {
+                                            console.log("chepter created and added lession succes fully", chepter_created)
+                                            const cour_id = course_check[0]
+                                            categoriSchema.sb_details.findByIdAndUpdate(cour_id._id, chepter_created._id)
+                                                .then((resp_course) => {
+                                                    console.log("updated_course", resp_course)
+                                                })
+
+                                        })
+                                })
+                        })
+                } else {
+                    const lession = new courseSchema(lession_data)
+                    lession.save()
+                        .then((lesion_result) => {
+                            const abc = chepter_resp[0]
+                            categoriSchema.chepter_details.findByIdAndUpdate(abc._id, { $push: { chepter_lession: lesion_result._id } })
+                                .then((chepter_detail_updated) => {
+                                    console.log("chepter details updated", chepter_detail_updated);
+                                })
+                        })
+                }
+                //  else {
+                //     const lession = new courseSchema(lession_data)
+                //     lession.save()
+                //         .then((lesion_result) => {
+                //             console.log(lesion_result, "lession added succesfuly");
+                //             return lesion_result
+                //         }).then((les_resp) => {
+                //             categoriSchema.chepter_details.find({ chepter_name: req.body.chepter })
+                //                 .then((chepter_resp) => {
+                //                     if (chepter_resp.length != 0) {
+                //                         const abc = chepter_resp[0]
+                //                         categoriSchema.chepter_details.findByIdAndUpdate(abc._id, { $push: { chepter_lession: les_resp._id } })
+                //                             .then((chepter_detail_updated) => {
+                //                                 console.log("chepter details updated", chepter_detail_updated);
+                //                                 const data1 = {}
+                //                                 const ar1 = []
+                //                                 ar1.push(chepter_detail_updated._id)
+                //                                 data1[chepterName] = ar
+                //                                 const new_chepter = new categoriSchema.chepter(data1)
+                //                                 new_chepter.save()
+                //                                     .then((chepter_created) => {
+                //                                         console.log("chepter created and added lession succes fully", chepter_created)
+                //                                         const cour_id = course_check[0]
+
+                //                                         categoriSchema.sb_details.findByIdAndUpdate(cour_id._id, chepter_created._id)
+                //                                             .then((resp_course) => {
+                //                                                 console.log("***********", resp_course)
+
+                //                                             })
+                //                                     })
+                //                             })
+                //                     } else {
+                //                         const abc = chepter_resp[0]
+                //                         categoriSchema.chepter_details.findByIdAndUpdate(abc._id, { $push: { chepter_lession: les_resp } })
+                //                             .then((chepter_detail_updated) => {
+                //                                 console.log("chepter details updated", chepter_detail_updated);
+
+
+                //                             })
+                //                     }
+                //                     // sole.log("You have to create chepter")
+                //                     // }
+
+                //                 })
+                //         })
+
+                // }
+            })
+
+        // }
+        // }).catch((err) => {
+        //     console.log(err);
+        //     res.send(err)
+        // })
+
+
+
+    } catch (e) {
+        res.send(e)
+    }
+}
+
+
+// try {
+//     const {
+//         lession,
+//         title,
+//         email,
+//         filename,
+//         date,
+//         course_type,
+//         course_category
+//     } = req.body
+//     const new_course = {
+//         course_name: lession,
+//         course_title: title,
+//         course_category: course_category,
+//         course_type: course_type,
+//         teacherEmail: email,
+//         date: date
+//     }
+
+//     if ("PDF" != "PDF") {
+//         const pdf_data = teacher_ebook.pdfs(new_course)
+//         pdf_data.save()
+//             .then((pdf_resp) => {
+//                 console.log("data added in pdf", pdf_resp);
+//                 var pdf = pdf_resp
+//                 return pdf
+//             }).then((pdf_details) => {
+//                 const category = "ds"
+//                 teacher_ebook.lib_details.find({
+//                     categories: category
+//                 })
+//                     .then((category_lib) => {
+//                         if (category_lib.length == 0) {
+//                             const lib_data = new teacher_ebook.lib_details({
+//                                 categories: "ds"
+//                             })
+//                             lib_data.save()
+//                                 .then((respns) => {
+//                                     teacher_ebook.lib_details.findByIdAndUpdate(respns._id, {
+//                                         $push: {
+//                                             pdf: pdf_details
+//                                         }
+//                                     }, {
+//                                         new: true,
+//                                         useFindAndModify: false
+//                                     })
+//                                         .then((lib_resp) => {
+//                                             console.log(lib_resp, "&&&&&&&&&&&&&&&&&&&&&&&&")
+//                                         })
+//                                 })
+//                         } else {
+//                             const library_detail = category_lib[0]
+//                             teacher_ebook.lib_details.findByIdAndUpdate(library_detail._id, {
+//                                 $push: {
+//                                     pdf: pdf_details
+//                                 }
+//                             }, {
+//                                 new: true,
+//                                 useFindAndModify: false
+//                             })
+//                                 .then((lib_resp) => {
+//                                     console.log(lib_resp, "%%%%%%%%%%%%%%%%%%")
+//                                     res.send("library added succesfuly")
+//                                 })
+//                         }
+//                     })
+//             })
+
+
+
+//         }
+//     }
+// }
+
+
+
+
+
 
 
 exports.insert_course = async (req, res, next) => {
@@ -429,28 +1217,28 @@ exports.user_course = async (req, res, next) => {
     try {
         console.log(req.body.courses)
         categoriSchema.sb_details.find({
-                '$or': [{
-                        'course_name': {
-                            '$regex': req.body.courses
-                        }
-                    },
-                    {
-                        'teacherName': {
-                            '$regex': req.body.courses
-                        }
-                    }, {
-                        'teacherEmail': {
-                            '$regex': req.body.courses
-                        }
-                    }
-                ]
-            }).populate({
-                path: 'course_chepters',
-                populate: {
-                    path: 'chepter_lession',
-                    model: 'Lessions'
+            '$or': [{
+                'course_name': {
+                    '$regex': req.body.courses
                 }
-            })
+            },
+            {
+                'teacherName': {
+                    '$regex': req.body.courses
+                }
+            }, {
+                'teacherEmail': {
+                    '$regex': req.body.courses
+                }
+            }
+            ]
+        }).populate({
+            path: 'course_chepters',
+            populate: {
+                path: 'chepter_lession',
+                model: 'Lessions'
+            }
+        })
             .then((resp) => {
                 var a = JSON.stringify(resp)
                 console.log(a)
@@ -468,12 +1256,12 @@ exports.user_course = async (req, res, next) => {
 exports.get_all_courses = async (req, res, next) => {
     try {
         categoriSchema.sb_details.find({}).populate({
-                path: 'course_chepters',
-                populate: {
-                    path: 'chepter_lession',
-                    model: 'Lessions'
-                }
-            })
+            path: 'course_chepters',
+            populate: {
+                path: 'chepter_lession',
+                model: 'Lessions'
+            }
+        })
             .then((resp) => {
                 console.log(resp)
                 res.send(resp)
@@ -489,25 +1277,25 @@ exports.get_all_courses = async (req, res, next) => {
 
 exports.get_courses_by_category = (req, res, next) => {
     try {
-        categoriSchema.categories.find({categoryName:req.body.category}).populate({
+        categoriSchema.categories.find({ categoryName: req.body.category }).populate({
             path: 'uppsc',
             populate: {
                 path: 'course_chepters',
-                model:'Chepters',
-                populate:{
+                model: 'Chepters',
+                populate: {
                     path: 'chepter_lession',
-                    model:'Lessions'
+                    model: 'Lessions'
                 }
             }
         })
-        .then((resp) => {
-            var a = JSON.stringify(resp)
-            console.log(a)
-            res.send(resp)
-        }).catch((err) => {
-            console.log(err)
-            next(err)
-        })
+            .then((resp) => {
+                var a = JSON.stringify(resp)
+                console.log(a)
+                res.send(resp)
+            }).catch((err) => {
+                console.log(err)
+                next(err)
+            })
     } catch (error) {
         next(error)
     }

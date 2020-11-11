@@ -2,56 +2,50 @@ const mongoose = require("mongoose")
 const schema = mongoose.Schema
 var Float = require('mongoose-float').loadType(mongoose);
 
-// var librarySchema = new schema({
-//     ebook: {
-//         type: String,
-//         lowercase: true
-//     },
-//     video: {
-//         type: String,
-//         createdDate: Date.now,
-//         lowercase: true
-//     },
-//     Notes: {
-//         type: String,
-//         lowercase: true
-//     }
 
-// });
 
-const chepters = new schema({
-    chepter_name: {
-        type: String,
-        unique: true
+const chepters_lession = new schema({
+    chepter_number: {
+        type: Number,
     },
     chepter_title: {
         type: String,
-        unique: true
-
+        // unique: true
     },
     chepter_lession: [{
         type: schema.Types.ObjectId,
         ref: 'Lessions'
     }]
-});
+}, { strict: false });
+
+// const chepters = new schema({
+//     chepter1: {
+//         type: schema.Types.ObjectId,
+//         ref: 'Chepter_detail'
+//     }, chepter2: {
+//         type: schema.Types.ObjectId,
+//         ref: 'Chepter_detail'
+//     }
+// }, { strict: false });
+
+
 
 const courses = new schema({
     course_name: {
         type: String,
-        unique: true
+    },course_title:{
+        type:String
     },
     course_chepters: [{
         type: schema.Types.ObjectId,
-        ref: 'Chepters'
-    }],
-    library: [{
-        type: schema.Types.ObjectId,
-        ref: 'library'
+        ref: 'Chepter_detail'
     }],
     course_price: {
-        type: Float,
-    },ratings : {
-        type:Number
+        type:String
+    }
+    ,
+    ratings: {
+        type: Number
     }
     ,
     teacherName: {
@@ -59,36 +53,52 @@ const courses = new schema({
         lowercase: true,
 
     },
+    description: {
+        type: String,
+        required: true
+    },language:{
+        type:String
+    },catagory:{
+        type:String
+    },
     teacherEmail: {
         type: String,
         lowercase: true,
     },
     start_date: { type: Date, default: Date.now },
-    updateat : { type: Date, default: Date.now }
+    updateat: { type: Date, default: Date.now },
+    suscriber: {
+        type: schema.Types.ObjectId,
+        ref: "subscriber"
+    },
+    course_image: {
+        data: Buffer,
+        contentType: String,
+        default: ''
+    },courseType:{
+        type:String
+    }
 
-
-
-})
+}, { strict: false })
 
 
 const catagory_schema = new schema({
-    categoryName: String,
-    uppsc: [{
+    _id: { type: String },
+    course_category:{type:String},
+    courses: [{
         type: schema.Types.ObjectId,
         ref: "course"
-    }],
-    library: [{
-        type: schema.Types.ObjectId,
-        ref: "Library"
     }]
-})
+}, { strict: false })
 // var lib_details = mongoose.model("library", librarySchema)
 
-var chepter = mongoose.model("Chepters", chepters, 'chepters')
+var chepter_details = mongoose.model("Chepter_detail", chepters_lession)
+// var chepter = mongoose.model("Chepters", chepters, 'chepters')
 var sb_details = mongoose.model("course", courses)
 var categories = mongoose.model("Categories", catagory_schema)
 module.exports = {
     sb_details,
-    chepter,
+    // chepter,
+    chepter_details,
     categories
 }

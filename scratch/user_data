@@ -1,15 +1,17 @@
 { role: 'student',
-  password:
-   '$2a$10$CHk6n/orbslx9z6uQEjq1uyrsuc2f2tStqaLidx3acxphcwIH3Oum',
-  otp: '001212',
+  password: '$2a$10$n167pz1mx/CSDOPhRpQKOe4kp49Ic7qH8VzWgddNIqdGKBPbQb2dO',
+  otp: '875066',
   is_allow: 0,
   user_status: 0,
   wallet: 0,
-  _id: 5f8d78c85d542745ecc1f7f4,
+  subscriber: [],
+  _id: 5f9fc0304e91bd412f67e519,
   email: 'shivanichouhan144@gmail.com',
-  mob_number: '8976564544',
+  mob_number: '9876564789',
   sername: 'chouhan',
-  name: 'shivani ',
-  accessToken:
-   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjhkNzhjODVkNTQyNzQ1ZWNjMWY3ZjQiLCJpYXQiOjE2MDMyNTc1NjYsImV4cCI6MTYwMzM0Mzk2Nn0.wG2n3E2NUV2ct9n3yOKoJnt_MjxqT81e9d7YTWnoc5I',
-  __v: 0 }
+  name: 'shina',
+  user_saring_code: 'P7ICRTSI',
+  user_role_status: 3,
+  accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjlmYzAzMDRlOTFiZDQxMmY2N2U1MTkiLCJpYXQiOjE2MDQzMDUwOTksImV4cCI6MTYwNDM5MTQ5OX0.LcvodXLofvmD0Leqzwz4oZz40YCTPBchYCt2thqbJ1c',
+  __v: 0,
+  session: 'lUWpZHNvobpK1oAOkic5WpSxrj1R4lfu' }

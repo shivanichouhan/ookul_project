@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+    <!-- <script language="JavaScript" type="text/javascript" src="/js/jquery-1.2.6.min.js"></script> -->
+    <!-- <script language="JavaScript" type="text/javascript" src="/js/jquery-ui-personalized-1.5.2.packed.js"></script> -->
+    <!-- <script language="JavaScript" type="text/javascript" src="/js/sprinkle.js"></script> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- <script src="js/custom.js" type="text/javascript"></script> -->
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <!-- <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script> -->
+    <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+    <!-- <script src="exponential.js"></script> -->
+<head>
+    <style>
+        .task-list {
+            width: 250px;
+            float: left;
+            margin: 0 5px;
+            background-color: #e3e3e3;
+            min-height: 240px;
+            border-radius: 10px;
+            padding-bottom: 15px;
+        }
+
+        .task-list input,
+        .task-list textarea {
+            width: 240px;
+            margin: 1px 5px;
+        }
+
+        .task-list input {
+            height: 30px;
+        }
+
+        .todo-task {
+            border-radius: 5px;
+            background-color: #fff;
+            width: 230px;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        .task-list input[type="button"] {
+            width: 100px;
+            margin: 5px;
+        }
+
+        .todo-task>.task-header {
+            font-weight: bold;
+        }
+
+        .todo-task>.task-date {
+            font-size: small;
+            font-style: italic;
+        }
+
+        .todo-task>.task-description {
+            font-size: smaller;
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        #delete-div {
+            background-color: #fff;
+            border: 3px dotted #000;
+            margin: 10px;
+            height: 75px;
+            line-height: 75px;
+            text-align: center;
+        }
+    </style>
+</head>
+<script>
+    var defaults = {
+        // CSS selectors and attributes that would be used by the JavaScript functions
+        todoTask: "todo-task",
+        todoHeader: "task-header",
+        todoDate: "task-date",
+        todoDescription: "task-description",
+        taskId: "task-",
+        formId: "todo-form",
+        dataAttribute: "data",
+        deleteDiv: "delete-div"
+    }, codes = {
+        "1": "#pending", // For pending tasks
+        "2": "#inProgress",
+        "3": "#completed"
+    };
+    var generateElement = function (params) {
+        var parent = $(codes[params.code]),
+            wrapper;
+
+        if (!parent) {
+            return;
+        }
+
+        wrapper = $("<div />", {
+            "class": defaults.todoTask,
+            "id": defaults.taskId + params.id,
+            "data": params.id
+        }).appendTo(parent);
+
+        $("<div />", {
+            "class": defaults.todoHeader,
+            "text": params.title
+        }).appendTo(wrapper);
+
+        $("<div />", {
+            "class": defaults.todoDate,
+            "text": params.date
+        }).appendTo(wrapper);
+
+        $("<div />", {
+            "class": defaults.todoDescription,
+            "text": params.description
+        }).appendTo(wrapper);
+    };
+    generateElement({
+        id: "123",
+        code: "1",
+        title: "My Uber Important Task",
+        date: "5/2/2014",
+        description: "I have to do a lot of steps to implement this task!"
+    });
+
+    var removeElement = function (params) {
+        $("#" + defaults.taskId + params.id).remove();
+    };
+    var data = {
+        id: "123",
+        code: "1",
+        title: "My Uber Important Task",
+        date: "5/2/2014",
+        description: "I have to do a lot of steps to implement this task!"
+    }
+    localStorage.setItem("todoData", JSON.stringify(data));
+
+    var data = JSON.parse(localStorage.getItem("todoData"));
+
+    var addItem = function () {
+        var inputs = $("#" + defaults.formId + " :input"),
+            errorMessage = "Title can not be empty",
+            id, title, description, date, tempData;
+
+        if (inputs.length !== 4) {
+            return;
+        }
+
+        title = inputs[0].value;
+        description = inputs[1].value;
+        date = inputs[2].value;
+
+        if (!title) {
+            generateDialog(errorMessage);
+            return;
+        }
+
+        id = new Date().getTime();
+
+
+        tempData = {
+            id: id,
+            code: "1",
+            title: title,
+            date: date,
+            description: description
+        };
+
+        alert(tempData)
+        // Saving element in local storage
+        data[id] = tempData;
+        localStorage.setItem("todoData", JSON.stringify(data));
+
+        // Generate Todo Element
+        generateElement(tempData);
+
+        // Reset Form
+        inputs[0].value = "";
+        inputs[1].value = "";
+        inputs[2].value = "";
+    };
+
+    $("." + defaults.todoTask).draggable();
+
+    // Add Task
+    var generateElement = function (params) {
+        wrapper.draggable({
+            start: function () {
+                $("#" + defaults.deleteDiv).show();
+            },
+            stop: function () {
+                $("#" + defaults.deleteDiv).hide();
+            }
+        });
+
+    };
+
+    // Adding drop function to delete div
+    $("#" + options.deleteDiv).droppable({
+        drop: function (event, ui) {
+            var element = ui.helper,
+                css_id = element.attr("id"),
+                id = css_id.replace(options.taskId, ""),
+                object = data[id];
+
+            // Removing old element
+            removeElement(object);
+
+            // Updating local storage
+            delete data[id];
+            localStorage.setItem("todoData", JSON.stringify(data));
+
+            // Hiding Delete Area
+            $("#" + defaults.deleteDiv).hide();
+        }
+    });
+
+    // Adding drop function to delete div
+    $("#" + options.deleteDiv).droppable({
+        drop: function (event, ui) {
+            var element = ui.helper,
+                css_id = element.attr("id"),
+                id = css_id.replace(options.taskId, ""),
+                object = data[id];
+
+            // Removing old element
+            removeElement(object);
+
+            // Updating local storage
+            delete data[id];
+            localStorage.setItem("todoData", JSON.stringify(data));
+
+            // Hiding Delete Area
+            $("#" + defaults.deleteDiv).hide();
+        }
+    });
+
+</script>
+
+<body>
+    <div class="task-list" id="pending">
+        <h3>Pending</h3>
+        <!-- Sample task added manually to check look -->
+        <div class="todo-task">
+            <div class="task-header">Sample Header</div>
+            <div class="task-date">25/06/1992</div>
+            <div class="task-description">Lorem Ipsum Dolor Sit Amet</div>
+        </div>
+    </div>
+
+    <div class="task-list" id="inProgress">
+        <h3>In Progress</h3>
+    </div>
+
+    <div class="task-list" id="completed">
+        <h3>Completed</h3>
+    </div>
+
+    <div class="task-list">
+        <h3>Add a task</h3>
+        <form id="todo-form">
+            <input type="text" placeholder="Title" />
+            <textarea placeholder="Descrtipion"></textarea>
+            <input type="text" placeholder="Due Date (dd/mm/yyyy)" />
+            <input type="button" class="btn btn-primary" value="Add Task" />
+        </form>
+
+        <input type="button" class="btn btn-primary" value="Clear Data" />
+
+        <div id="delete-div">Drag Here to Delete</div>
+    </div>
+</body>
+
+</html>

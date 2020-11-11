@@ -17,6 +17,10 @@ mongoose
 var urlencodedParser = bodyParser.urlencoded({
   extended: false
 })
+const TodoTask = require("./models/todo_schema")
+
+app.set("view engine", "ejs")
+app.set("views", path.join(__dirname, "views"))
 
 var storage = multer.diskStorage({ 
     destination: (req, file, cb) => { 
@@ -49,6 +53,53 @@ app.post('/image_upload', upload.single('filename'), (req, res, next) => {
     //     } 
     // }); 
 }); 
+
+
+
+app.post('/', async (req, res) => {
+  const todoTask = new TodoTask({
+    content: req.body.content
+  });
+  try {
+    await todoTask.save();
+    res.redirect("/");
+  } catch (err) {
+    res.redirect("/");
+  }
+});
+
+
+app.get("/data", (req, res) => {
+  TodoTask.find({}, (err, tasks) => {
+    res.render("todo.ejs", { todoTasks: tasks });
+  });
+});
+
+
+app
+  .route("/edit/:id")
+  .get((req, res) => {
+    const id = req.params.id;
+    TodoTask.find({}, (err, tasks) => {
+      res.render("todoEdit.ejs", { todoTasks: tasks, idTask: id });
+    });
+  })
+  .post((req, res) => {
+    const id = req.params.id;
+    TodoTask.findByIdAndUpdate(id, { content: req.body.content }, err => {
+      if (err) return res.send(500, err);
+      res.redirect("/");
+    });
+  });
+
+  app.route("/remove/:id").get((req, res) => {
+    const id = req.params.id;
+    TodoTask.findByIdAndRemove(id, err => {
+    if (err) return res.send(500, err);
+    res.redirect("/");
+    });
+    });
+
 
 
 app.get('/admin', (req, res) => {
@@ -102,34 +153,34 @@ app.listen('3000' || process.env.PORT, err => {
 
 
 
-const lessions = new courseSchema(new_course)
-            await lessions.save()
-                .then((result) => {
-                    categoriSchema.chepter.findOne({
-                            'chepter_name': req.body.chepter
-                        })
-                        .then((chepters) => {
-                            if (chepters.length != 0) {
-                                const chepter = new categoriSchema.chepter({
-                                    chepter_name: req.body.chepter,
-                                    chepter_title: chepter_titl
-                                })
+// const lessions = new courseSchema(new_course)
+//             await lessions.save()
+//                 .then((result) => {
+//                     categoriSchema.chepter.findOne({
+//                             'chepter_name': req.body.chepter
+//                         })
+//                         .then((chepters) => {
+//                             if (chepters.length != 0) {
+//                                 const chepter = new categoriSchema.chepter({
+//                                     chepter_name: req.body.chepter,
+//                                     chepter_title: chepter_titl
+//                                 })
 
-                            } else {
-                                // const chepter = new chepters;
-                                console.log(typeof (chepters))
-                                console.log(chepters, "******************")
-                                chepters.chepter_lession.push(result)
-                                return chepter.save()
-                                    .then(function (resp) {
-                                        const sub = req.body.sub
-                                        console.log(resp, "chepter Added sucessfuly");
-                                        const subjects = new categoriSchema.sb_details({
-                                            course_name: sub
-                                        })
-                                        subjects.course_chepters.push(resp)
-                                        return subjects.save()
-                                    })
-                            }
-                        });
-                })
+//                             } else {
+//                                 // const chepter = new chepters;
+//                                 console.log(typeof (chepters))
+//                                 console.log(chepters, "******************")
+//                                 chepters.chepter_lession.push(result)
+//                                 return chepter.save()
+//                                     .then(function (resp) {
+//                                         const sub = req.body.sub
+//                                         console.log(resp, "chepter Added sucessfuly");
+//                                         const subjects = new categoriSchema.sb_details({
+//                                             course_name: sub
+//                                         })
+//                                         subjects.course_chepters.push(resp)
+//                                         return subjects.save()
+//                                     })
+//                             }
+//                         });
+//                 })

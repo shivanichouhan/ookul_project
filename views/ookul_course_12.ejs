@@ -1,0 +1,1244 @@
+<html lang="zxx">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Legends of Tomorrow</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<meta name="description" content="Movie Pro" />
+	<meta name="keywords" content="Movie Pro" />
+	<meta name="author" content="" />
+	<meta name="MobileOptimized" content="320" />
+	<!--Template style -->
+	<link rel="stylesheet" type="text/css" href="css/animate.css" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+	<link rel="stylesheet" type="text/css" href="css/fonts.css" />
+	<link rel="stylesheet" type="text/css" href="css/flaticon.css" />
+	<link rel="stylesheet" type="text/css" href="css/owl.carousel.css" />
+	<link rel="stylesheet" type="text/css" href="css/owl.theme.default.css" />
+	<link rel="stylesheet" type="text/css" href="css/dl-menu.css" />
+	<link rel="stylesheet" type="text/css" href="css/nice-select.css" />
+	<link rel="stylesheet" type="text/css" href="css/magnific-popup.css" />
+	<link rel="stylesheet" type="text/css" href="css/venobox.css" />
+	<link rel="stylesheet" type="text/css" href="js/plugin/rs_slider/layers.css" />
+	<link rel="stylesheet" type="text/css" href="js/plugin/rs_slider/navigation.css" />
+	<link rel="stylesheet" type="text/css" href="js/plugin/rs_slider/settings.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/responsive.css" />
+	<link rel="stylesheet" id="theme-color" type="text/css" href="#" />
+	<!-- favicon links -->
+	<link rel="shortcut icon" type="image/png" href="images/header/favicon.ico" />
+	<script src='../../../google_analytics_auto.js'></script>
+
+	<script>
+
+		function myFunction() {
+			$(document).ready(function () {
+				var elmId = $("#plain").val();
+
+				alert(elmId)
+				console.log(elmId)
+				// console.log(x)
+				// $('.lession_data_detail').on('click', function (e) {
+				// 	console.log(e)
+				// const a = JSON.stringify(e)
+				// alert(e.target.className)
+				// console.log(e.target.className)
+				// var val = $("plain").text();
+				// console.log(val, "************")
+				// alert(val);
+
+				// // var elmId = $(this).prev().val();
+				// console.log(elmId)
+				// alert(elmId);
+				const course_data = {}
+				course_data.lesn_name = elmId
+				var dataSend = $.ajax({
+					method: "POST",
+					url: "http://localhost:3000/lession_details",
+					data: course_data,
+					success: function (data) {
+						alert(data)
+						if (data) {
+							window.location.href = "http://localhost:3000/lession_view";
+						} else {
+							alert("error")
+						}
+					}
+				});
+			});
+			// 
+			// });
+		}
+		function add_cart() {
+			$(document).ready(function () {
+				var elmId = $("#cart").val();
+				const course_data = {}
+				course_data.courseName = elmId
+				var dataSend = $.ajax({
+					method: "POST",
+					url: "http://localhost:3000/elearning/add_to_cart",
+					data: course_data,
+					success: function (data) {
+						if (data) {
+							alert("course succesfully added in your cart")
+							// window.location.href = "http://localhost:3000/lession_view";
+						} else {
+							alert("error")
+						}
+					}
+				});
+
+			});
+		}
+		
+	</script>
+	<script>
+		function teacher_detail(){
+			$(document).ready(function () {
+				var elmId = $("#teacher_penal").val();
+				const course_data = {}
+				course_data.teacher_name = elmId
+				var dataSend = $.ajax({
+					method: "POST",
+					url: "http://localhost:3000/example",
+					data: course_data,
+					success: function (data) {
+						if (data){
+							alert(data)
+							window.location.href = "http://localhost:3000/view_teacher_details";
+							// alert("course succesfully added in your cart")
+							// window.location.href = "http://localhost:3000/lession_view";
+						} else {
+							alert("something went wrong")
+						}
+					}
+				});
+
+			});
+		}
+	</script>
+</head>
+
+<body>
+	<!-- preloader Start -->
+	<div id="preloader">
+		<div id="status">
+			<img src="images/header/horoscope.gif" id="preloader_image" alt="loader">
+		</div>
+	</div>
+
+	<div class="prs_navigation_main_wrapper">
+		<div class="container-fluid">
+			<div id="search_open" class="gc_search_box">
+				<input type="text" placeholder="Search here">
+				<button><i class="fa fa-search" aria-hidden="true"></i>
+				</button>
+			</div>
+			<div class="prs_navi_left_main_wrapper">
+				<div class="prs_logo_main_wrapper">
+					<a href="index.html" style="font-size: 25px;color: #fff; font-weight: 700;">
+						<img src="images/header/logo_ookul.png" alt="logo" />
+					</a>
+				</div>
+				<div class="prs_menu_main_wrapper">
+					<nav class="navbar navbar-default">
+						<div id="dl-menu" class="xv-menuwrapper responsive-menu">
+							<button class="dl-trigger">
+								<img src="images/header/bars.png" alt="bar_png">
+							</button>
+							<div class="prs_mobail_searchbar_wrapper" id="search_button"> <i class="fa fa-search"></i>
+							</div>
+							<div class="clearfix"></div>
+							<ul class="dl-menu">
+
+								<!-- /dl-menuwrapper -->
+					</nav>
+				</div>
+			</div>
+			<div class="prs_navi_right_main_wrapper">
+				<div class="prs_slidebar_wrapper">
+					<button class="second-nav-toggler" type="button">
+						<img src="images/header/bars.png" alt="bar_png">
+					</button>
+				</div>
+				<div class="prs_top_login_btn_wrapper">
+					<div class="prs_animate_btn1">
+						<ul>
+							<li>
+
+								<!-------header profile start--->
+
+								<div class="profile-header-wrap">
+									<a class="profile-avatar" href="/people/jmans">
+										<span class="profile-avatar-mask">
+											<img class="profile-avatar-image" alt="jmans"
+												src="http://ih0.redbubble.net/avatar.931631.100x100.jpg" width="60"
+												height="60">
+										</span>
+									</a>
+
+									<!------------------header profiledropdown--->
+
+									<div class="dropdown">
+										<button class="btn  dropdown-toggle dp_btn" type="button"
+											id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+											aria-expanded="false">
+											<i class="fa fa-caret-down dp_btn_i" aria-hidden="true"></i>
+
+										</button>
+										<div class="dropdown-menu menuprofie" aria-labelledby="dropdownMenuButton">
+											<ul style="padding:8px">
+												<li>
+													<a class="dropdown-item" href="u_account.html"><i
+															class="fa fa-home userpic" aria-hidden="true"> Your
+															Account</i></a>
+												</li>
+												<li>
+													<a class="dropdown-item" href="e_batche.html"><i
+															class="fa fa-user userpic" aria-hidden="true">
+															Batches</i></a>
+												</li>
+												<li>
+													<a class="dropdown-item" href="e_bookr.html"><i
+															class="fa fa-book  userpic" aria-hidden="true">
+															Ebook</i></a>
+												</li>
+												<li>
+													<a class="dropdown-item" href="e_addvideos.html"><i
+															class="fa fa-video-camera  userpic" aria-hidden="true"> Add
+															Videos</i></a>
+												</li>
+												<li>
+													<a class="dropdown-item" href="e_productivity.html"><i
+															class="fa fa-star  userpic" aria-hidden="true">
+															Productivity</i></a>
+												</li>
+
+												<li>
+													<a class="dropdown-item" href="e_important_a.html"><i
+															class="fa fa-star  userpic" aria-hidden="true">
+															Important</i></a>
+												</li>
+												<li>
+													<a class="dropdown-item" href="e_libraries.html"><i
+															class="fa fa-star  userpic" aria-hidden="true"> Libraries
+														</i></a>
+												</li>
+												<li>
+													<a class="dropdown-item" href="#" data-toggle="modal"
+														data-target="#myModafri" target="_blank"><i
+															class="fa fa-star  userpic" aria-hidden="true"> invite a
+															Friend </i></a>
+												</li>
+											</ul>
+										</div>
+									</div>
+
+									<!------------------headerprofiledropdown close--->
+
+									<!------------------header profile close--->
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="wallet_i">
+
+					<dl>
+
+						<dd class="textup">10 </dd>
+						<dt><i class="fa fa-google-wallet" aria-hidden="true"></i></dt>
+					</dl>
+				</div>
+
+
+				<div class="product-heading">
+
+					<div class="con">
+						<select>
+							<option>All Categories</option>
+							<option class="dropdown-item">Courses</option>
+							<option>Trending</option>
+							<option>Libraries</option>
+							<option>Important</option>
+							<option>Goal Set</option>
+							<option>Groups</option>
+							<option>Test</option>
+							<option>charity/investors Profile </option>
+						</select>
+						<input type="text" placeholder="Search  , Video" class="inputlength">
+						<button type="submit"><i class="flaticon-tool"></i>
+						</button>
+					</div>
+				</div>
+				<span style="margin-left:-10px;"> <a href="e_notification.html"><i
+							class="fa fa-bell bellicon"></i></a></span>
+			</div>
+
+
+			<div id="mobile-nav" data-prevent-default="true" data-mouse-events="true">
+				<div class="mobail_nav_overlay"></div>
+				<div class="mobile-nav-box">
+					<div class="mobile-logo">
+						<a href="index.html" class="mobile-main-logo" style="color:#fff">
+
+							<img src="images/header/logo_ookul.png" alt="logo" />
+						</a>
+						<a href="#" class="manu-close"><i class="fa fa-times"></i></a>
+					</div>
+					<ul class="mobile-list-nav">
+						<li><a href="index.html"><i class="fa fa-home" aria-hidden="true"> Home</i></a>
+						</li>
+						<li><a href="index.html"><i class="fa fa-pencil-square-o" aria-hidden="true">
+									Trending</i></a>
+						</li>
+						<li><a href="e_course.html"><i class="fa fa-book" aria-hidden="true"> Courses</i></a>
+						</li>
+
+						</li>
+						<li><a href="e_Charity.html"><i class="fa fa-star" aria-hidden="true"> Charity investor</i></a>
+						<li><a href="e_Charity.html"><i class="fa fa-users" aria-hidden="true"> Groups</i></a>
+						</li>
+						<li><a href="e_Test.html"><i class="fa fa-pencil-square-o" aria-hidden="true"> Test</i></a>
+						</li>
+						<li><a href="e_ebook.html"><i class="fa fa-book" aria-hidden="true"> Ebook</i></a>
+						</li>
+						<li><a href="e_contact.html"><i class="fa fa-user" aria-hidden="true"> Contact Us</i></a>
+						</li>
+
+					</ul>
+					<div class="product-heading prs_slidebar_searchbar_wrapper">
+						<div class="con">
+							<select>
+								<option>All Categories</option>
+								<option>Courses</option>
+								<option>Trending</option>
+								<option>Libraries</option>
+								<option>Important</option>
+								<option>Goal Set</option>
+								<option>Groups</option>
+								<option>Test</option>
+								<option>charity/investors Profile </option>
+							</select>
+							<input type="text" placeholder="Search  , Video" class="inputlength1">
+							<button type="submit"><i class="flaticon-tool"></i>
+							</button>
+						</div>
+					</div>
+					<div class="achivement-blog">
+						<ul class="flat-list">
+							<li>
+								<a href="#"> <i class="fa fa-facebook"></i>
+									<h6>Facebook</h6>
+									<span class="counter">12546</span>
+								</a>
+							</li>
+							<li>
+								<a href="#"> <i class="fa fa-twitter"></i>
+									<h6>Twiter</h6>
+									<span class="counter">12546</span>
+								</a>
+							</li>
+							<li>
+								<a href="#"> <i class="fa fa-pinterest"></i>
+									<h6>Pinterest</h6>
+									<span class="counter">12546</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="prs_top_login_btn_wrapper prs_slidebar_searchbar_btn_wrapper">
+						<div class="prs_animate_btn1">
+							<ul>
+								<li><a href="#" class="button button--tamaya" data-text="sign up" data-toggle="modal"
+										data-target="#myModal"><span>sign up</span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- prs navigation End -->
+
+
+
+	<!-- prs content_course End -->
+
+
+	<div class="coursesection2">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-8 col-sm-12 col-sm-12">
+					<div class="coursetext">
+						<!-- <%=error%> -->
+						<h1><%=error.course_name%></h1>
+						<h3><%=error.course_title%></h3>
+						<a href="#myModal1">Created by:<%=error.teacher_name%></a>
+						<br>
+						<!-- <h1>Beginning Project Management: Project Management Level One</h1>
+						<h3>Project Management: Growing a Successful Career as a Project Manager</h3> -->
+						<p class="rating">4.5 <span>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star-o"></i>
+								<i class="fa fa-star-o"></i>
+							</span>
+						</p>
+						<h4>Last updated <%=error.Date%> </h4>
+						<a href="">Wishlist</a>
+						<a href="">Playlist</a>
+						<a href="">Report</a>
+					</div>
+				</div>
+
+
+				<div class="col-lg-4 col-md-4 col-sm-12 col-sm-12">
+					<div class="courseboxcart">
+						<img src="images/content/download.png" class="sdimg">
+						<div class="courseboxcart1">
+							<h1><%=error.course_name%></h1>
+							<p><%=error.course_title%></p>
+							<button id="cart" value="<%=error.course_name%>" onclick="add_cart()" class="addbtn">Add
+								to Cart</button>
+							<button class="buybtn">Buy Now</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="coursesection3">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-7 col-md-7 col-sm-12 col-sm-12">
+					<div class="coursetexts3">
+						<h1>Requirements</h1>
+						<ul>
+							<li>lorem ipsum</li>
+							<li>lorem ipsum</li>
+							<li>lorem ipsum</li>
+							<li>lorem ipsum</li>
+							<li>lorem ipsum</li>
+						</ul>
+					</div>
+					<% if (error) { %>
+					<h1><%=error %></h1>
+					<div class="coursetexts3">
+						<h1>Description</h1>
+						<p><%=error.desciption%></p>
+
+						<!-- <p>Project management is an exciting place to be. Project managers help shape the success of
+							organizations, implement new technology, change the business landscape, and have influence
+							over all areas of a business. Project managers also earn a nice income and often move up the
+							organizational chain into full-time management positions.</p> -->
+					</div>
+					<% } %>
+
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-sm-12">
+					<div class="coursetexts3">
+						<h1>Course Content</h1>
+						<p>22 sections • 152 lectures • 21h 33m total length
+							<span class="top_t"><a href="#">Expend All Section</a></span>
+						</p>
+					</div>
+					<div class="accordian_1">
+						<button class="accordion acc_a"><i class="fa fa-angle-down ic_a" aria-hidden="true"></i>Course
+							Overview
+							<span class="top_t">
+								5 Lectures • 1 Hour
+							</span>
+						</button>
+						<div class="panel panel_a">
+							<p>Lorem ipsum...</p>
+						</div>
+					</div>
+					<% if (error) { %>
+
+					<% var chep = error.course_chepters%>
+					<% chep.forEach(function(data){ %>
+
+
+					<div class="accordian_1">
+
+						<button class="accordion acc_a"><i class="fa fa-angle-down ic_a" aria-hidden="true"></i>
+							<%=data.chepter_name%>
+
+							<span class="top_t">
+								5 Lectures • 1 Hour
+							</span>
+						</button>
+
+						<div class="panel panel_a">
+							<% var les_data = data.chepter_lession %>
+							<% var le_count = 1%>
+							<% var json_str = JSON.stringify(les_data) %>
+
+							<% les_data.forEach(function(lession){%>
+							<% if(lession.url){%>
+
+							<button id="plain" value="<%=lession.url%>" onclick="myFunction()">
+								<p> Lesson <%=le_count%> <span><%=lession.lession_name%></p></span>
+							</button><br>
+							<%}else if(lession.image){%>
+							<button id="plain1" value="<%=lession.image%>" onclick="myFunction()">
+								<!-- <h5><%=lession%></h5> -->
+								<p class="plains"> Lesson <%=le_count%> <span><%=lession.lession_name%></p></span>
+							</button><br>
+							<%}else if(lession.content){%>
+							<button id="plain12" value="<%=lession.content%>" onclick="myFunction()">
+								<!-- <h5><%=lession%></h5> -->
+								<p class="plainf"> Lesson <%=le_count%> <span><%=lession.lession_name%></p></span>
+							</button><br>
+							<%}else{%>
+							<button id="plain" value="<%=lession.url%>" onclick="myFunction()">
+								<p> Lesson <%=le_count%> <span><%=lession.lession_name%></p></span>
+							</button><br>
+							<%}%>
+							<% le_count=le_count+1 %>
+							<%})%>
+
+						</div>
+					</div>
+					<% }) %>
+
+					<% } %>
+
+					<!-- <div class=" accordian_1">
+						<button class="accordion acc_a"><i class="fa fa-angle-down ic_a" aria-hidden="true"></i>Chapter
+							2
+							<span class="top_t">
+								5 Lectures • 1 Hour
+							</span>
+						</button>
+						<div class="panel panel_a">
+							<a href="#">
+								<p><i class="fa fa-play-circle" aria-hidden="true"></i> Lesson 1</p>
+							</a>
+							<a href="#">
+								<p><i class="fa fa-play-circle" aria-hidden="true"></i> Lesson 1</p>
+							</a>
+							<a href="#">
+								<p><i class="fa fa-play-circle" aria-hidden="true"></i> Lesson 1</p>
+							</a>
+
+							<a href="#">
+								<p><i class="fa fa-play-circle" aria-hidden="true"></i> Lesson 1</p>
+							</a>
+
+						</div>
+					</div>
+					<div class="accordian_1">
+						<button class="accordion acc_a"><i class="fa fa-angle-down ic_a" aria-hidden="true"></i>Chapter
+							3
+							<span class="top_t">
+								5 Lectures • 1 Hour
+							</span>
+						</button>
+						<div class="panel panel_a">
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+						</div>
+					</div>
+					<div class="accordian_1">
+						<button class="accordion acc_a"><i class="fa fa-angle-down ic_a" aria-hidden="true"></i>Chapter
+							4
+							<span class="top_t">
+								5 Lectures • 1 Hour
+							</span>
+						</button>
+						<div class="panel panel_a">
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+						</div>
+					</div>
+					<div class="accordian_1">
+						<button class="accordion acc_a"><i class="fa fa-angle-down ic_a" aria-hidden="true"></i>Chapter
+							5
+							<span class="top_t">
+								5 Lectures • 1 Hour
+							</span>
+						</button>
+						<div class="panel panel_a">
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+						</div>
+					</div>
+					<div class="accordian_1">
+						<button class="accordion acc_a"><i class="fa fa-angle-down ic_a" aria-hidden="true"></i>Chapter
+							6
+							<span class="top_t">
+								5 Lectures • 1 Hour
+							</span>
+						</button>
+						<div class="panel panel_a">
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+						</div>
+					</div>
+					<div class="accordian_1">
+						<button class="accordion acc_a"><i class="fa fa-angle-down ic_a" aria-hidden="true"></i>Chapter
+							7
+							<span class="top_t">
+								5 Lectures • 1 Hour
+							</span>
+						</button>
+						<div class="panel panel_a">
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+						</div>
+					</div>
+					<div class="accordian_1">
+						<button class="accordion acc_a"><i class="fa fa-angle-down ic_a" aria-hidden="true"></i>Chapter
+							8
+							<span class="top_t">
+								5 Lectures • 1 Hour
+							</span>
+						</button>
+						<div class="panel panel_a">
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+						</div>
+					</div>
+					<div class="accordian_1">
+						<button class="accordion acc_a"><i class="fa fa-angle-down ic_a" aria-hidden="true"></i>Chapter
+							9
+							<span class="top_t">
+								5 Lectures • 1 Hour
+							</span>
+						</button>
+						<div class="panel panel_a">
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+						</div>
+					</div>
+					<div class="accordian_1">
+						<button class="accordion acc_a"><i class="fa fa-angle-down ic_a" aria-hidden="true"></i>Chapter
+							10
+							<span class="top_t">
+								5 Lectures • 1 Hour
+							</span>
+						</button>
+						<div class="panel panel_a">
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+							<a href="#">
+								<p>Lesson 1</p>
+							</a>
+
+						</div>
+					</div> -->
+
+
+					<div class="accordian_2">
+						<button class="btnsee">Veiw More Section</button>
+					</div>
+
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="accordian_3">
+							<h1>Instructor</h1>
+							<button onclick="teacher_detail()" id="teacher_penal"
+								value="<%=error.teacherEmail%>"><%=error.teacher_name%></button>
+							<p>Head of Data Science, Pierian Data Inc.</p>
+							<div id="myModal1" class="accordian_3">
+								<!-- <button onclick="teacher_detail()" id="teacher_penal" value="<%=error.teacher_name%>"> -->
+									<span>
+										<a>
+											<div class="acc_img">
+												<img src="images/content/vp1.jpg" class="img_acc">
+											</div>
+										</a></span>
+								<!-- </button> -->
+								<div class="acc_text">
+									<p class="col_r"><i class="fa fa-star" aria-hidden="true"></i> 4.6 Instructor
+										Rating
+									</p>
+									<p class="col_r"><i class="fa fa-star" aria-hidden="true"></i> 4.6 659,145
+										Reviews
+									</p>
+									<p class="col_r"><i class="fa fa-users" aria-hidden="true"></i> 4.6 1,996,148
+										Students</p>
+									<p class="col_r"><i class="fa fa-play-circle" aria-hidden="true"></i> 31 Courses
+									</p>
+								</div>
+							</div>
+							<p>Jose Marcial Portilla has a BS and MS in Mechanical Engineering from Santa Clara
+								University and years of experience as a professional instructor and trainer for Data
+								Science and programming. He has publications and patents in various fields such as
+								microfluidics, materials science, and data science technologies. Over the course of
+								his
+								career he has developed a skill set in analyzing data and he hopes to use his
+								experience
+								in teaching and data science to help other people learn the power of programming the
+								ability to analyze data, as well as present the data in clear and beautiful
+								visualizations. Currently he works as the Head of Data Science for Pierian Data.</p>
+						</div>
+					</div>
+
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<h1 class="text_h">Reviews</h1>
+						<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+							<form class="example" action="/action_page.php">
+								<input class="form-control" type="text" placeholder="Search Reviews" aria-label="Search"
+									style="padding: 24px;">
+							</form>
+						</div>
+						<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+							<form action="/action_page.php">
+
+								<select name="cars" id="cars" class="slt">
+									<option value="volvo">All</option>
+									<option value="saab">Saab</option>
+									<option value="opel">Opel</option>
+									<option value="audi">Audi</option>
+								</select>
+
+							</form>
+						</div>
+						<div class="accordian_4">
+							<div class="accr_a">
+								<img src="images/content/c6.jpg" class="img_accr">
+							</div>
+							<div class="accr_b">
+								<h2 class="review_n">Pratik Mahajan</h2>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star-o"></i>
+								<i class="fa fa-star-o"></i>
+
+								<span>a month ago</span>
+								<p class="accr_pt">Pratik MahajanRating: 5.0 out of 5a month agoAmazing course
+									specially
+									for someone who has no idea about Python. This course starts from very basic and
+									slowly goes into advanced topics in a very detailed manner. There are lot of
+									hands-on exercises to assess your learning and real-world projects to apply your
+									knowledge. Thanks for this course.</p>
+								<P>Was this review helpful?</P>
+								<a href="#">
+									<i class="fa fa-thumbs-o-up thumb" aria-hidden="true"></i>
+								</a>
+								<a href="#">
+									<i class="fa fa-thumbs-o-down thumb" aria-hidden="true"></i>
+								</a>
+								<a href="#">Report</a>
+							</div>
+						</div>
+					</div>
+					<div class="accordian_4">
+						<div class="accr_a">
+							<img src="images/content/c6.jpg" class="img_accr">
+						</div>
+						<div class="accr_b">
+							<h2 class="review_n">Pratik Mahajan</h2>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-o"></i>
+							<i class="fa fa-star-o"></i>
+
+							<span>a month ago</span>
+							<p class="accr_pt">Pratik MahajanRating: 5.0 out of 5a month agoAmazing course specially
+								for
+								someone who has no idea about Python. This course starts from very basic and slowly
+								goes
+								into advanced topics in a very detailed manner. There are lot of hands-on exercises
+								to
+								assess your learning and real-world projects to apply your knowledge. Thanks for
+								this
+								course.</p>
+							<P>Was this review helpful?</P>
+							<a href="#">
+								<i class="fa fa-thumbs-o-up thumb" aria-hidden="true"></i>
+							</a>
+							<a href="#">
+								<i class="fa fa-thumbs-o-down thumb" aria-hidden="true"></i>
+							</a>
+							<a href="#">Report</a>
+						</div>
+					</div>
+
+					<div class="accordian_4">
+						<div class="accr_a">
+							<img src="images/content/c6.jpg" class="img_accr">
+						</div>
+						<div class="accr_b">
+							<h2 class="review_n">Pratik Mahajan</h2>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-o"></i>
+							<i class="fa fa-star-o"></i>
+
+							<span>a month ago</span>
+							<p class="accr_pt">Pratik MahajanRating: 5.0 out of 5a month agoAmazing course specially
+								for
+								someone who has no idea about Python. This course starts from very basic and slowly
+								goes
+								into advanced topics in a very detailed manner. There are lot of hands-on exercises
+								to
+								assess your learning and real-world projects to apply your knowledge. Thanks for
+								this
+								course.</p>
+							<P>Was this review helpful?</P>
+							<a href="#">
+								<i class="fa fa-thumbs-o-up thumb" aria-hidden="true"></i>
+							</a>
+							<a href="#">
+								<i class="fa fa-thumbs-o-down thumb" aria-hidden="true"></i>
+							</a>
+							<a href="#">Report</a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+
+
+
+
+
+	</div>
+	</div>
+	</div>
+
+
+
+
+
+	<!-- prs content_course End -->
+
+
+
+	<!-- prs footer Wrapper Start -->
+	<div class="prs_footer_main_section_wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+					<div class="prs_footer_cont1_wrapper prs_footer_cont1_wrapper_1">
+						<a href="index.html">
+							<img src="images/header/logo_ookul.png" alt="logo" />
+						</a>
+
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+					<div class="prs_footer_cont1_wrapper prs_footer_cont1_wrapper_2">
+
+						<ul style="padding-top:0px;">
+							<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_about.html">About Us</a>
+							</li>
+							<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_helpsupport.html">Help & Support</a>
+							</li>
+							<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_faq.html">FAQ</a>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+					<div class="prs_footer_cont1_wrapper prs_footer_cont1_wrapper_3">
+
+						<ul style="padding-top:0px;">
+							<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_contact.html">Contact Us</a>
+							</li>
+							<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_learningtermcondition.html">Term &
+									Condition</a>
+							</li>
+							<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_learningpolicy.html">Privacy
+									Policy</a>
+							</li>
+							<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_learningreturnpolicy.html">Return
+									Policy</a>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+					<div class="prs_footer_cont1_wrapper prs_footer_cont1_wrapper_4">
+						<h2>App available on</h2>
+						<p>Download App Legends of Tomorrow</p>
+						<ul>
+							<li>
+								<a href="#">
+									<img src="images/content/f1.jpg" alt="footer_img">
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<img src="images/content/Paypal_visa_mastercard_amex_logo.png" alt="footer_img">
+								</a>
+							</li>
+
+						</ul>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="prs_bottom_footer_wrapper"> <a href="javascript:" id="return-to-top"><i
+				class="flaticon-play-button"></i></a>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+					<div class="prs_bottom_footer_cont_wrapper">
+						<p> All rights reserved - Design by <a href="http://www.sveltose.in/">SVELTOSE TECHNOLOGIES</a>
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
+					<div class="prs_footer_social_wrapper">
+						<ul>
+							<li><a href="#"><i class="fa fa-facebook"></i></a>
+							</li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a>
+							</li>
+							<li><a href="#"><i class="fa fa-linkedin"></i></a>
+							</li>
+							<li><a href="#"><i class="fa fa-youtube-play"></i></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- prs footer Wrapper End -->
+	<!-- st login wrapper Start -->
+	<div class="modal fade st_pop_form_wrapper" id="myModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<div class="st_pop_form_heading_wrapper float_left">
+					<h3>Log in</h3>
+				</div>
+				<div class="st_profile_input float_left">
+					<label>Email / Mobile Number</label>
+					<input type="text">
+				</div>
+				<div class="st_profile__pass_input st_profile__pass_input_pop float_left">
+					<input type="password" placeholder="Password">
+				</div>
+				<div class="st_form_pop_fp float_left">
+					<h3><a href="#" data-toggle="modal" data-target="#myModa2" target="_blank">Forgot Password?</a></h3>
+				</div>
+				<div class="st_form_pop_login_btn float_left"> <a
+						href="http://webstrot.com/html/moviepro/html/page-1-7_profile_settings.html">LOGIN</a>
+				</div>
+				<div class="st_form_pop_or_btn float_left">
+					<h4>or</h4>
+				</div>
+				<div class="st_form_pop_facebook_btn float_left"> <a href="#" data-toggle="modal"
+						data-target="#myModaotp" target="_blank"> Connect with OTP</a>
+				</div>
+				<div class="st_form_pop_facebook_btn float_left"> <a href="#"> Connect with Facebook</a>
+				</div>
+				<div class="st_form_pop_gmail_btn float_left"> <a href=""> Connect with Google</a>
+				</div>
+				<div class="st_form_pop_signin_btn float_left">
+					<h4>Don’t have an account? <a href="#" data-toggle="modal" data-target="#myModa3"
+							target="_blank">Sign Up</a></h4>
+					<h5>I agree to the <a href="e_learningtermcondition.html">Terms & Conditions</a> & <a
+							href="e_learningpolicy.html">Privacy Policy</a> & <a
+							href="e_learningreturnpolicy.html">Return Policy</a></h5>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade st_pop_form_wrapper" id="myModa2" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<div class="st_pop_form_heading_wrapper st_pop_form_heading_wrapper_fpass float_left">
+					<h3>Forgot Password</h3>
+					<p>We can help! All you need to do is enter your email ID and follow the instructions!</p>
+				</div>
+				<div class="st_profile_input float_left">
+					<label>Email Address</label>
+					<input type="text">
+				</div>
+				<div class="st_form_pop_fpass_btn float_left"> <a href="#">Verify</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade st_pop_form_wrapper" id="myModa3" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<div class="st_pop_form_heading_wrapper float_left">
+					<h3>Sign Up</h3>
+				</div>
+				<div class="st_profile_input float_left">
+					<label>First Name</label>
+					<input type="text">
+					<label>Last Name</label>
+					<input type="text">
+					<label>Email / Mobile Number</label>
+					<input type="text">
+					<label>state</label>
+					<input type="text">
+					<label>City</label>
+					<input type="text">
+					<label>District</label>
+					<input type="text">
+
+				</div>
+				<div class="st_profile__pass_input st_profile__pass_input_pop float_left">
+					<input type="password" placeholder="Password">
+				</div>
+				<div class="st_profile__pass_input st_profile__pass_input_pop float_left">
+					<input type="password" placeholder=" Confirm Password">
+				</div>
+
+
+				<div class="st_form_pop_login_btn float_left"> <a
+						href="http://webstrot.com/html/moviepro/html/page-1-7_profile_settings.html">Submit</a>
+				</div>
+
+
+				<div class="st_form_pop_or_btn float_left">
+					<h4>or</h4>
+				</div>
+				<div class="st_form_pop_facebook_btn float_left"> <a href="#" data-toggle="modal"
+						data-target="#myModaotp" target="_blank"> Connect with OTP</a>
+				</div>
+				<div class="st_form_pop_facebook_btn float_left"> <a href="#"><i class="fab fa-facebook-f"></i> Connect
+						with Facebook</a>
+				</div>
+				<div class="st_form_pop_gmail_btn float_left"> <a href="#"><i class="fab fa-google-plus-g"></i> Connect
+						with Google</a>
+				</div>
+				<div class="st_form_pop_signin_btn st_form_pop_signin_btn_signup float_left">
+					<h5>I agree to the <a href="e_learningtermcondition.html">Terms & Conditions</a> & <a
+							href="e_learningpolicy.html">Privacy Policy</a> & <a
+							href="e_learningreturnpolicy.html">Return Policy</a></h5>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- st login wrapper End -->
+
+	<!-- modal_friendinvite -->
+
+	<div class="modal fade st_pop_form_wrapper" id="myModafri" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<div class="st_pop_form_heading_wrapper float_left">
+					<h3>your friend E-mail ID</h3>
+
+				</div>
+
+
+				<form action="/action_page.php">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<input type="e-mail" id="e-mail" name="e_mail" style="width:100%; padding: 10px;">
+
+					</div>
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<!-- class="btn btn-success"  -->
+						<button data-dismiss="modal" style="margin-top:15px;">Submit</button>
+
+					</div>
+
+
+				</form>
+
+
+			</div>
+		</div>
+	</div>
+	<!-- modal_friendinvite End -->
+
+	<!-- modal_otplogin -->
+
+	<div class="modal fade st_pop_form_wrapper" id="myModaotp" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<div class="st_pop_form_heading_wrapper float_left">
+					<h3>Enter OTP Code</h3>
+
+				</div>
+
+				<form action="/action_page.php">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<input id="partitioned" type="text" maxlength="4" />
+
+						<div class="col-md-12 col-sm-12 col-xs-12">
+
+							<button class="btn btn-success" data-dismiss="modal"
+								style="margin-top:15px;">Submit</button>
+							<button class="btn btn-success" data-dismiss="modal" style="margin-top:15px;">Re send
+							</button>
+
+						</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- modal_otplogin End -->
+
+	<!--main js file start-->
+	<script src="js/jquery_min.js"></script>
+	<script src="js/modernizr.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/owl.carousel.js"></script>
+	<script src="js/jquery.dlmenu.js"></script>
+	<script src="js/jquery.sticky.js"></script>
+	<script src="js/jquery.nice-select.min.js"></script>
+	<script src="js/jquery.magnific-popup.js"></script>
+	<script src="js/jquery.bxslider.min.js"></script>
+	<script src="js/venobox.min.js"></script>
+	<script src="js/smothscroll_part1.js"></script>
+	<script src="js/smothscroll_part2.js"></script>
+	<script src="js/plugin/rs_slider/jquery.themepunch.revolution.min.js"></script>
+	<script src="js/plugin/rs_slider/jquery.themepunch.tools.min.js"></script>
+	<script src="js/plugin/rs_slider/revolution.addon.snow.min.js"></script>
+	<script src="js/plugin/rs_slider/revolution.extension.actions.min.js"></script>
+	<script src="js/plugin/rs_slider/revolution.extension.carousel.min.js"></script>
+	<script src="js/plugin/rs_slider/revolution.extension.kenburn.min.js"></script>
+	<script src="js/plugin/rs_slider/revolution.extension.layeranimation.min.js"></script>
+	<script src="js/plugin/rs_slider/revolution.extension.migration.min.js"></script>
+	<script src="js/plugin/rs_slider/revolution.extension.navigation.min.js"></script>
+	<script src="js/plugin/rs_slider/revolution.extension.parallax.min.js"></script>
+	<script src="js/plugin/rs_slider/revolution.extension.slideanims.min.js"></script>
+	<script src="js/plugin/rs_slider/revolution.extension.video.min.js"></script>
+	<script src="js/custom.js"></script>
+	<!--main js file end-->
+	<!-- js for accordians course 31-10_2020 -->
+	<script type="text/javascript">
+		var acc = document.getElementsByClassName("accordion");
+		var i;
+
+		for (i = 0; i < acc.length; i++) {
+			acc[i].addEventListener("click", function () {
+				/* Toggle between adding and removing the "active" class,
+				to highlight the button that controls the panel */
+				this.classList.toggle("active");
+
+				/* Toggle between hiding and showing the active panel */
+				var panel = this.nextElementSibling;
+				if (panel.style.display === "block") {
+					panel.style.display = "none";
+				} else {
+					panel.style.display = "block";
+				}
+			});
+		}
+	</script>
+	<!-- js for accordians course 31-10_2020 CLOSE -->
+</body>
+
+
+<!-- Mirrored from www.webstrot.com/html/moviepro/html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 18 Sep 2020 06:47:07 GMT -->
+
+</html>

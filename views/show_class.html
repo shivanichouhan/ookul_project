@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>jQuery Get Text Content of an Element</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+$(document).ready(function(){
+    // Show text content of plain paragraph
+    $(".show-plain-text").click(function(){
+        alert($(".plain").text());
+    });
+    
+    // Show text content of formatted paragraph
+    $(".show-formatted-text").click(function(){
+        alert($(".formatted").text());
+    });
+});
+</script>
+</head> 
+<body>
+    <p class="plain">The quick brown fox jumps over the lazy dog.</p>
+    <p class="formatted">The <strong>quick</strong> brown fox <em><sup>jumps</sup></em> over the <a href="#">lazy dog</a>.</p>
+    <button type="button" class="show-plain-text">Get Plain Text</button>
+    <button type="button" class="show-formatted-text">Get Formatted Text</button>
+</body>
+</html>
+
+
+<%=chepter.chepter_name%>
+
+<%if(error){%>
+    <h1><%=error.teacher_name%></h1>
+<% var chep = error.course_chepters%>
+    <% chep.forEach(function(chepter){%>
+
+
+    

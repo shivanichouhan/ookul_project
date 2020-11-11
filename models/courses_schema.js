@@ -14,29 +14,31 @@ const course_schema = new schema({
         lowercase: true,
         unique:true
     },
-    title: {
+    lession_description: {
         type: String,
         required: true
     },
-    lession_category: {
-        type: String,
-        required: true,
-        lowercase: true,
-
-        enum: ["public", "private"]
-    },
-    description: {
-        type: String,
-        required: true
-    },
-    course_type: {
-        type: String,
-        required: true,
-        enum: ["paid", "free"]
-    },
-    image: { 
+    lesstion_Image:{
         data: Buffer, 
         contentType: String
+    },lession_video:{
+        type:String
+    },lession_content:{
+        type:String
+    },
+    // lession_category: {
+    //     type: String,
+    //     required: true,
+    //     lowercase: true,
+
+    //     enum: ["public", "private"]
+    // },
+   
+   
+  
+    tags:{
+        type: Map,
+        of: String
     },
     teacherEmail: {
         type: String,

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        // function myFunction() {
+        $(document).ready(function () {
+            var elmId = $("#course_1").val();
+            console.log("shivani")
+            console.log(elmId, "*****************")
+            alert(elmId);
+            // var a = document.getElementById("course_1").value;
+            // alert(a)
+            // console.log(typeof(a))
+            const course_data = {}
+            course_data.course_name = elmId
+            $.post("http://localhost:3000/user_course/course_data",
+                course_data,
+                function (data, status) {
+                    alert("Data: " + data + "\nStatus: " + status);
+                });
+            // });
+        });
+		// }
+    </script>
+</head>
+
+<body>
+    <html>shivani
+
+    </html>
+    <ul class="todo-list">
+        <!-- <% todoTasks.forEach(details => { %> -->
+        <li class="todo-list-item">
+            <!-- <div class="todo-list-item-name"><%= details.content %></div> -->
+            <!-- <a href="/edit/<%= details._id %>" class="edit"> -->
+            <span class="fas fa-edit"></span>
+            </a>
+            <p id="<%=data%>">shivi</p>
+            <!-- <a href="/remove/<%= details._id %>" class="remove">
+                <span class="fas fa-times"></span>
+            </a> -->
+        </li>
+    </ul>
+</body>
+
+</html>

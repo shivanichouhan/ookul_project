@@ -1,0 +1,120 @@
+<html>
+
+<head>
+    <title>jsonp test</title>
+    <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function () {
+            // $.post('/email', { email: 'howareyou@xx.com' })
+
+            $('#select_link').click(function (e) {
+                alert("shoooooooooooooooooo")
+                e.preventDefault();
+                console.log('select_link clicked');
+
+                /*$.ajax({
+                   dataType: 'jsonp',
+                   data: "data=yeah",						
+                   jsonp: 'callback',
+                   url: 'http://localhost:3000/endpoint?callback=?',						
+                   success: function(data) {
+                       console.log('success');
+                       console.log(JSON.stringify(data));
+                   }
+               });*/
+                    var data = {};
+                    data.title = "title";
+                    data.message = "message";
+                    // var a = JSON.parse(data)
+                    alert("&&&&&&&&&&&&&&&")
+                    $.ajax({
+                        method: 'POST',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        url: 'http://localhost:3000/endpoint',
+                        success: function (data) {
+                            alert(data)
+                            console.log('success');
+                            // alert('Successfully uploaded : ' + " and received " + JSON.parse(data).message);
+                            // console.log(JSON.stringify(data));
+                        }, error: function (textStatus, err) {
+                            //show error message
+                            // alert('Successfully uploaded : ' + " and received " + JSON.parse(data).message)
+                            alert('text status ' + textStatus + ', err ' + err)
+                        }
+                    }).done((res)=>{
+                        if (res.success) {
+                            console.log('id from ajax call is', res);
+                            window.location.reload();
+                        } else {
+                            console.log('error...ajax');
+                        }
+                    })
+
+
+
+                // $('.todo-list-group').on('click', '#delete-btn', function (event) {
+                //     event.preventDefault();
+                //     const id = $(this).attr('data-id');
+                //     $.ajax({
+                //         url: '/api/delete/' + id,
+                //         method: 'DELETE',
+                //         data: { id: id }
+                //     }).done(function (res) {
+                //         if (res.success) {
+                //             console.log('id from ajax call is', res);
+                //             window.location.reload();
+                //         } else {
+                //             console.log('error...ajax');
+                //         }
+                //     });
+
+
+                    /*$.ajax('http://localhost:3000/endpoint', {
+                            type: 'POST',
+                            data: JSON.stringify(data),
+                            contentType: 'application/json',
+                            success: function() { console.log('success');},
+                            error  : function() { console.log('error');}
+                    });*/
+                });
+            });
+    </script>
+</head>
+
+<body>
+    <button>
+        <div id="select_div"><a href="#" id="select_link">Test</a></div>
+    </button>
+</body>
+
+</html>
+
+<!-- 
+$('.todo-list-group').on('click', '#delete-btn', function(event) {
+    event.preventDefault();
+    const id = $(this).attr('data-id');
+    $.ajax({
+        url: '/api/delete/' + id,
+        method: 'DELETE',
+        data: { id: id }
+        }).done(function(res) {
+            if (res.success) {
+            console.log('id from ajax call is', res);
+            window.location.reload();
+        } else {
+            console.log('error...ajax');
+            }
+});
+
+/// Back-end: Node.js + Mongoose (MongoDB)
+router.delete('/api/delete/:id', (req, res) => {
+    Todo.deleteOne({ _id: req.params.id })
+    .then(() => {
+        res.json({ success: true });
+    })
+    .catch(err => {
+        res.status.json({ err: err });
+    });
+}); -->

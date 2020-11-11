@@ -21,6 +21,10 @@ const {
 router.use(bodyParser.json());
 router.use(cookieParser());
 
+//google celender API ID -
+// 584600617439-t5squ8169219l242aqqldsg65bpopcga.apps.googleusercontent.com
+
+// CLIENT SECERET = UbPjv0rrsCjEIL8S7jMN6_A_
 
 router.post("/block_student", (req, res, next) => {
     const email = req.body.email;

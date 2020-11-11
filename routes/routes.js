@@ -35,7 +35,9 @@ router.delete('/user/:userId',urlencodedParser, userController.deleteUser);
 router.post('/insertCourse',urlencodedParser,userController.add_courses)
 router.get("/admin/allcourses",userController.get_all_courses)
 router.post('/courses',userController.user_course)
-router.post('/category_courses',userController.get_courses_by_category)
+router.post('/category_courses',userController.get_courses_by_category);
+router.post('/admin/add/course',userController.add_course_by_admin)
+router.post("/admin/add_course",userController.course_added)
 // router.get('/courses',userController.get_all_courses)
 router.get("/index",(req,res)=>{
     res.sendFile(path.join(__dirname + '/view/index1.html'));
@@ -48,9 +50,24 @@ router.get('/get_cart',user_data.get_cart)
 router.post('/get_libraries',user_data.search_library)
 router.get('/trending_course',user_data.trending_filter)
 router.post('/price_filter',user_data.price_filter)
+router.post('/user/subscribe',user_data.user_subscribe);
+router.get('/users/teacher/subscriber',user_data.for_user_subscribe_list)
+
+router.get('/user_details/todos',user_data.add_todo)
+router.get("/example",user_data.example)
+router.post("/teacher/add_course",user_data.add_courses_by_teacher)
 // router.post('/social_sharing',user_data.sharing_to_friend)
 
 // router.post("/reset_pass",urlencodedParser,userController.ResetPassword)
+
+
+router.post("/create_exam_paper",(req,res,next)=>{
+  let post = req.body;
+  const a = JSON.stringify(post)
+  console.log(post)
+  res.send("data")
+
+})
 
 
 passport.use(
@@ -77,9 +94,6 @@ router.get("/auth/facebook/login/callback",passport.authenticate("facebook",{
 
 
 module.exports = router
-
-
-
 
 
 
@@ -112,3 +126,11 @@ module.exports = router
 //     res.status(201).send("good work")
 //   })
 // module.exports = router;
+
+
+
+
+
+
+
+

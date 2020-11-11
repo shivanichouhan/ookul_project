@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>jQuery Replace innerHTML of a Div</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        $("#pageTitle").html("<h1>Hello, World!</h1>");
+    });
+});
+</script>
+<script>
+    
+    $( function() {
+  var from = $( "#fromDate" )
+      .datepicker({
+        dateFormat: "yy-mm-dd",
+        changeMonth: true
+      })
+      .on( "change", function() {
+        to.datepicker( "option", "minDate", getDate( this ) );
+      }),
+    to = $( "#toDate" ).datepicker({
+      dateFormat: "yy-mm-dd",
+      changeMonth: true
+    })
+    .on( "change", function() {
+      from.datepicker( "option", "maxDate", getDate( this ) );
+    });
+
+  function getDate( element ) {
+    var date;
+    var dateFormat = "yy-mm-dd";
+    try {
+      date = $.datepicker.parseDate( dateFormat, element.value );
+    } catch( error ) {
+      date = null;
+    }
+
+    return date;
+  }
+});
+</script>
+</head>
+<body>
+    <p>Date: <input type="text" id="fromDate"> TO <input type="text" id="toDate"></p>
+
+    <!-- <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=Asia%2FKolkata&amp;src=NGJ2MjF0b2sxMTcxazAybjFrMWprcWxwYThAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23F09300" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe> -->
+    <div id="pageTitle">
+        <p><b>Click the following button to replace me.</b><p>
+    </div>
+    <button type="button">Replace HTML</button>
+</body>
+</html>

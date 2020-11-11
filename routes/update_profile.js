@@ -1,4 +1,18 @@
-var imgModel = require("../models/user_schema")
+// var imgModel = require("../models/user_schema")
+
+const mongoose = require("mongoose")
+const schema = mongoose.Schema
+require('mongoose-type-url')
+const course_image = new schema({
+    image: { 
+        data: Buffer, 
+        contentType: String
+    }
+});
+
+// const a = require('./uploads')
+const imgModel = mongoose.model('Images',course_image)
+
 var express = require("express")
 const router = express.Router()
 const LocalStorage = require('node-localstorage').LocalStorage;
@@ -6,7 +20,7 @@ const LocalStorage = require('node-localstorage').LocalStorage;
 var fs = require('fs'); 
 var path = require('path'); 
 var multer = require('multer'); 
-const mongoose = require("mongoose")
+// const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 var urlencodedParser = bodyParser.urlencoded({
   extended: false
@@ -27,7 +41,7 @@ var upload = multer({ storage: storage });
 
 
 // Uploading the image 
-router.post('/image_upload', upload.single('filename'), (req, res, next) => { 
+router.post('/image_uploads', upload.single('filenames'), (req, res, next) => { 
     var obj = { 
         image: { 
             data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)), 
