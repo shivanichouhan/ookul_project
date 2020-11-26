@@ -25,7 +25,10 @@ const PostSchema = new schema({
     opetion3:[],
     opetion4:[],
     opetion5:[],
-    right_answer:[]
+    right_answer:[],
+    category:[],
+    Course_topic:[],
+    exam_questions:[]
 })
 
 PostSchema.plugin(mongoosePaginate)

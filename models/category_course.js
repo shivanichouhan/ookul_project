@@ -4,6 +4,7 @@ var Float = require('mongoose-float').loadType(mongoose);
 
 
 
+
 const chepters_lession = new schema({
     chepter_number: {
         type: Number,
@@ -76,6 +77,8 @@ const courses = new schema({
         contentType: String,
         default: ''
     },courseType:{
+        type:String
+    },course_category_by_type:{
         type:String
     }
 

@@ -51,6 +51,8 @@ function randomString(len, charSet) {
 }
 
 
+
+
 exports.signup = async (req, res, next) => {
     try {
         console.log(req.body, "-------")
@@ -114,12 +116,7 @@ exports.signup = async (req, res, next) => {
     }
 }
 
-var auth = function (req, res, next) {
-    if (req.session && req.session.email === "admin123@gmail.com" && req.session.admin)
-        return next();
-    else
-        return res.sendStatus(401);
-};
+
 
 exports.login = async (req, res, next) => {
     try {
@@ -272,13 +269,6 @@ exports.add_courses = async (req, res, next) => {
                         })
 
                 })
-          
-
-
-
-
-
-
         }
     } catch (error) {
         next(error)

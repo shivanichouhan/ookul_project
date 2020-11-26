@@ -30,6 +30,153 @@
 	<link rel="shortcut icon" type="image/png" href="images/header/favicon.ico" />
 	<script src='../../../google_analytics_auto.js'></script>
 </head>
+<style>
+	.courses {
+		color: #fff;
+	}
+</style>
+<script>
+	function myFunction() {
+		$(document).ready(function () {
+			$("button").click(function () {
+				var title = $(this).attr("value");
+				console.log(title)
+				alert(title, "&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+				var elmId = $("#mppscu1").val();
+				console.log(elmId)
+				// alert(elmId);
+				const course_data = {};
+				course_data.course_name = title
+				console.log(course_data)
+				var dataSend = $.ajax({
+					method: "POST",
+					url: "http://localhost:3000/course_data",
+					data: course_data,
+					success: function (data) {
+						// alert(data)
+						if (data) {
+							window.location.href = "http://localhost:3000/all_courses";
+						} else {
+							alert("error")
+						}
+					}
+				});
+			});
+
+
+		});
+	}
+</script>
+<script>
+	filterSelection("all")
+	function filterSelection(c) {
+		var x, i;
+		x = document.getElementsByClassName("filterDiv");
+		if (c == "all") c = "";
+		for (i = 0; i < x.length; i++) {
+			w3RemoveClass(x[i], "show");
+			if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+		}
+	}
+
+	function w3AddClass(element, name) {
+		var i, arr1, arr2;
+		arr1 = element.className.split(" ");
+		arr2 = name.split(" ");
+		for (i = 0; i < arr2.length; i++) {
+			if (arr1.indexOf(arr2[i]) == -1) { element.className += " " + arr2[i]; }
+		}
+	}
+
+	function w3RemoveClass(element, name) {
+		var i, arr1, arr2;
+		arr1 = element.className.split(" ");
+		arr2 = name.split(" ");
+		for (i = 0; i < arr2.length; i++) {
+			while (arr1.indexOf(arr2[i]) > -1) {
+				arr1.splice(arr1.indexOf(arr2[i]), 1);
+			}
+		}
+		element.className = arr1.join(" ");
+	}
+
+	// Add active class to the current button (highlight it)
+	var btnContainer = document.getElementById("myBtnContainer");
+	var btns = btnContainer.getElementsByClassName("btn");
+	for (var i = 0; i < btns.length; i++) {
+		btns[i].addEventListener("click", function () {
+			var current = document.getElementsByClassName("active");
+			current[0].className = current[0].className.replace(" active", "");
+			this.className += " active";
+		});
+	}
+</script>
+<script>
+	function myFunctionFUN() {
+		var input, filter, ul, li, a, i, txtValue;
+		input = document.getElementById("myInput");
+		filter = input.value.toUpperCase();
+		ul = document.getElementById("course");
+		li = ul.getElementsByTagName("li");
+		for (i = 0; i < li.length; i++) {
+			a = li[i].getElementsByTagName("a")[0];
+			txtValue = a.textContent || a.innerText;
+			if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				li[i].style.display = "";
+			} else {
+				li[i].style.display = "none";
+			}
+		}
+	}
+</script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#ddlCountry,#ddlAge").on("change", function () {
+			var country = $('#ddlCountry').find("option:selected").val();
+			console.log(country)
+			alert(country)
+			var age = $('#ddlAge').find("option:selected").val();
+			alert(age)
+			SearchData(country, age)
+		});
+	});
+	function SearchData(country, age) {
+		if (country.toUpperCase() == 'ALL' && age.toUpperCase() == 'ALL') {
+			$('#table11 tbody tr').show();
+		} else {
+			$('#table11 tbody tr:has(td)').each(function () {
+				var rowCountry = $.trim($(this).find('td:eq(8)').text());
+				alert(rowCountry, "**************")
+				var rowAge = $.trim($(this).find('td:eq(9)').text());
+				alert(rowAge, "&&&&&&&&&&&&&&");
+				if (country.toUpperCase() != 'ALL' && age.toUpperCase() != 'ALL') {
+					if (rowCountry.toUpperCase() == country.toUpperCase() && rowAge == age) {
+						$(this).show();
+					} else {
+						$(this).hide();
+					}
+				} else if ($(this).find('td:eq(9)').text() != '' || $(this).find('td:eq(10)').text() != '') {
+					if (country != 'all') {
+						if (rowCountry.toUpperCase() == country.toUpperCase()) {
+							$(this).show();
+						} else {
+							$(this).hide();
+						}
+					}
+					if (age != 'all') {
+						if (rowAge == age) {
+							$(this).show();
+						}
+						else {
+							$(this).hide();
+						}
+					}
+				}
+
+			});
+		}
+	}
+</script>
 
 <body>
 	<!-- preloader Start -->
@@ -353,7 +500,7 @@
 										<div class="dropdown-menu menuprofie" aria-labelledby="dropdownMenuButton">
 											<ul style="padding:8px">
 												<li>
-													<a class="dropdown-item" href="u_account.html"><i
+													<a class="dropdown-item" href="/update_account"><i
 															class="fa fa-home userpic" aria-hidden="true"> Your
 															Account</i></a>
 												</li>
@@ -368,19 +515,19 @@
 															Ebook</i></a>
 												</li>
 												<li>
-													<a class="dropdown-item" href="ookul_addcourse.html">
-														<i class="fa fa-book userpic" aria-hidden="true">Add Course</i> 
+													<a class="dropdown-item" href="ookul_courseupload.html">
+														<i class="fa fa-book userpic" aria-hidden="true">Add Course</i>
 													</a>
 												</li>
 												<li>
-													<a class="dropdown-item" href="e_addvideos.html"><i
+													<a class="dropdown-item" href="ookulexam_oo.html"><i
 															class="fa fa-video-camera  userpic" aria-hidden="true"> Add
-															Videos</i></a>
+															Questions</i></a>
 												</li>
 												<li>
-													<a class="dropdown-item" href="e_productivity.html"><i
+													<a class="dropdown-item" href="/show_questions"><i
 															class="fa fa-star  userpic" aria-hidden="true">
-															Productivity</i></a>
+															Create Exam</i></a>
 												</li>
 
 												<li>
@@ -415,8 +562,8 @@
 
 					<dl>
 
-						<dd class="textup">10 </dd>
-						<dt><a href="ookul_cheakout1.html"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+						<dd class="textup"><%=data.cart.cart.length%> </dd>
+						<dt><a href="/cart_product"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 						</dt>
 					</dl>
 				</div>
@@ -436,7 +583,7 @@
 							<option>Test</option>
 							<option>charity/investors Profile </option>
 						</select>
-						<input type="text" placeholder="Search  , Video" class="inputlength">
+						<input type="text" placeholder="Search  , Video" class="inputlength" id="myInput" onkeyup="myFunctionFUN()">
 						<button type="submit"><i class="flaticon-tool"></i>
 						</button>
 					</div>
@@ -490,7 +637,8 @@
 								<option>Test</option>
 								<option>charity/investors Profile </option>
 							</select>
-							<input type="text" placeholder="Search  , Video" class="inputlength1">
+							<input type="text" placeholder="Search  , Video" id="myInput" onkeyup="myFunctionFUN()"
+								class="inputlength1">
 							<button type="submit"><i class="flaticon-tool"></i>
 							</button>
 						</div>
@@ -543,731 +691,762 @@
 					</div>
 				</div>
 
-
+				<%const course = data.course%>
+				<% course.forEach(function(course_images){ %>
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_second">
-					<div class="prs_upcom_movie_box_wrapper">
-						<div class="prs_upcom_movie_img_box">
-							<img src="images/content/up1.jpg" alt="movie_img" />
-							<div class="prs_upcom_movie_img_overlay"></div>
-							<div class="prs_upcom_movie_img_btn_wrapper">
+					<ul id="course" >
+						<li>
+							<div class="prs_upcom_movie_box_wrapper">
+								<div class="prs_upcom_movie_img_box">
 
-							</div>
-						</div>
-						<div class="prs_upcom_movie_content_box">
-							<div class="prs_upcom_movie_content_box_inner">
-								<h1 style="font-size:25px;color:#fff;">Lorem Ipsum<a href="#"></a></h1>
-								<button type="button" class="btn btn-outline-primary tagbtn">#</button>
-								<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
-								<a href="#">
-									<p>By:</p>
-								</a>
-								<a href="#">
+									<img src="data:uploads/<%=course_images.course_image.contentType%>;base64,<%=course_images.course_image.data.toString('base64')%>"
+										alt="movie_img" />
+									<div class="prs_upcom_movie_img_overlay"></div>
+									<div class="prs_upcom_movie_img_btn_wrapper">
+									</div>
+								</div>
+								<div class="prs_upcom_movie_content_box">
+									<div class="prs_upcom_movie_content_box_inner">
+										<!-- <li> -->
+										<h1 style="font-size:25px;color:#fff;"><a href="#"></a></h1>
+										<button type="button" class="btn btn-outline-primary tagbtn">#</button>
+										<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
+										<a href="#">
+											<p>By:</p>
+										</a>
+										<!-- <a href="#">
 									<p>0 views</p>
-								</a>
-								<a href="#">
-									<p>10/2/2020</p>
-								</a>
-							</div>
-							<div class="prs_upcom_movie_content_box_inner_icon">
+								</a> -->
 
-								<div class="dropdown">
+										<button id="mppscu1" class="courses" value="<%=course_images.course_name%>"
+											onclick="myFunction()">
+											<h1>
+												<%=course_images.course_name%>
+											</h1>
+										</button>
+										<br>
+										<button id="mppscu1" class="courses" value="<%=course_images.course_name%>"
+											onclick="myFunction()">
+											<%=course_images.teacherName%>
+										</button><br>
+										<button id="mppscu1" class="courses" value="<%=course_images.course_name%>"
+											onclick="myFunction()">rating:</button><br>
+										<button id="mppscu1" class="courses" value="<%=course_images.course_name%>"
+											onclick="myFunction()"">Rs<%=course_images.course_price%></button>
+									<button id=" mppscu1" class="courses" value="<%=course_images.course_name%>" onclick="myFunction()">
+											<p><%=course_images.start_date%></p>
+										</button>
+										<!-- </li> -->
+
+									</div>
+									<div class="prs_upcom_movie_content_box_inner_icon">
+										<!-- <div class="dropdown">
 									<button class="btn btn-secondary dropdown-toggle iconbtn" type="button"
 										id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
 										aria-expanded="false">
 										<i class="fa fa-ellipsis-v" aria-hidden="true" style="font-size:24px;"></i>
-
-									</button>
-									<div class="dropdown-menu  dropmenuset" aria-labelledby="dropdownMenuButton">
-										<ul>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Report</a>
-											</li>
-											<li class="dropmenutext">
+									</button> -->
+										<!-- <div class="dropdown-menu  dropmenuset" aria-labelledby="dropdownMenuButton"> -->
+										<!-- <ul> -->
+										<!-- <li class="dropmenutext"> -->
+										<!-- <a class="dropdown-item" href="#">Report</a> -->
+										<!-- </li> -->
+										<!-- <li class="dropmenutext">
 												<a class="dropdown-item" href="#">Wishlist</a>
-											</li>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Playlist</a>
-											</li>
-										</ul>
+											</li> -->
+										<!-- <li class="dropmenutext"> -->
+										<!-- <a class="dropdown-item" href="#">Playlist</a> -->
+										<!-- </li> -->
+										<!-- </ul> -->
+										<!-- </div> -->
+										<!-- </div> -->
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<%})%>
+				<!-- <div class=" col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_second">
+							<div class="prs_upcom_movie_box_wrapper">
+								<div class="prs_upcom_movie_img_box">
+									<img src="images/content/up1.jpg" alt="movie_img" />
+									<div class="prs_upcom_movie_img_overlay"></div>
+									<div class="prs_upcom_movie_img_btn_wrapper">
+
+									</div>
+								</div>
+								<div class="prs_upcom_movie_content_box">
+									<div class="prs_upcom_movie_content_box_inner">
+										<h1 style="font-size:25px;color:#fff;">Lorem Ipsum<a href="#"></a></h1>
+										<button type="button" class="btn btn-outline-primary tagbtn">#</button>
+										<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
+										<a href="#">
+											<p>By:</p>
+										</a>
+										<a href="#">
+											<p>0 views</p>
+										</a>
+										<a href="#">
+											<p>10/2/2020</p>
+										</a>
+									</div>
+									<div class="prs_upcom_movie_content_box_inner_icon">
+
+										<div class="dropdown">
+											<button class="btn btn-secondary dropdown-toggle iconbtn" type="button"
+												id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">
+												<i class="fa fa-ellipsis-v" aria-hidden="true"
+													style="font-size:24px;"></i>
+
+											</button>
+											<div class="dropdown-menu  dropmenuset"
+												aria-labelledby="dropdownMenuButton">
+												<ul>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Report</a>
+													</li>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Wishlist</a>
+													</li>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Playlist</a>
+													</li>
+												</ul>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
 
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_second">
-					<div class="prs_upcom_movie_box_wrapper">
-						<div class="prs_upcom_movie_img_box">
-							<img src="images/content/up1.jpg" alt="movie_img" />
-							<div class="prs_upcom_movie_img_overlay"></div>
-							<div class="prs_upcom_movie_img_btn_wrapper">
 
-							</div>
-						</div>
-						<div class="prs_upcom_movie_content_box">
-							<div class="prs_upcom_movie_content_box_inner">
-								<h1 style="font-size:25px;color:#fff;">Lorem Ipsum<a href="#"></a></h1>
-								<button type="button" class="btn btn-outline-primary tagbtn">#</button>
-								<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
-								<a href="#">
-									<p>By:</p>
-								</a>
-								<a href="#">
-									<p>0 views</p>
-								</a>
-								<a href="#">
-									<p>10/2/2020</p>
-								</a>
-							</div>
-							<div class="prs_upcom_movie_content_box_inner_icon">
+						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_second">
+							<div class="prs_upcom_movie_box_wrapper">
+								<div class="prs_upcom_movie_img_box">
+									<img src="images/content/up1.jpg" alt="movie_img" />
+									<div class="prs_upcom_movie_img_overlay"></div>
+									<div class="prs_upcom_movie_img_btn_wrapper">
 
-								<div class="dropdown">
-									<button class="btn btn-secondary dropdown-toggle iconbtn" type="button"
-										id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-										aria-expanded="false">
-										<i class="fa fa-ellipsis-v" aria-hidden="true" style="font-size:24px;"></i>
+									</div>
+								</div>
+								<div class="prs_upcom_movie_content_box">
+									<div class="prs_upcom_movie_content_box_inner">
+										<h1 style="font-size:25px;color:#fff;">Lorem Ipsum<a href="#"></a></h1>
+										<button type="button" class="btn btn-outline-primary tagbtn">#</button>
+										<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
+										<a href="#">
+											<p>By:</p>
+										</a>
+										<a href="#">
+											<p>0 views</p>
+										</a>
+										<a href="#">
+											<p>10/2/2020</p>
+										</a>
+									</div>
+									<div class="prs_upcom_movie_content_box_inner_icon">
 
-									</button>
-									<div class="dropdown-menu  dropmenuset" aria-labelledby="dropdownMenuButton">
-										<ul>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Report</a>
-											</li>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Wishlist</a>
-											</li>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Playlist</a>
-											</li>
-										</ul>
+										<div class="dropdown">
+											<button class="btn btn-secondary dropdown-toggle iconbtn" type="button"
+												id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">
+												<i class="fa fa-ellipsis-v" aria-hidden="true"
+													style="font-size:24px;"></i>
+
+											</button>
+											<div class="dropdown-menu  dropmenuset"
+												aria-labelledby="dropdownMenuButton">
+												<ul>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Report</a>
+													</li>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Wishlist</a>
+													</li>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Playlist</a>
+													</li>
+												</ul>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
 
 
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_second">
-					<div class="prs_upcom_movie_box_wrapper">
-						<div class="prs_upcom_movie_img_box">
-							<img src="images/content/up1.jpg" alt="movie_img" />
-							<div class="prs_upcom_movie_img_overlay"></div>
-							<div class="prs_upcom_movie_img_btn_wrapper">
+						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_second">
+							<div class="prs_upcom_movie_box_wrapper">
+								<div class="prs_upcom_movie_img_box">
+									<img src="images/content/up1.jpg" alt="movie_img" />
+									<div class="prs_upcom_movie_img_overlay"></div>
+									<div class="prs_upcom_movie_img_btn_wrapper">
 
-							</div>
-						</div>
-						<div class="prs_upcom_movie_content_box">
-							<div class="prs_upcom_movie_content_box_inner">
-								<h1 style="font-size:25px;color:#fff;">Lorem Ipsum<a href="#"></a></h1>
-								<button type="button" class="btn btn-outline-primary tagbtn">#</button>
-								<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
-								<a href="#">
-									<p>By:</p>
-								</a>
-								<a href="#">
-									<p>0 views</p>
-								</a>
-								<a href="#">
-									<p>10/2/2020</p>
-								</a>
-							</div>
-							<div class="prs_upcom_movie_content_box_inner_icon">
+									</div>
+								</div>
+								<div class="prs_upcom_movie_content_box">
+									<div class="prs_upcom_movie_content_box_inner">
+										<h1 style="font-size:25px;color:#fff;">Lorem Ipsum<a href="#"></a></h1>
+										<button type="button" class="btn btn-outline-primary tagbtn">#</button>
+										<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
+										<a href="#">
+											<p>By:</p>
+										</a>
+										<a href="#">
+											<p>0 views</p>
+										</a>
+										<a href="#">
+											<p>10/2/2020</p>
+										</a>
+									</div>
+									<div class="prs_upcom_movie_content_box_inner_icon">
 
-								<div class="dropdown">
-									<button class="btn btn-secondary dropdown-toggle iconbtn" type="button"
-										id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-										aria-expanded="false">
-										<i class="fa fa-ellipsis-v" aria-hidden="true" style="font-size:24px;"></i>
+										<div class="dropdown">
+											<button class="btn btn-secondary dropdown-toggle iconbtn" type="button"
+												id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">
+												<i class="fa fa-ellipsis-v" aria-hidden="true"
+													style="font-size:24px;"></i>
 
-									</button>
-									<div class="dropdown-menu  dropmenuset" aria-labelledby="dropdownMenuButton">
-										<ul>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Report</a>
-											</li>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Wishlist</a>
-											</li>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Playlist</a>
-											</li>
-										</ul>
+											</button>
+											<div class="dropdown-menu  dropmenuset"
+												aria-labelledby="dropdownMenuButton">
+												<ul>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Report</a>
+													</li>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Wishlist</a>
+													</li>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Playlist</a>
+													</li>
+												</ul>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
 
+						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_second">
+							<div class="prs_upcom_movie_box_wrapper">
+								<div class="prs_upcom_movie_img_box">
+									<img src="images/content/up1.jpg" alt="movie_img" />
+									<div class="prs_upcom_movie_img_overlay"></div>
+									<div class="prs_upcom_movie_img_btn_wrapper">
 
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_second">
-					<div class="prs_upcom_movie_box_wrapper">
-						<div class="prs_upcom_movie_img_box">
-							<img src="images/content/up1.jpg" alt="movie_img" />
-							<div class="prs_upcom_movie_img_overlay"></div>
-							<div class="prs_upcom_movie_img_btn_wrapper">
+									</div>
+								</div>
+								<div class="prs_upcom_movie_content_box">
+									<div class="prs_upcom_movie_content_box_inner">
+										<h1 style="font-size:25px;color:#fff;">Lorem Ipsum<a href="#"></a></h1>
+										<button type="button" class="btn btn-outline-primary tagbtn">#</button>
+										<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
+										<a href="#">
+											<p>By:</p>
+										</a>
+										<a href="#">
+											<p>0 views</p>
+										</a>
+										<a href="#">
+											<p>10/2/2020</p>
+										</a>
+									</div>
+									<div class="prs_upcom_movie_content_box_inner_icon">
 
-							</div>
-						</div>
-						<div class="prs_upcom_movie_content_box">
-							<div class="prs_upcom_movie_content_box_inner">
-								<h1 style="font-size:25px;color:#fff;">Lorem Ipsum<a href="#"></a></h1>
-								<button type="button" class="btn btn-outline-primary tagbtn">#</button>
-								<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
-								<a href="#">
-									<p>By:</p>
-								</a>
-								<a href="#">
-									<p>0 views</p>
-								</a>
-								<a href="#">
-									<p>10/2/2020</p>
-								</a>
-							</div>
-							<div class="prs_upcom_movie_content_box_inner_icon">
+										<div class="dropdown">
+											<button class="btn btn-secondary dropdown-toggle iconbtn" type="button"
+												id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">
+												<i class="fa fa-ellipsis-v" aria-hidden="true"
+													style="font-size:24px;"></i>
 
-								<div class="dropdown">
-									<button class="btn btn-secondary dropdown-toggle iconbtn" type="button"
-										id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-										aria-expanded="false">
-										<i class="fa fa-ellipsis-v" aria-hidden="true" style="font-size:24px;"></i>
-
-									</button>
-									<div class="dropdown-menu  dropmenuset" aria-labelledby="dropdownMenuButton">
-										<ul>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Report</a>
-											</li>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Wishlist</a>
-											</li>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Playlist</a>
-											</li>
-										</ul>
+											</button>
+											<div class="dropdown-menu  dropmenuset"
+												aria-labelledby="dropdownMenuButton">
+												<ul>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Report</a>
+													</li>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Wishlist</a>
+													</li>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Playlist</a>
+													</li>
+												</ul>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
 
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_second">
-					<div class="prs_upcom_movie_box_wrapper">
-						<div class="prs_upcom_movie_img_box">
-							<img src="images/content/up1.jpg" alt="movie_img" />
-							<div class="prs_upcom_movie_img_overlay"></div>
-							<div class="prs_upcom_movie_img_btn_wrapper">
+						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_second">
+							<div class="prs_upcom_movie_box_wrapper">
+								<div class="prs_upcom_movie_img_box">
+									<img src="images/content/up1.jpg" alt="movie_img" />
+									<div class="prs_upcom_movie_img_overlay"></div>
+									<div class="prs_upcom_movie_img_btn_wrapper">
 
-							</div>
-						</div>
-						<div class="prs_upcom_movie_content_box">
-							<div class="prs_upcom_movie_content_box_inner">
-								<h1 style="font-size:25px;color:#fff;">Lorem Ipsum<a href="#"></a></h1>
-								<button type="button" class="btn btn-outline-primary tagbtn">#</button>
-								<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
-								<a href="#">
-									<p>By:</p>
-								</a>
-								<a href="#">
-									<p>0 views</p>
-								</a>
-								<a href="#">
-									<p>10/2/2020</p>
-								</a>
-							</div>
-							<div class="prs_upcom_movie_content_box_inner_icon">
+									</div> -->
+				<!-- </div>
+								<div class="prs_upcom_movie_content_box">
+									<div class="prs_upcom_movie_content_box_inner">
+										<h1 style="font-size:25px;color:#fff;">Lorem Ipsum<a href="#"></a></h1>
+										<button type="button" class="btn btn-outline-primary tagbtn">#</button>
+										<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
+										<a href="#">
+											<p>By:</p>
+										</a>
+										<a href="#">
+											<p>0 views</p>
+										</a>
+										<a href="#">
+											<p>10/2/2020</p>
+										</a>
+									</div>
+									<div class="prs_upcom_movie_content_box_inner_icon">
 
-								<div class="dropdown">
-									<button class="btn btn-secondary dropdown-toggle iconbtn" type="button"
-										id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-										aria-expanded="false">
-										<i class="fa fa-ellipsis-v" aria-hidden="true" style="font-size:24px;"></i>
+										<div class="dropdown">
+											<button class="btn btn-secondary dropdown-toggle iconbtn" type="button"
+												id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">
+												<i class="fa fa-ellipsis-v" aria-hidden="true"
+													style="font-size:24px;"></i>
 
-									</button>
-									<div class="dropdown-menu  dropmenuset" aria-labelledby="dropdownMenuButton">
-										<ul>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Report</a>
-											</li>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Wishlist</a>
-											</li>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Playlist</a>
-											</li>
-										</ul>
+											</button>
+											<div class="dropdown-menu  dropmenuset"
+												aria-labelledby="dropdownMenuButton">
+												<ul>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Report</a>
+													</li>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Wishlist</a>
+													</li>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Playlist</a>
+													</li>
+												</ul>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_second">
-					<div class="prs_upcom_movie_box_wrapper">
-						<div class="prs_upcom_movie_img_box">
-							<img src="images/content/up1.jpg" alt="movie_img" />
-							<div class="prs_upcom_movie_img_overlay"></div>
-							<div class="prs_upcom_movie_img_btn_wrapper">
+						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_second">
+							<div class="prs_upcom_movie_box_wrapper">
+								<div class="prs_upcom_movie_img_box">
+									<img src="images/content/up1.jpg" alt="movie_img" />
+									<div class="prs_upcom_movie_img_overlay"></div>
+									<div class="prs_upcom_movie_img_btn_wrapper">
 
-							</div>
-						</div>
-						<div class="prs_upcom_movie_content_box">
-							<div class="prs_upcom_movie_content_box_inner">
-								<h1 style="font-size:25px;color:#fff;">Lorem Ipsum<a href="#"></a></h1>
-								<button type="button" class="btn btn-outline-primary tagbtn">#</button>
-								<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
-								<a href="#">
-									<p>By:</p>
-								</a>
-								<a href="#">
-									<p>0 views</p>
-								</a>
-								<a href="#">
-									<p>10/2/2020</p>
-								</a>
-							</div>
-							<div class="prs_upcom_movie_content_box_inner_icon">
+									</div>
+								</div>
+								<div class="prs_upcom_movie_content_box">
+									<div class="prs_upcom_movie_content_box_inner">
+										<h1 style="font-size:25px;color:#fff;">Lorem Ipsum<a href="#"></a></h1>
+										<button type="button" class="btn btn-outline-primary tagbtn">#</button>
+										<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
+										<a href="#">
+											<p>By:</p>
+										</a>
+										<a href="#">
+											<p>0 views</p>
+										</a>
+										<a href="#">
+											<p>10/2/2020</p>
+										</a>
+									</div>
+									<div class="prs_upcom_movie_content_box_inner_icon">
 
-								<div class="dropdown">
-									<button class="btn btn-secondary dropdown-toggle iconbtn" type="button"
-										id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-										aria-expanded="false">
-										<i class="fa fa-ellipsis-v" aria-hidden="true" style="font-size:24px;"></i>
+										<div class="dropdown">
+											<button class="btn btn-secondary dropdown-toggle iconbtn" type="button"
+												id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">
+												<i class="fa fa-ellipsis-v" aria-hidden="true"
+													style="font-size:24px;"></i>
 
-									</button>
-									<div class="dropdown-menu  dropmenuset" aria-labelledby="dropdownMenuButton">
-										<ul>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Report</a>
-											</li>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Wishlist</a>
-											</li>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Playlist</a>
-											</li>
-										</ul>
+											</button>
+											<div class="dropdown-menu  dropmenuset"
+												aria-labelledby="dropdownMenuButton">
+												<ul>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Report</a>
+													</li>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Wishlist</a>
+													</li>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Playlist</a>
+													</li>
+												</ul>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_second">
-					<div class="prs_upcom_movie_box_wrapper">
-						<div class="prs_upcom_movie_img_box">
-							<img src="images/content/up1.jpg" alt="movie_img" />
-							<div class="prs_upcom_movie_img_overlay"></div>
-							<div class="prs_upcom_movie_img_btn_wrapper">
 
-							</div>
-						</div>
-						<div class="prs_upcom_movie_content_box">
-							<div class="prs_upcom_movie_content_box_inner">
-								<h1 style="font-size:25px;color:#fff;">Lorem Ipsum<a href="#"></a></h1>
-								<button type="button" class="btn btn-outline-primary tagbtn">#</button>
-								<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
-								<a href="#">
-									<p>By:</p>
-								</a>
-								<a href="#">
-									<p>0 views</p>
-								</a>
-								<a href="#">
-									<p>10/2/2020</p>
-								</a>
-							</div>
-							<div class="prs_upcom_movie_content_box_inner_icon">
+						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_second">
+							<div class="prs_upcom_movie_box_wrapper">
+								<div class="prs_upcom_movie_img_box">
+									<img src="images/content/up1.jpg" alt="movie_img" />
+									<div class="prs_upcom_movie_img_overlay"></div>
+									<div class="prs_upcom_movie_img_btn_wrapper">
 
-								<div class="dropdown">
-									<button class="btn btn-secondary dropdown-toggle iconbtn" type="button"
-										id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-										aria-expanded="false">
-										<i class="fa fa-ellipsis-v" aria-hidden="true" style="font-size:24px;"></i>
+									</div>
+								</div>
+								<div class="prs_upcom_movie_content_box">
+									<div class="prs_upcom_movie_content_box_inner">
+										<h1 style="font-size:25px;color:#fff;">Lorem Ipsum<a href="#"></a></h1>
+										<button type="button" class="btn btn-outline-primary tagbtn">#</button>
+										<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
+										<a href="#">
+											<p>By:</p>
+										</a>
+										<a href="#">
+											<p>0 views</p>
+										</a>
+										<a href="#">
+											<p>10/2/2020</p>
+										</a>
+									</div>
+									<div class="prs_upcom_movie_content_box_inner_icon">
 
-									</button>
-									<div class="dropdown-menu  dropmenuset" aria-labelledby="dropdownMenuButton">
-										<ul>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Report</a>
-											</li>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Wishlist</a>
-											</li>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Playlist</a>
-											</li>
-										</ul>
+										<div class="dropdown">
+											<button class="btn btn-secondary dropdown-toggle iconbtn" type="button"
+												id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">
+												<i class="fa fa-ellipsis-v" aria-hidden="true"
+													style="font-size:24px;"></i>
+
+											</button>
+											<div class="dropdown-menu  dropmenuset"
+												aria-labelledby="dropdownMenuButton">
+												<ul>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Report</a>
+													</li>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Wishlist</a>
+													</li>
+													<li class="dropmenutext">
+														<a class="dropdown-item" href="#">Playlist</a>
+													</li>
+												</ul>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
 
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 prs_upcom_slide_second">
-					<div class="prs_upcom_movie_box_wrapper">
-						<div class="prs_upcom_movie_img_box">
-							<img src="images/content/up1.jpg" alt="movie_img" />
-							<div class="prs_upcom_movie_img_overlay"></div>
-							<div class="prs_upcom_movie_img_btn_wrapper">
-
-							</div>
-						</div>
-						<div class="prs_upcom_movie_content_box">
-							<div class="prs_upcom_movie_content_box_inner">
-								<h1 style="font-size:25px;color:#fff;">Lorem Ipsum<a href="#"></a></h1>
-								<button type="button" class="btn btn-outline-primary tagbtn">#</button>
-								<button type="button" class="btn btn-outline-secondary tagbtn">@</button>
-								<a href="#">
-									<p>By:</p>
-								</a>
-								<a href="#">
-									<p>0 views</p>
-								</a>
-								<a href="#">
-									<p>10/2/2020</p>
-								</a>
-							</div>
-							<div class="prs_upcom_movie_content_box_inner_icon">
-
-								<div class="dropdown">
-									<button class="btn btn-secondary dropdown-toggle iconbtn" type="button"
-										id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-										aria-expanded="false">
-										<i class="fa fa-ellipsis-v" aria-hidden="true" style="font-size:24px;"></i>
-
-									</button>
-									<div class="dropdown-menu  dropmenuset" aria-labelledby="dropdownMenuButton">
-										<ul>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Report</a>
-											</li>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Wishlist</a>
-											</li>
-											<li class="dropmenutext">
-												<a class="dropdown-item" href="#">Playlist</a>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
+					</div>-->
+				<!-- </div> -->
 			</div>
 		</div>
-	</div>
-	</div>
 
-	<!-- prs upcomung Slider End -->
+		<!-- prs upcomung Slider End -->
 
 
 
-	<!-- prs footer Wrapper Start -->
-	<div class="prs_footer_main_section_wrapper">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="prs_footer_cont1_wrapper prs_footer_cont1_wrapper_1">
-						<a href="index.html">
-							<img src="images/header/logo_ookul.png" alt="logo" />
-						</a>
+		<!-- prs footer Wrapper Start -->
+		<div class="prs_footer_main_section_wrapper">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						<div class="prs_footer_cont1_wrapper prs_footer_cont1_wrapper_1">
+							<a href="index.html">
+								<img src="images/header/logo_ookul.png" alt="logo" />
+							</a>
 
+						</div>
 					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="prs_footer_cont1_wrapper prs_footer_cont1_wrapper_2">
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						<div class="prs_footer_cont1_wrapper prs_footer_cont1_wrapper_2">
 
-						<ul style="padding-top:0px;">
-							<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_about.html">About Us</a>
-							</li>
-							<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_helpsupport.html">Help & Support</a>
-							</li>
-							<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_faq.html">FAQ</a>
-							</li>
+							<ul style="padding-top:0px;">
+								<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_about.html">About Us</a>
+								</li>
+								<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_helpsupport.html">Help &
+										Support</a>
+								</li>
+								<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_faq.html">FAQ</a>
+								</li>
 
-						</ul>
+							</ul>
+						</div>
 					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="prs_footer_cont1_wrapper prs_footer_cont1_wrapper_3">
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						<div class="prs_footer_cont1_wrapper prs_footer_cont1_wrapper_3">
 
-						<ul style="padding-top:0px;">
-							<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_contact.html">Contact Us</a>
-							</li>
-							<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_learningtermcondition.html">Term &
-									Condition</a>
-							</li>
-							<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_learningpolicy.html">Privacy
-									Policy</a>
-							</li>
-							<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_learningreturnpolicy.html">Return
-									Policy</a>
-							</li>
+							<ul style="padding-top:0px;">
+								<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_contact.html">Contact Us</a>
+								</li>
+								<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_learningtermcondition.html">Term
+										&
+										Condition</a>
+								</li>
+								<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a href="e_learningpolicy.html">Privacy
+										Policy</a>
+								</li>
+								<li><i class="fa fa-circle"></i> &nbsp;&nbsp;<a
+										href="e_learningreturnpolicy.html">Return
+										Policy</a>
+								</li>
 
-						</ul>
+							</ul>
+						</div>
 					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="prs_footer_cont1_wrapper prs_footer_cont1_wrapper_4">
-						<h2>App available on</h2>
-						<p>Download App Legends of Tomorrow</p>
-						<ul>
-							<li>
-								<a href="#">
-									<img src="images/content/f1.jpg" alt="footer_img">
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<img src="images/content/Paypal_visa_mastercard_amex_logo.png" alt="footer_img">
-								</a>
-							</li>
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						<div class="prs_footer_cont1_wrapper prs_footer_cont1_wrapper_4">
+							<h2>App available on</h2>
+							<p>Download App Legends of Tomorrow</p>
+							<ul>
+								<li>
+									<a href="#">
+										<img src="images/content/f1.jpg" alt="footer_img">
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<img src="images/content/Paypal_visa_mastercard_amex_logo.png" alt="footer_img">
+									</a>
+								</li>
 
-						</ul>
+							</ul>
 
+						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="prs_bottom_footer_wrapper"> <a href="javascript:" id="return-to-top"><i
-				class="flaticon-play-button"></i></a>
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
-					<div class="prs_bottom_footer_cont_wrapper">
-						<p> All rights reserved - Design by <a href="http://www.sveltose.in/">SVELTOSE TECHNOLOGIES</a>
-						</p>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
-					<div class="prs_footer_social_wrapper">
-						<ul>
-							<li><a href="#"><i class="fa fa-facebook"></i></a>
-							</li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a>
-							</li>
-							<li><a href="#"><i class="fa fa-linkedin"></i></a>
-							</li>
-							<li><a href="#"><i class="fa fa-youtube-play"></i></a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- prs footer Wrapper End -->
-	<!-- st login wrapper Start -->
-	<div class="modal fade st_pop_form_wrapper" id="myModal" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<div class="st_pop_form_heading_wrapper float_left">
-					<h3>Log in</h3>
-				</div>
-				<div class="st_profile_input float_left">
-					<label>Email / Mobile Number</label>
-					<input type="text">
-				</div>
-				<div class="st_profile__pass_input st_profile__pass_input_pop float_left">
-					<input type="password" placeholder="Password">
-				</div>
-				<div class="st_form_pop_fp float_left">
-					<h3><a href="#" data-toggle="modal" data-target="#myModa2" target="_blank">Forgot Password?</a></h3>
-				</div>
-				<div class="st_form_pop_login_btn float_left"> <a
-						href="http://webstrot.com/html/moviepro/html/page-1-7_profile_settings.html">LOGIN</a>
-				</div>
-				<div class="st_form_pop_or_btn float_left">
-					<h4>or</h4>
-				</div>
-				<div class="st_form_pop_facebook_btn float_left"> <a href="#" data-toggle="modal"
-						data-target="#myModaotp" target="_blank"> Connect with OTP</a>
-				</div>
-				<div class="st_form_pop_facebook_btn float_left"> <a href="#"> Connect with Facebook</a>
-				</div>
-				<div class="st_form_pop_gmail_btn float_left"> <a href="#"> Connect with Google</a>
-				</div>
-				<div class="st_form_pop_signin_btn float_left">
-					<h4>Don’t have an account? <a href="#" data-toggle="modal" data-target="#myModa3"
-							target="_blank">Sign Up</a></h4>
-					<h5>I agree to the <a href="e_learningtermcondition.html">Terms & Conditions</a> & <a
-							href="e_learningpolicy.html">Privacy Policy</a> & <a
-							href="e_learningreturnpolicy.html">Return Policy</a></h5>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="modal fade st_pop_form_wrapper" id="myModa2" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<div class="st_pop_form_heading_wrapper st_pop_form_heading_wrapper_fpass float_left">
-					<h3>Forgot Password</h3>
-					<p>We can help! All you need to do is enter your email ID and follow the instructions!</p>
-				</div>
-				<div class="st_profile_input float_left">
-					<label>Email Address</label>
-					<input type="text">
-				</div>
-				<div class="st_form_pop_fpass_btn float_left"> <a href="#">Verify</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="modal fade st_pop_form_wrapper" id="myModa3" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<div class="st_pop_form_heading_wrapper float_left">
-					<h3>Sign Up</h3>
-				</div>
-				<div class="st_profile_input float_left">
-					<label>First Name</label>
-					<input type="text">
-					<label>Last Name</label>
-					<input type="text">
-					<label>Email / Mobile Number</label>
-					<input type="text">
-					<label>state</label>
-					<input type="text">
-					<label>City</label>
-					<input type="text">
-					<label>District</label>
-					<input type="text">
-
-				</div>
-				<div class="st_profile__pass_input st_profile__pass_input_pop float_left">
-					<input type="password" placeholder="Password">
-				</div>
-				<div class="st_profile__pass_input st_profile__pass_input_pop float_left">
-					<input type="password" placeholder=" Confirm Password">
-				</div>
-
-
-				<div class="st_form_pop_login_btn float_left"> <a
-						href="http://webstrot.com/html/moviepro/html/page-1-7_profile_settings.html">Submit</a>
-				</div>
-
-
-				<div class="st_form_pop_or_btn float_left">
-					<h4>or</h4>
-				</div>
-				<div class="st_form_pop_facebook_btn float_left"> <a href="#" data-toggle="modal"
-						data-target="#myModaotp" target="_blank"> Connect with OTP</a>
-				</div>
-				<div class="st_form_pop_facebook_btn float_left"> <a href="#"><i class="fab fa-facebook-f"></i> Connect
-						with Facebook</a>
-				</div>
-				<div class="st_form_pop_gmail_btn float_left"> <a href="#"><i class="fab fa-google-plus-g"></i> Connect
-						with Google</a>
-				</div>
-				<div class="st_form_pop_signin_btn st_form_pop_signin_btn_signup float_left">
-					<h5>I agree to the <a href="e_learningtermcondition.html">Terms & Conditions</a> & <a
-							href="e_learningpolicy.html">Privacy Policy</a> & <a
-							href="e_learningreturnpolicy.html">Return Policy</a></h5>
+		<div class="prs_bottom_footer_wrapper"> <a href="javascript:" id="return-to-top"><i
+					class="flaticon-play-button"></i></a>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+						<div class="prs_bottom_footer_cont_wrapper">
+							<p> All rights reserved - Design by <a href="http://www.sveltose.in/">SVELTOSE
+									TECHNOLOGIES</a>
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
+						<div class="prs_footer_social_wrapper">
+							<ul>
+								<li><a href="#"><i class="fa fa-facebook"></i></a>
+								</li>
+								<li><a href="#"><i class="fa fa-twitter"></i></a>
+								</li>
+								<li><a href="#"><i class="fa fa-linkedin"></i></a>
+								</li>
+								<li><a href="#"><i class="fa fa-youtube-play"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-
-	<!-- st login wrapper End -->
-
-	<!-- modal_friendinvite -->
-	<form action="/invite_friend" method="POST">
-		<div class="modal fade st_pop_form_wrapper" id="myModafri" role="dialog">
+		<!-- prs footer Wrapper End -->
+		<!-- st login wrapper Start -->
+		<div class="modal fade st_pop_form_wrapper" id="myModal" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<div class="st_pop_form_heading_wrapper float_left">
-						<h3>your friend E-mail ID</h3>
-
+						<h3>Log in</h3>
 					</div>
-
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<input type="e-mail" id="e-mail" name="e_mail" style="width:100%; padding: 10px;">
-
+					<div class="st_profile_input float_left">
+						<label>Email / Mobile Number</label>
+						<input type="text">
 					</div>
-					<div class="col-md-12 col-sm-12 col-xs-12">
-
-						<button style="margin-top:15px; background-color: green;" b>Submit</button>
-
-						 <!-- class="btn btn-success" data-dismiss="modal" -->
-						 
+					<div class="st_profile__pass_input st_profile__pass_input_pop float_left">
+						<input type="password" placeholder="Password">
+					</div>
+					<div class="st_form_pop_fp float_left">
+						<h3><a href="#" data-toggle="modal" data-target="#myModa2" target="_blank">Forgot Password?</a>
+						</h3>
+					</div>
+					<div class="st_form_pop_login_btn float_left"> <a
+							href="http://webstrot.com/html/moviepro/html/page-1-7_profile_settings.html">LOGIN</a>
+					</div>
+					<div class="st_form_pop_or_btn float_left">
+						<h4>or</h4>
+					</div>
+					<div class="st_form_pop_facebook_btn float_left"> <a href="#" data-toggle="modal"
+							data-target="#myModaotp" target="_blank"> Connect with OTP</a>
+					</div>
+					<div class="st_form_pop_facebook_btn float_left"> <a href="#"> Connect with Facebook</a>
+					</div>
+					<div class="st_form_pop_gmail_btn float_left"> <a href="#"> Connect with Google</a>
+					</div>
+					<div class="st_form_pop_signin_btn float_left">
+						<h4>Don’t have an account? <a href="#" data-toggle="modal" data-target="#myModa3"
+								target="_blank">Sign Up</a></h4>
+						<h5>I agree to the <a href="e_learningtermcondition.html">Terms & Conditions</a> & <a
+								href="e_learningpolicy.html">Privacy Policy</a> & <a
+								href="e_learningreturnpolicy.html">Return Policy</a></h5>
 					</div>
 				</div>
 			</div>
 		</div>
-	</form>
-	<!-- modal_friendinvite End -->
-
-	<!-- modal_otplogin -->
-
-	<div class="modal fade st_pop_form_wrapper" id="myModaotp" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<div class="st_pop_form_heading_wrapper float_left">
-					<h3>Enter OTP Code</h3>
-
+		<div class="modal fade st_pop_form_wrapper" id="myModa2" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<div class="st_pop_form_heading_wrapper st_pop_form_heading_wrapper_fpass float_left">
+						<h3>Forgot Password</h3>
+						<p>We can help! All you need to do is enter your email ID and follow the instructions!</p>
+					</div>
+					<div class="st_profile_input float_left">
+						<label>Email Address</label>
+						<input type="text">
+					</div>
+					<div class="st_form_pop_fpass_btn float_left"> <a href="#">Verify</a>
+					</div>
 				</div>
+			</div>
+		</div>
+		<div class="modal fade st_pop_form_wrapper" id="myModa3" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<div class="st_pop_form_heading_wrapper float_left">
+						<h3>Sign Up</h3>
+					</div>
+					<div class="st_profile_input float_left">
+						<label>First Name</label>
+						<input type="text">
+						<label>Last Name</label>
+						<input type="text">
+						<label>Email / Mobile Number</label>
+						<input type="text">
+						<label>state</label>
+						<input type="text">
+						<label>City</label>
+						<input type="text">
+						<label>District</label>
+						<input type="text">
+					</div>
+					<div class="st_profile__pass_input st_profile__pass_input_pop float_left">
+						<input type="password" placeholder="Password">
+					</div>
+					<div class="st_profile__pass_input st_profile__pass_input_pop float_left">
+						<input type="password" placeholder=" Confirm Password">
+					</div>
+					<div class="st_form_pop_login_btn float_left"> <a
+							href="http://webstrot.com/html/moviepro/html/page-1-7_profile_settings.html">Submit</a>
+					</div>
+					<div class="st_form_pop_or_btn float_left">
+						<h4>or</h4>
+					</div>
+					<div class="st_form_pop_facebook_btn float_left"> <a href="#" data-toggle="modal"
+							data-target="#myModaotp" target="_blank"> Connect with OTP</a>
+					</div>
+					<div class="st_form_pop_facebook_btn float_left"> <a href="#"><i class="fab fa-facebook-f"></i>
+							Connect
+							with Facebook</a>
+					</div>
+					<div class="st_form_pop_gmail_btn float_left"> <a href="#"><i class="fab fa-google-plus-g"></i>
+							Connect
+							with Google</a>
+					</div>
+					<div class="st_form_pop_signin_btn st_form_pop_signin_btn_signup float_left">
+						<h5>I agree to the <a href="e_learningtermcondition.html">Terms & Conditions</a> & <a
+								href="e_learningpolicy.html">Privacy Policy</a> & <a
+								href="e_learningreturnpolicy.html">Return Policy</a></h5>
+					</div>
+				</div>
+			</div>
+		</div>
 
-				<form action="/action_page.php">
-					<div class="col-md-12 col-sm-12 col-xs-12">
-						<input id="partitioned" type="text" maxlength="4" />
 
+		<!-- st login wrapper End -->
+
+		<!-- modal_friendinvite -->
+		<form action="/invite_friend" method="POST">
+			<div class="modal fade st_pop_form_wrapper" id="myModafri" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<div class="st_pop_form_heading_wrapper float_left">
+							<h3>your friend E-mail ID</h3>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<input type="e-mail" id="e-mail" name="e_mail" style="width:100%; padding: 10px;">
+						</div>
 						<div class="col-md-12 col-sm-12 col-xs-12">
 
-							<button class="btn btn-success" data-dismiss="modal"
-								style="margin-top:15px;">Submit</button>
-							<button class="btn btn-success" data-dismiss="modal" style="margin-top:15px;">Re send
-							</button>
+							<button style="margin-top:15px; background-color: green;" b>Submit</button>
+
+							<!-- class="btn btn-success" data-dismiss="modal" -->
 
 						</div>
-				</form>
+					</div>
+				</div>
+			</div>
+		</form>
+		<!-- modal_friendinvite End -->
 
+		<!-- modal_otplogin -->
+
+		<div class="modal fade st_pop_form_wrapper" id="myModaotp" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<div class="st_pop_form_heading_wrapper float_left">
+						<h3>Enter OTP Code</h3>
+					</div>
+					<form action="/action_page.php">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<input id="partitioned" type="text" maxlength="4" />
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<button class="btn btn-success" data-dismiss="modal"
+									style="margin-top:15px;">Submit</button>
+								<button class="btn btn-success" data-dismiss="modal" style="margin-top:15px;">Re send
+								</button>
+							</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- modal_otplogin End -->
+		<!-- modal_otplogin End -->
 
-	<!--main js file start-->
-	<script src="js/jquery_min.js"></script>
-	<script src="js/modernizr.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="js/owl.carousel.js"></script>
-	<script src="js/jquery.dlmenu.js"></script>
-	<script src="js/jquery.sticky.js"></script>
-	<script src="js/jquery.nice-select.min.js"></script>
-	<script src="js/jquery.magnific-popup.js"></script>
-	<script src="js/jquery.bxslider.min.js"></script>
-	<script src="js/venobox.min.js"></script>
-	<script src="js/smothscroll_part1.js"></script>
-	<script src="js/smothscroll_part2.js"></script>
-	<script src="js/plugin/rs_slider/jquery.themepunch.revolution.min.js"></script>
-	<script src="js/plugin/rs_slider/jquery.themepunch.tools.min.js"></script>
-	<script src="js/plugin/rs_slider/revolution.addon.snow.min.js"></script>
-	<script src="js/plugin/rs_slider/revolution.extension.actions.min.js"></script>
-	<script src="js/plugin/rs_slider/revolution.extension.carousel.min.js"></script>
-	<script src="js/plugin/rs_slider/revolution.extension.kenburn.min.js"></script>
-	<script src="js/plugin/rs_slider/revolution.extension.layeranimation.min.js"></script>
-	<script src="js/plugin/rs_slider/revolution.extension.migration.min.js"></script>
-	<script src="js/plugin/rs_slider/revolution.extension.navigation.min.js"></script>
-	<script src="js/plugin/rs_slider/revolution.extension.parallax.min.js"></script>
-	<script src="js/plugin/rs_slider/revolution.extension.slideanims.min.js"></script>
-	<script src="js/plugin/rs_slider/revolution.extension.video.min.js"></script>
-	<script src="js/custom.js"></script>
-	<!--main js file end-->
+		<!--main js file start-->
+		<script src="js/jquery_min.js"></script>
+		<script src="js/modernizr.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script src="js/owl.carousel.js"></script>
+		<script src="js/jquery.dlmenu.js"></script>
+		<script src="js/jquery.sticky.js"></script>
+		<script src="js/jquery.nice-select.min.js"></script>
+		<script src="js/jquery.magnific-popup.js"></script>
+		<script src="js/jquery.bxslider.min.js"></script>
+		<script src="js/venobox.min.js"></script>
+		<script src="js/smothscroll_part1.js"></script>
+		<script src="js/smothscroll_part2.js"></script>
+		<script src="js/plugin/rs_slider/jquery.themepunch.revolution.min.js"></script>
+		<script src="js/plugin/rs_slider/jquery.themepunch.tools.min.js"></script>
+		<script src="js/plugin/rs_slider/revolution.addon.snow.min.js"></script>
+		<script src="js/plugin/rs_slider/revolution.extension.actions.min.js"></script>
+		<script src="js/plugin/rs_slider/revolution.extension.carousel.min.js"></script>
+		<script src="js/plugin/rs_slider/revolution.extension.kenburn.min.js"></script>
+		<script src="js/plugin/rs_slider/revolution.extension.layeranimation.min.js"></script>
+		<script src="js/plugin/rs_slider/revolution.extension.migration.min.js"></script>
+		<script src="js/plugin/rs_slider/revolution.extension.navigation.min.js"></script>
+		<script src="js/plugin/rs_slider/revolution.extension.parallax.min.js"></script>
+		<script src="js/plugin/rs_slider/revolution.extension.slideanims.min.js"></script>
+		<script src="js/plugin/rs_slider/revolution.extension.video.min.js"></script>
+		<script src="js/custom.js"></script>
+		<!--main js file end-->
 </body>
 
 

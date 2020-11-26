@@ -40,6 +40,9 @@ const user_login_schema = new schema({
     city: {
         type: String
     },
+    ratings:{
+        type:Number
+    },
     district: {
         type: String
     }, subject: {

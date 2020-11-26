@@ -51,8 +51,8 @@
 				// // var elmId = $(this).prev().val();
 				// console.log(elmId)
 				// alert(elmId);
-				const course_data = {}
-				course_data.lesn_name = elmId
+				const course_data = {};
+				course_data.lesn_name = elmId;
 				var dataSend = $.ajax({
 					method: "POST",
 					url: "http://localhost:3000/lession_details",
@@ -91,10 +91,10 @@
 
 			});
 		}
-		
+
 	</script>
 	<script>
-		function teacher_detail(){
+		function teacher_detail() {
 			$(document).ready(function () {
 				var elmId = $("#teacher_penal").val();
 				const course_data = {}
@@ -104,7 +104,7 @@
 					url: "http://localhost:3000/example",
 					data: course_data,
 					success: function (data) {
-						if (data){
+						if (data) {
 							alert(data)
 							window.location.href = "http://localhost:3000/view_teacher_details";
 							// alert("course succesfully added in your cart")
@@ -374,9 +374,9 @@
 				<div class="col-lg-8 col-md-8 col-sm-12 col-sm-12">
 					<div class="coursetext">
 						<!-- <%=error%> -->
-						<h1><%=error.course_name%></h1>
-						<h3><%=error.course_title%></h3>
-						<a href="#myModal1">Created by:<%=error.teacher_name%></a>
+						<h1><%=error.course.course_name%></h1>
+						<h3><%=error.course.course_title%></h3>
+						<a href="#myModal1">Created by:<%=error.course.teacherName%></a>
 						<br>
 						<!-- <h1>Beginning Project Management: Project Management Level One</h1>
 						<h3>Project Management: Growing a Successful Career as a Project Manager</h3> -->
@@ -388,7 +388,7 @@
 								<i class="fa fa-star-o"></i>
 							</span>
 						</p>
-						<h4>Last updated <%=error.Date%> </h4>
+						<h4>Last updated <%=error.course.start_date%> </h4>
 						<a href="">Wishlist</a>
 						<a href="">Playlist</a>
 						<a href="">Report</a>
@@ -398,11 +398,13 @@
 
 				<div class="col-lg-4 col-md-4 col-sm-12 col-sm-12">
 					<div class="courseboxcart">
-						<img src="images/content/download.png" class="sdimg">
+						<img src="data:uploads/<%=error.course.course_image.contentType%>;base64,<%=error.course.course_image.data.toString('base64')%>"
+							alt="movie_img" class="sdimg" />
+						<!-- <img src="images/content/download.png" class="sdimg"> -->
 						<div class="courseboxcart1">
-							<h1><%=error.course_name%></h1>
-							<p><%=error.course_title%></p>
-							<button id="cart" value="<%=error.course_name%>" onclick="add_cart()" class="addbtn">Add
+							<h1><%=error.course.course_name%></h1>
+							<p><%=error.course.course_title%></p>
+							<button id="cart" value="<%=error.course.course_name%>" onclick="add_cart()" class="addbtn">Add
 								to Cart</button>
 							<button class="buybtn">Buy Now</button>
 						</div>
@@ -416,7 +418,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-7 col-md-7 col-sm-12 col-sm-12">
-					<div class="coursetexts3">
+					<!-- <div class="coursetexts3">
 						<h1>Requirements</h1>
 						<ul>
 							<li>lorem ipsum</li>
@@ -425,12 +427,12 @@
 							<li>lorem ipsum</li>
 							<li>lorem ipsum</li>
 						</ul>
-					</div>
-					<% if (error) { %>
-					<h1><%=error %></h1>
+					</div> -->
+					<% if (error.course) { %>
+					<h1><%=error.course %></h1>
 					<div class="coursetexts3">
 						<h1>Description</h1>
-						<p><%=error.desciption%></p>
+						<p><%=error.course.description%></p>
 
 						<!-- <p>Project management is an exciting place to be. Project managers help shape the success of
 							organizations, implement new technology, change the business landscape, and have influence
@@ -459,9 +461,9 @@
 							<p>Lorem ipsum...</p>
 						</div>
 					</div>
-					<% if (error) { %>
+					<% if (error.course) { %>
 
-					<% var chep = error.course_chepters%>
+					<% var chep = error.course.course_chepters%>
 					<% chep.forEach(function(data){ %>
 
 
@@ -736,31 +738,36 @@
 						<div class="accordian_3">
 							<h1>Instructor</h1>
 							<button onclick="teacher_detail()" id="teacher_penal"
-								value="<%=error.teacherEmail%>"><%=error.teacher_name%></button>
-							<p>Head of Data Science, Pierian Data Inc.</p>
+								value="<%=error.course.teacherEmail%>"><%=error.teachers.name%></button>
+							<!-- <p>Head of Data Science, Pierian Data Inc.</p> -->
 							<div id="myModal1" class="accordian_3">
 								<!-- <button onclick="teacher_detail()" id="teacher_penal" value="<%=error.teacher_name%>"> -->
-									<span>
-										<a>
-											<div class="acc_img">
-												<img src="images/content/vp1.jpg" class="img_acc">
-											</div>
-										</a></span>
+								<span>
+									<a>
+										<div class="acc_img">
+
+											<img src="data:uploads/<%=error.teachers.image.contentType%>;base64,<%=error.teachers.image.data.toString('base64')%>"
+												class="img_acc">
+
+											<!-- <img src="images/content/vp1.jpg" > -->
+										</div>
+									</a></span>
 								<!-- </button> -->
 								<div class="acc_text">
-									<p class="col_r"><i class="fa fa-star" aria-hidden="true"></i> 4.6 Instructor
+									<p class="col_r"><i class="fa fa-star" aria-hidden="true"></i><%=error.teachers.ratings%> Instructor
 										Rating
 									</p>
-									<p class="col_r"><i class="fa fa-star" aria-hidden="true"></i> 4.6 659,145
+									<!-- <p class="col_r"><i class="fa fa-star" aria-hidden="true"></i> 4.6 659,145
 										Reviews
 									</p>
 									<p class="col_r"><i class="fa fa-users" aria-hidden="true"></i> 4.6 1,996,148
-										Students</p>
-									<p class="col_r"><i class="fa fa-play-circle" aria-hidden="true"></i> 31 Courses
+										Students</p> -->
+									<p class="col_r"><i class="fa fa-play-circle" aria-hidden="true"></i><%=error.teacher_courses.length%> Courses
 									</p>
 								</div>
 							</div>
-							<p>Jose Marcial Portilla has a BS and MS in Mechanical Engineering from Santa Clara
+							<p><%=error.teachers.subject%>
+								<!-- Jose Marcial Portilla has a BS and MS in Mechanical Engineering from Santa Clara
 								University and years of experience as a professional instructor and trainer for Data
 								Science and programming. He has publications and patents in various fields such as
 								microfluidics, materials science, and data science technologies. Over the course of
@@ -769,7 +776,8 @@
 								experience
 								in teaching and data science to help other people learn the power of programming the
 								ability to analyze data, as well as present the data in clear and beautiful
-								visualizations. Currently he works as the Head of Data Science for Pierian Data.</p>
+								visualizations. Currently he works as the Head of Data Science for Pierian Data.</p> -->
+							</p>
 						</div>
 					</div>
 

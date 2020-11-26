@@ -275,7 +275,7 @@ const total_price = (cart_course, price) => {
 
 exports.add_courses_by_teacher = async (req, res, next) => {
     try {
-        const { Category, course_title, chepter_title, cars,chep_Number, lession_title, le_Number, w3review, text_data, } = req.body
+        const { Category, course_title, chepter_title, cars, chep_Number, lession_title, le_Number, w3review, text_data, } = req.body
         console.log(req.body)
         console.log(req.session.email)
         // res.send("course added")
@@ -284,16 +284,16 @@ exports.add_courses_by_teacher = async (req, res, next) => {
         console.log(email)
         User.findOne({ email: email })
             .then((user_resp) => {
-                console.log(user_resp,"&&&&&&&&&&&&&&&&&")
+                console.log(user_resp, "&&&&&&&&&&&&&&&&&")
                 // if (user_resp.user_role_status == 2 && user_resp.user_role_status == 1) {
-                  if(user_resp.role == 'teacher'){
+                if (user_resp.role == 'teacher') {
                     const lession_data = {}
 
                     if (!req.body.Category) {
                         res.send("you didn't choose any category")
                     } else if (!req.body.course_title) {
                         res.send("please choose course name")
-                    }else if(text_data){
+                    } else if (text_data) {
                         lession_data.lession_detail = text_data
                     }
                     console.log(req.file)
@@ -304,7 +304,7 @@ exports.add_courses_by_teacher = async (req, res, next) => {
                         teacherName: user_resp.name,
                         course_type: cars,
                         teacherEmail: user_resp.email,
-                        description:w3review
+                        description: w3review
                     }
 
                     // console.log(a)
@@ -312,7 +312,7 @@ exports.add_courses_by_teacher = async (req, res, next) => {
                     //     : a
                     // }
                     lession_data = {
-                        lession_name:le_Number,
+                        lession_name: le_Number,
                         title: lession_title,
                     };
 
@@ -516,11 +516,11 @@ exports.add_courses_by_teacher = async (req, res, next) => {
                             }
 
                         });
-                    }else{
-                        res.send("You are not authorized for authentication");
-                    }
+                } else {
+                    res.send("You are not authorized for authentication");
+                }
 
-                })
+            })
 
 
     } catch (err) {
@@ -801,9 +801,9 @@ exports.search_library = async (req, res, next) => {
 
 exports.insert_in_cart = async (req, res, next) => {
     if (req.session.email) {
-        const course = req.body
-        console.log(req.body)
-        categorySchema.sb_details.findById("5f9f95bf519a320f9e6629b5").populate({
+        const course = req.body.courseName
+        console.log(course);
+        categorySchema.sb_details.findOne({ course_name: course }).populate({
             path: 'course_chepters',
             populate: {
                 path: 'chepter_lession',
@@ -822,7 +822,7 @@ exports.insert_in_cart = async (req, res, next) => {
                     }
                 })
                     .then((data) => {
-                        console.log(data,"Cartttttttttttttttt")
+                        console.log(data, "Cartttttttttttttttt")
                         if (data.length == 0) {
                             cart.find({
                                 userEmail: req.session.email
@@ -842,7 +842,7 @@ exports.insert_in_cart = async (req, res, next) => {
                                         var cart_len = count.length + 1
                                         console.log(a, cart_len, "iddddddddddddddddddddddd")
                                         var cart_course_price = total_price(reslt, 230)
-                                        console.log(resp,"KKKKKKKKKKKKKKKKKKKKK")
+                                        console.log(resp, "KKKKKKKKKKKKKKKKKKKKK")
                                         cart.findByIdAndUpdate(a._id, {
                                             $set: {
                                                 cart_total_price: cart_course_price,
@@ -881,7 +881,7 @@ exports.insert_in_cart = async (req, res, next) => {
                                             userEmail: req.session.email
                                         })
                                         console.log(new_cart_course, ")))))))))))))")
-                                        console.log(resp,"#####################")
+                                        console.log(resp, "#####################")
                                         new_cart_course.cart.push(resp._id)
                                         return new_cart_course.save()
                                             .then((reressss) => {
@@ -913,7 +913,7 @@ exports.insert_in_cart = async (req, res, next) => {
 
 exports.get_cart = async (req, res, next) => {
     let localStorage = new LocalStorage('./scratch');
-    const user_data = localStorage.getItem("user_details")
+    const user_data = localStorage.getItem("user_details");
     console.log(user_data)
     cart.find({
         'userEmail': req.session.email

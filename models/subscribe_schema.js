@@ -14,7 +14,8 @@ const user_detail = new schema({
     user_role: {
         type: String
     }
-})
+});
+
 
 const user_subscribe = new schema({
     subscribe_name: { type: String },

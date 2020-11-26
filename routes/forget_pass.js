@@ -43,9 +43,9 @@ router.post('/sent_otp',parser,(req,res)=>{
     console.log(u_email,"00000000000000000")
     console.log(emails)
     let mailTransporter = nodemailer.createTransport({ 
-      service: 'gmail',
-      port: 8000,
-      secure: false, // use SSL
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true, // use SSL
       auth: { 
             user: 'shivanic18@navgurukul.org', 
             pass: 'Chouhan18@'
@@ -61,7 +61,6 @@ router.post('/sent_otp',parser,(req,res)=>{
           }; 
           mailTransporter.sendMail(mailDetails, function(err, data) { 
             if(err) {
-
               console.log(err)
                 console.log('Error Occurs'); 
             } else { 

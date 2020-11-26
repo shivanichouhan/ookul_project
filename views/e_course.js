@@ -7,7 +7,8 @@ var redis = require("redis");
 var nodemailer = require("nodemailer")
 const jwt = require('jsonwebtoken');
 const cors = require('cors')
-
+{/* <img src="data:uploads/<%=error.teachers.image.contentType%>;base64,<%=error.teachers.image.data.toString('base64')%>"> */}
+// const a = d.length
 const path = require('path')
 const facebookStrategy = require("passport-facebook").Strategy;
 var passport = require("passport")

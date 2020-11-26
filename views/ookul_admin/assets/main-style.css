@@ -1,0 +1,42 @@
+.list-content li{
+	list-style: none;
+	color: black;
+	padding: 10px;
+	text-transform: capitalize;
+	
+}
+.col-sm-3{
+	background-color: white;
+	text-align: center;
+}
+.col-sm-9{
+  text-align: center;
+}
+
+.col-md-3{
+  background-color: #e4e4e4;
+}
+.col-sm-4 h3{
+	text-transform: capitalize;
+	color: black;
+}
+.machin{
+	height: 160px;
+}
+.filter{
+	height:160px;
+}
+.epa{
+	height:160px;
+	width: 60%;
+
+}
+.water{
+	width: 100%;
+	height: auto;
+}
+.list-content h3{
+	color: white;
+	background-color: black;
+	padding:10px 20px;
+}

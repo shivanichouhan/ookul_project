@@ -8,24 +8,13 @@ require('mongoose-type-url')
 
 
 const course_schema = new schema({
-    lession_name: {
-        type: String,
-        trim: true,
-        lowercase: true,
-        unique:true
-    },
-    lession_description: {
-        type: String,
-        required: true
-    },
-    lesstion_Image:{
-        data: Buffer, 
+    lession_name: [],
+    lession_description: [],
+    lesstion_Image: [{
+        data: Buffer,
         contentType: String
-    },lession_video:{
-        type:String
-    },lession_content:{
-        type:String
-    },
+    }], lession_video: [],
+    lession_content: [],
     // lession_category: {
     //     type: String,
     //     required: true,
@@ -33,10 +22,7 @@ const course_schema = new schema({
 
     //     enum: ["public", "private"]
     // },
-   
-   
-  
-    tags:{
+    tags: {
         type: Map,
         of: String
     },
@@ -50,7 +36,7 @@ const course_schema = new schema({
 
 
 
-var course_schemas = mongoose.model("Lessions", course_schema,'lessions')
+var course_schemas = mongoose.model("Lessions", course_schema, 'lessions')
 
-module.exports = 
+module.exports =
     course_schemas

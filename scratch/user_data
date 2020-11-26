@@ -1,6 +1,16 @@
-{ role: 'student',
-  password: '$2a$10$n167pz1mx/CSDOPhRpQKOe4kp49Ic7qH8VzWgddNIqdGKBPbQb2dO',
-  otp: '875066',
+{
+  image: {
+    data: Binary {
+      _bsontype: 'Binary',
+      sub_type: 0,
+      position: 6505,
+      buffer: <Buffer ff d8 ff e1 00 18 45 78 69 66 00 00 49 49 2a 00 08 00 00 00 00 00 00 00 00 00 00 00 ff ec 00 11 44 75 63 6b 79 00 01 00 04 00 00 00 3c 00 00 ff e1 03 ... 6455 more bytes>
+    },
+    contentType: 'image/png'
+  },
+  role: 'student',
+  password: '$2a$10$f34m.GgNtNBJBy4Q.gPtF.ytOFPwG3/2SayNpYprNh1jiOQcEvQ3a',
+  otp: '764026',
   is_allow: 0,
   user_status: 0,
   wallet: 0,
@@ -12,6 +22,7 @@
   name: 'shina',
   user_saring_code: 'P7ICRTSI',
   user_role_status: 3,
-  accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjlmYzAzMDRlOTFiZDQxMmY2N2U1MTkiLCJpYXQiOjE2MDQzMDUwOTksImV4cCI6MTYwNDM5MTQ5OX0.LcvodXLofvmD0Leqzwz4oZz40YCTPBchYCt2thqbJ1c',
+  accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjlmYzAzMDRlOTFiZDQxMmY2N2U1MTkiLCJpYXQiOjE2MDQzMjQyMDEsImV4cCI6MTYwNDQxMDYwMX0.JKIy-RUNPgb5c9n3T8YXgvgrvKpu83x-ss904-r705M',
   __v: 0,
-  session: 'lUWpZHNvobpK1oAOkic5WpSxrj1R4lfu' }
+  session: 'qSxI5DDxzWoaRY0lvd6yWeHxQufGgHfX'
+}

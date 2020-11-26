@@ -27,7 +27,8 @@
 	<link rel="stylesheet" type="text/css" href="css/responsive.css" />
 	<link rel="stylesheet" id="theme-color" type="text/css" href="#" />
 	<!-- favicon links -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
 	<link rel="shortcut icon" type="image/png" href="images/header/favicon.ico" />
 	<!-- <script src='../../../google_analytics_auto.js'></script> -->
@@ -36,37 +37,117 @@
 
 </style>
 <script>
-	function repeate_chepter() {
-		alert("nice")
-		$(document).ready(function () {
-			var filename = $('#FileUploaderS3-0').val();
-			_this.html(filename);
-			console.log(filename);
-			var data = $('#NicEdit').val();
-			var titl = $("#titles").val();
-			var chep_name = $("#chepter_title").val()
-			var lesn = $("#le_name").val();
-			var option12 = $("#NicEdit1").val()
-			if(typeof data.length == 0){
-				alert("shivani")
-			}else{
-				alert("chouhan")
+	function connect() {
+		for (var i = 0; i < 1; i++) {
+			$("#order-details-booking").append($(".intro").html());
+			//you can add other logic here, like you want diferent id or class to add in new box
+		}
+	}
+
+</script>
+<script>
+	function returntocourse() {
+		window.location.href = 'http://localhost:3000/course_add_final';
+	}      
+</script>
+<script src="http:/code.jquery.com/jquery-1.9.1.js"></script>
+<script>
+	function mor_chep() {
+		var chep_nu = $("#title").val()
+		var chep_nam = $("#chepter_title").val()
+		var le_name = $("#le_name").val();
+		// var txt = $("#txtArea").val(); 
+
+		var desc = $("#NicEdit").val();
+		var article = $("#NicEdit1").val();
+		console.log(chep_nu,chep_nam,le_name,desc,article)
+		$.ajax({
+			url: "/added_chepters",
+			data: { chep_n: chep_nam,chep_nu:chep_nu,le_name:le_name,desc:desc,art:article },
+			method: "POST",
+			contentType: "application/json",
+			success: function (res) {
+				alert(res)
+			}, error: function (err) {
+				alert(err)
 			}
-			alert(data)
-			alert(option12)
-			console.log(data,option12)
-			$.ajax({
-				url: "/added_chepters",
-				data: { "desc":data,"article":option12 },
-				method: "POST",
-				contentType: "application/x-www-form-urlencoded",
-				success: function (res) {
-					alert(res)
-				}, error: function (err) {
-					alert(err)
-				}
-			})
 		})
+		alert("@@@@@@@@@@@@@@")
+		$("div#chep_id").remove();
+		$("div#chep_name").remove();
+		$("#order-details-booking").load();
+
+		// $("#order-details-booking").hide().html(data).fadeIn('fast');
+
+		// $("#order-details-booking").load(location.href + " #order-details-booking");
+		// const a = $("#order-details-booking").val()
+		// console.log(a)
+		// $("div#order-details-booking").after('<div id="order-details-booking"><div class="intro"><div class="accordian_1"><label for="fname"><b>lession title</b></label><input type="text" id="le_name" name="lession_name" placeholder="lession title name" required><div class="panel panel_a"></div></div><br><br><br><div class="accordian_1"><a class="accordion acc_a"><i class="fa fa-file-text-o"aria-hidden="true"></i>													Description												<span class="top_t">													</span>												</a>												<div class="col-lg-8 col-md-8 col-sm-12 colxs-12"><div id="toolbar-container3"></div>													<div id="editor6">	<textarea id="NicEdit2" name="Description" rows="1" cols="50">																	 </textarea></div>												</div>											</div>	<br>											<br>											<br>											<div class="accordian_1">												<a class="accordion acc_a"><i class="fa fa-play-circle-o"														aria-hidden="true"></i>													Video													<span class="top_t">									</span></a><div class="panel panel_a">													<div class="file-uploader--file-selector--SGCns" data-purpose=""><input accept=".gif,.jpg,.jpeg,.png" name="filenames"									type="file" id="FileUploaderS3" class="">														<p style="padding: 15px 0px;">															Note: All files should be at least 720p and less than 4.0															GB.														</p></div></div></div><div class="accordian_1">			<a class="accordion acc_a"><i class="fa fa-file-text-o" aria-hidden="true"></i>Articals<span class="top_t"></span></a><div class="col-lg-8 col-md-8 col-sm-12 colxs-12"><div id="toolbar-container3"></div><div id="editor8"><textarea id="NicEdit3" name="article" rows="1" cols="50"></textarea></div></div></div><br><br><br><i onclick="mor_chep()" class="material-icons">Add MoreLession</i></div></div>');
+
+		// var i = 0;
+		// var original = document.getElementById('order-details-booking');
+		// alert(original)
+		// function duplicate() {
+		// 	var clone = original.cloneNode(true); // "deep" clone
+		// 	clone.id = "order-details-booking" + ++i;
+		// 	console.log(clone.id)
+		// 	// or clone.id = ""; if the divs don't need an ID
+		// 	original.parentNode.appendChild(clone);
+		// }
+	}
+</script>
+<!-- <script>
+	function connect() {
+		$('#order-details-booking').on('click', '.material-icons', function () {
+			$(this).closest('.intro').clone().appendTo('#order-details-booking').find("")
+			// .find("input[type='text']").val("");//use closest to avoid multiple selection and clear input text elements
+		});
+	};
+</script> -->
+<script>
+	// JSON.stringify({ "desc": data, "article": option12, "chep_no": titl, "chepter_titl": chep_name, "lession_name": lesn, "file": files }),
+	function repeate_chepter() {
+		alert("chepter succesfuly added")
+		window.location.href = "http://localhost:3000/add_chepters"
+		// $(document).ready(function () {
+		// 	$("form#buttonSet").submit(function (e) {
+		// 		e.preventDefault();
+		// 		var myform = document.getElementById('buttonSet');
+		// 		var myformdata = new FormData();
+		// 		console.log(myformdata)
+		// 		$.ajax({
+		// 			url: "/added_chepters",
+		// 			data: { a: "b" },
+		// 			method: "POST",
+		// 			contentType: "application/json",
+		// 			success: function (res) {
+		// 				alert(res)
+		// 			}, error: function (err) {
+		// 				alert(err)
+		// 			}
+		// 		})
+		// 	});
+			// var files = $('#FileUploaderS3').get(0).files;
+			// // this.html(filename);
+
+			// console.log(files);
+			// var data = $('#NicEdit').val();
+			// var titl = $("#title").val();
+			// var chep_name = $("#chepter_title").val();
+			// var lesn = $("#le_name").val();
+			// console.log(lesn)
+			// var option12 = $("#NicEdit1").val();
+			// alert(data,titl,chep_name,lesn,option12)
+			// if(typeof data.length == 0){
+			// 	alert("shivani")
+			// }else{
+			// 	alert("chouhan")
+			// }
+			// alert(data)
+			// alert(option12)
+			// console.log(titl)
+
+		// })
 	}
 </script>
 <!-- <script>
@@ -99,13 +180,16 @@
 </script> -->
 <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
 <script>
+	const b = document.getElementById('NicEdit3')
 
 	bkLib.onDomLoaded(function () {
 
 		new nicEditor().panelInstance('NicEdit');
 		new nicEditor().panelInstance('NicEdit1');
-
+		// new nicEditor().panelInstance(b);
 		// new nicEditor().panelInstance('NicEdit2');
+
+		// new nicEditor().panelInstance('NicEdit2');NicEdit1
 		// new nicEditor().panelInstance('NicEdit3');
 		// new nicEditor().panelInstance('NicEdit4');
 		// new nicEditor().panelInstance('NicEdit5');
@@ -116,21 +200,6 @@
 </script>
 
 <body>
-	<!-- <script>
-		DecoupledEditor
-			.create(document.querySelector('#NicEdit'))
-			.then(editor => {
-				const toolbarContainer = document.querySelector('#toolbar-container3');
-
-				toolbarContainer.appendChild(editor.ui.view.toolbar.element);
-			})
-			.catch(error => {
-				console.error(error);
-			});
-	</script> -->
-	<!-- preloader Start -->
-
-
 	<div class="prs_navigation_main_wrapper">
 		<div class="container-fluid">
 			<div id="search_open" class="gc_search_box">
@@ -638,149 +707,164 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-				<div class="csr_right">
-					<div class="headermidcourse">
-						<h2>Curriculum</h2>
-					</div>
+			<!-- <form action="/added_chepters" method="POST" enctype="multipart/form-data"> -->
 
-					<div class="cur_colum">
-						<div class="cur_header">
-							<!-- <h2 style="color: #000; padding: 15px 0px;">Chapter 1</h2> -->
-							<!-- enctype="multipart/form-data" -->
-							<!-- action="/added_chepters" method="POST" -->
-							<form>
-								<div class="form-group csrup_form">
-									<label for="title" class="control-label csruplabel">chapter no.</label>
-									<div class="form-control-counter-container">
-										<input placeholder="Insert your chapter no." name="titles"
-											data-purpose="edit-course-title" maxlength="60" id="titles"
-											class="form-control intheight">
-									</div>
-								</div>
+				<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+					<div class="csr_right">
+						<div class="headermidcourse">
+							<h2>Curriculum</h2>
+						</div>
 
-								<div class="form-group csrup_form">
-									<label for="title" class="control-label csruplabel">chapter Name</label>
-									<div class="form-control-counter-container">
-										<input placeholder="Insert your chapter Name." name="chepter_title"
-											data-purpose="edit-course-title" maxlength="60" id="chepter_title"
-											class="form-control intheight">
+						<div class="cur_colum">
+							<div class="cur_header">
+								<!-- <h2 style="color: #000; padding: 15px 0px;">Chapter 1</h2> -->
+								<!-- enctype="multipart/form-data" -->
+								<!-- <form action="/added_chepters" method="POST"> -->
+									<!-- <div id="chepters"> -->
+									<div id="chep_id" class="form-group csrup_form">
+										<label for="title" class="control-label csruplabel">chapter no.</label>
+										<div class="form-control-counter-container">
+											<input placeholder="Insert your chapter no." name="titles"
+												data-purpose="edit-course-title" maxlength="60" id="title"
+												class="form-control intheight" required>
+										</div>
 									</div>
-								</div>
+
+									<div id="chep_name" class="form-group csrup_form">
+										<label for="title" class="control-label csruplabel">chapter Name</label>
+										<div class="form-control-counter-container">
+											<input placeholder="Insert your chapter Name." name="chepter_titles"
+												data-purpose="edit-course-title" maxlength="60" id="chepter_title"
+												class="form-control intheight" required>
+										</div>
+									</div>
+							</div>
+							<div id="order-details-booking">
 								<div class="intro">
-
 									<div class="accordian_1">
 										<label for="fname"><b>lession title</b></label>
 
 										<!-- <button class="accordion acc_a"><i class="fa fa-file-text-o" aria-hidden="true"></i>   introductions-->
 										<!-- <span class="top_t"> -->
-										<input type="text" id="le_name" name="lession_name" placeholder="lession title name">
+										<input type="text" id="le_name" name="lession_name"
+											placeholder="lession title name" required>
 
 										<!-- </span> -->
 										<!-- </button> -->
 										<div class="panel panel_a">
-
-
-
 										</div>
 									</div>
+									<br>
+									<br>
+									<br>
 
 									<div class="accordian_1">
-										<button class="accordion acc_a"><i class="fa fa-file-text-o"
-												aria-hidden="true"></i>
+										<a class="accordion acc_a"><i class="fa fa-file-text-o" aria-hidden="true"></i>
 											Description
 											<span class="top_t">
 
 											</span>
-										</button>
+										</a>
 										<div class="col-lg-8 col-md-8 col-sm-12 colxs-12">
 											<div id="toolbar-container3"></div>
 											<div id="editor6">
 
-												<textarea id="NicEdit" name="w3review5" rows="1" cols="50">
+												<textarea id="NicEdit" name="Description" rows="1" cols="50">
 																	 </textarea></div>
 										</div>
 
-										<div class="csr_panelbtn">
+
+										<!-- <div class="csr_panelbtn">
 											<button class="btn-success">Save</button>
 											<button class="btn-warning">Cancel</button>
-										</div>
+										</div> -->
 									</div>
-								</div>
+									<br>
+									<br>
+									<br>
 
-								<div class="accordian_1">
-									<button class="accordion acc_a"><i class="fa fa-play-circle-o"
-											aria-hidden="true"></i>
-										Video
-										<span class="top_t">
-
-										</span>
-									</button>
-									<div class="panel panel_a">
-										<div class="file-uploader--file-selector--SGCns" data-purpose="">
-											<label for="FileUploaderS3-0--1"><span class="input-group">
+									<div class="accordian_1">
+										<a class="accordion acc_a"><i class="fa fa-play-circle-o"
+												aria-hidden="true"></i>
+											Video
+											<span class="top_t">
+											</span>
+										</a>
+										<div class="panel panel_a">
+											<div class="file-uploader--file-selector--SGCns" data-purpose="">
+												<!-- <label for="FileUploaderS3-0--1"><span class="input-group">
 													<input readonly="" type="text" class="form-control"
-														value="No file selected"><span class="input-group-btn">
-														<button type="button" class="btn btn-default">Upload
-															File</button></span>
-												</span>
-											</label>
-											<input accept=".gif,.jpg,.jpeg,.png" type="file" id="FileUploaderS3-0--1"
-												class="">
-											<p style="padding: 15px 0px;">
-												Note: All files should be at least 720p and less than 4.0 GB.
-											</p>
-										</div>
+														value="No file selected">
+														 <span class="input-group-btn"> -->
+												<!-- <button type="button" class="btn btn-default">Upload
+															File</button></span> -->
+												<!-- </span>
+											</label> -->
+												<input accept=".gif,.jpg,.jpeg,.png" name="filenames" type="file"
+													id="FileUploaderS3" class="">
+												<p style="padding: 15px 0px;">
+													Note: All files should be at least 720p and less than 4.0
+													GB.
+												</p>
+											</div>
 
-										<div class="csr_panelbtn">
+											<!-- <div class="csr_panelbtn">
 											<button class="btn-success">Save</button>
 											<button class="btn-warning">Cancel</button>
+										</div> -->
+
 										</div>
-
 									</div>
-								</div>
+									<br>
+									<br>
+									<br>
+									<div class="accordian_1">
+										<a class="accordion acc_a"><i class="fa fa-file-text-o" aria-hidden="true"></i>
+											Articals
+											<span class="top_t">
 
-								<div class="accordian_1">
-									<button class="accordion acc_a"><i class="fa fa-file-text-o" aria-hidden="true"></i>
-										Articals
-										<span class="top_t">
+											</span>
+										</a>
+										<!-- <div class="panel panel_a"> -->
+										<div class="col-lg-8 col-md-8 col-sm-12 colxs-12">
+											<div id="toolbar-container3"></div>
+											<div id="editor7">
 
-										</span>
-									</button>
-									<!-- <div class="panel panel_a"> -->
-									<div class="col-lg-8 col-md-8 col-sm-12 colxs-12">
-										<div id="toolbar-container3"></div>
-										<div id="editor7">
-
-											<textarea id="NicEdit1" name="w3review6" rows="1" cols="50">
+												<textarea id="NicEdit1" name="article" rows="1" cols="50">
 																		   </textarea></div>
-									</div>
-									<div class="csr_panelbtn">
+										</div>
+										<!-- <div class="csr_panelbtn">
 										<button class="btn-success">Save</button>
 										<button class="btn-warning">Cancel</button>
+										</div> -->
+										<!-- </div> -->
 									</div>
-									<!-- </div> -->
+
+									<br>
+									<br>
+									<br>
+									<button onclick="mor_chep()" class="material-icons">Add More
+										Lession
+									</button	>
 								</div>
 
-								<button id="add_more_lession" class="btn-success csr_adbtn">Add More Lession
-								</button>
-								<br>
-								<br>
-								<br>
-								<button type="submit" value="upload" onclick="repeate_chepter()"
-									>Continue to add chepter</button>
-								<button type="submit" value="upload" class="btn-success csr_adbtn">
-									Submit-chepter</button>
-							</form>
+							</div>
+							<button type="submit" onclick="repeate_chepter()" value="upload">
+								Continue to add chepter</button>
+							<button type="button" class="btn-success csr_adbtn" onclick="returntocourse()">
+								exit to add</button>
 						</div>
+
 					</div>
 				</div>
 
 
+			<!-- </form> -->
 
 
 
-				<!-- <div class="csr_right_1" id="add_more_lessn">
+
+			<!-- <div class="csr_right_1" id="add_more_lessn">
 					<div class="headermidcourse">
 						<h2>Curriculum</h2>
 					</div>
@@ -789,7 +873,7 @@
 						<div class="cur_header">
 							<h2 style="color: #000; padding: 15px 0px;">Chapter 1</h2> -->
 
-				<!-- <div class="form-group csrup_form">
+			<!-- <div class="form-group csrup_form">
 								<label for="title" class="control-label csruplabel">chapter no.</label>
 								<div class="form-control-counter-container">
 									<input placeholder="Insert your chapter no." name="title"
@@ -798,7 +882,7 @@
 								</div>
 							</div> -->
 
-				<!-- <div class="form-group csrup_form">
+			<!-- <div class="form-group csrup_form">
 								<label for="title" class="control-label csruplabel">chapter Name</label>
 								<div class="form-control-counter-container">
 									<input placeholder="Insert your chapter Name." name="title"
@@ -806,7 +890,7 @@
 										class="form-control intheight" value="demo">
 								</div>
 							</div> -->
-				<!-- <div class="intro">
+			<!-- <div class="intro">
 								<div class="accordian_1">
 									<button class="accordion acc_a"><i class="fa fa-file-text-o" aria-hidden="true"></i>
 										introductions
@@ -913,10 +997,10 @@
 
 
 
-			</div>
-
-
 		</div>
+
+
+	</div>
 
 	</div>
 
